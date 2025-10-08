@@ -1,0 +1,84 @@
+/* -------- Minimal, responsive, dark-mode aware -------- */
+:root{
+  --bg:#ffffff;
+  --text:#111111;
+  --muted:#666666;
+  --border:#e6e6e6;
+  --accent:#111111;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#0b0b0b;
+    --text:#f2f2f2;
+    --muted:#9a9a9a;
+    --border:#1f1f1f;
+    --accent:#ffffff;
+  }
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{color-scheme:light dark}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* Page layout */
+header, main, footer{
+  width:min(100%, 960px);
+  margin-inline:auto;
+  padding:clamp(12px,3vw,24px);
+}
+header{
+  display:flex; align-items:center; justify-content:space-between;
+  border-bottom:1px solid var(--border);
+  position:sticky; top:0;
+  background:color-mix(in srgb, var(--bg) 88%, transparent);
+  backdrop-filter:saturate(160%) blur(6px);
+}
+h1{font-size:clamp(1.25rem,2.8vw,1.8rem); letter-spacing:.02em}
+
+/* Nav */
+nav{display:flex; gap:1rem; flex-wrap:wrap}
+nav a{
+  color:var(--accent); text-decoration:none;
+  padding-bottom:2px; border-bottom:1px solid transparent;
+}
+nav a:hover, nav a:focus-visible{border-bottom-color:var(--accent); outline:none}
+
+/* Intro */
+#intro{ text-align:center; padding-block:clamp(16px,6vw,40px) }
+#intro h2{ font-size:clamp(1.4rem,3.5vw,2.25rem); margin-bottom:.5rem }
+#intro p{ color:var(--muted); max-width:50ch; margin-inline:auto }
+
+/* Gallery */
+#gallery h3{
+  font-size:1rem; text-transform:uppercase; letter-spacing:.08em;
+  color:var(--muted); margin-bottom:.75rem
+}
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(240px,1fr));
+  gap:clamp(10px,2vw,18px);
+}
+.grid img{
+  width:100%;
+  aspect-ratio:3/2;          /* uniform cards */
+  object-fit:cover;
+  border-radius:8px;
+  background:#d9d9d9;        /* subtle skeleton bg */
+  box-shadow:0 1px 0 var(--border);
+}
+
+/* Footer */
+footer{ margin-top:40px; border-top:1px solid var(--border); color:var(--muted); font-size:.9rem }
+
+/* Misc */
+a{ color:var(--accent) }
+::selection{ background:#ffe066; color:#000 }
+@media (max-width:480px){
+  header{ padding-block:.75rem }
+  nav{ gap:.75rem }
+}
