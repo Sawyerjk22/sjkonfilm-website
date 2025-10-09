@@ -93,13 +93,14 @@ nav {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
   gap: 0;
-  margin: 2rem auto;           /* adds breathing room top & bottom */
-  padding: 0;
-  max-width: 1500px;           /* prevents photos from touching page edge */
-  border: 1px solid #ddd;      /* thin light-gray border around whole grid */
-  background-color: #f9f8f7;   /* same subtle off-white as your site */
-  box-shadow: 0 2px 10px rgba(0,0,0,0.05); /* gentle depth, optional */
+  padding: 1rem;                 /* NEW: creates white space inside border */
+  margin: 3rem auto;             /* adds breathing room above and below */
+  max-width: 1500px;             /* keeps it from touching screen edges */
+  border: 1px solid #dcdcdc;     /* thin, elegant outer frame */
+  background-color: #f9f8f7;     /* same soft off-white background */
+  box-shadow: 0 2px 12px rgba(0,0,0,0.05); /* subtle shadow depth */
 }
+
 
 
 
@@ -111,11 +112,8 @@ nav {
   transition: transform 0.25s ease, opacity 0.25s ease;
   image-rendering: auto;
 }
-
-
 .gallery img:hover {
-  transform: scale(1.03);
-  opacity: 0.9;
+  cursor: pointer;
 }
 
 /* === FOOTER === */
