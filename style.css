@@ -25,6 +25,12 @@ h1, h2, h3, h4 {
   text-align: center;
   color: #111;
 }
+/* --- Global image rendering settings --- */
+img {
+  image-rendering: crisp-edges;
+  image-rendering: -webkit-optimize-contrast;
+  -webkit-transform: translateZ(0); /* helps with subpixel smoothing */
+}
 
 /* === NAVIGATION === */
 nav {
@@ -158,11 +164,14 @@ footer {
 
 .work-category img {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
+  height: auto;                 /* Preserve native aspect ratio */
+  object-fit: contain;          /* Prevent distortion or forced crop */
   display: block;
   transition: filter 0.3s ease, transform 0.3s ease;
+  image-rendering: auto;        /* Allow smoother interpolation */
+  -webkit-transform: translateZ(0); /* Prevent subpixel blurring on Chrome */
 }
+
 
 .work-category .overlay {
   position: absolute;
@@ -196,4 +205,11 @@ footer {
   .works-gallery {
     flex-direction: column;
   }
+}
+.work-category {
+  aspect-ratio: 4 / 3;           /* Keeps consistent preview shape */
+  background-color: #f8f8f8;     /* Light backdrop for smaller images */
+  overflow: hidden;
+  border: 1px solid #ddd;
+  transition: transform 0.3s ease;
 }
