@@ -153,6 +153,11 @@ footer {
   max-width: 1200px;
   padding: 0 1rem;
 }
+/* Prevent upscaling beyond native resolution */
+.works-gallery img {
+  max-width: 100%;
+  height: auto;
+}
 
 .work-category {
   position: relative;
@@ -160,7 +165,14 @@ footer {
   overflow: hidden;
   border: 1px solid #ddd;
   transition: transform 0.3s ease;
+  background-color: #f8f8f8;
+
+  /* Step 3 – improve rendering fidelity */
+  backface-visibility: hidden;
+  -webkit-font-smoothing: antialiased;
+  transform: translateZ(0); /* create its own compositing layer cleanly */
 }
+
 
 
 
@@ -186,14 +198,13 @@ footer {
 
 .work-category img {
   width: 100%;
-  height: auto;                 /* keeps natural proportions */
-  object-fit: contain;          /* no forced crop */
-  display: block;
-  transition: filter 0.3s ease, transform 0.3s ease;
-  image-rendering: crisp-edges;
+  height: auto;
+  object-fit: contain;
   image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
   -webkit-transform: translateZ(0);
 }
+
 
 
 .work-category .overlay {
@@ -244,7 +255,7 @@ footer {
   }
 }
 .work-category {
-  aspect-ratio: 4 / 3;           /* Keeps consistent preview shape */
+
   background-color: #f8f8f8;     /* Light backdrop for smaller images */
   overflow: hidden;
   border: 1px solid #ddd;
