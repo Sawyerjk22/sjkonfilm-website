@@ -91,11 +91,13 @@ nav {
 /* === GALLERY GRID === */
 .gallery {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 0;              /* no space between images */
+  grid-template-columns: repeat(3, 1fr);  /* exactly 3 columns */
+  grid-template-rows: repeat(3, 33.33vh); /* exactly 3 rows, each one-third viewport height */
+  gap: 0;
   margin: 0;
   padding: 0;
-  width: 100vw;        /* full-bleed layout */
+  width: 100vw;
+  height: 100vh; /* fills viewport neatly */
 }
 
 .gallery img {
@@ -107,7 +109,7 @@ nav {
 }
 
 .gallery img:hover {
-  transform: scale(1.02);
+  transform: scale(1.03);
   opacity: 0.9;
 }
 
