@@ -112,9 +112,7 @@ nav {
   transition: transform 0.25s ease, opacity 0.25s ease;
   image-rendering: auto;
 }
-.gallery img:hover {
-  cursor: pointer;
-}
+
 
 /* === FOOTER === */
 footer {
