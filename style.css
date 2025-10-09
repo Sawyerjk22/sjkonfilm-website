@@ -153,66 +153,42 @@ footer {
   max-width: 1200px;
   padding: 0 1rem;
 }
-/* Prevent upscaling beyond native resolution */
-.works-gallery img {
-  max-width: 100%;
-  height: auto;
-}
 
 .work-category {
   position: relative;
   flex: 1;
-  overflow: hidden;
   border: 1px solid #ddd;
-  transition: transform 0.3s ease;
   background-color: #f8f8f8;
-
-  /* Step 3 – improve rendering fidelity */
+  overflow: hidden;
+  transition: transform 0.3s ease;
   backface-visibility: hidden;
   -webkit-font-smoothing: antialiased;
-  transform: translateZ(0); /* create its own compositing layer cleanly */
-}
-
-
-
-
-
-.work-category {
-  position: relative;
-  aspect-ratio: 4 / 3;           /* Ensures consistent shape */
-  background-color: #f8f8f8;
-  overflow: hidden;
-  border: 1px solid #ddd;
-  transition: transform 0.3s ease;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 .work-category a {
   display: block;
   width: 100%;
   height: 100%;
-  position: relative;
 }
 
 .work-category img {
+  display: block;
   width: 100%;
   height: auto;
-  object-fit: contain;
-  image-rendering: -webkit-optimize-contrast;
+  object-fit: contain; /* preserves native ratio, no stretching */
   image-rendering: crisp-edges;
+  image-rendering: -webkit-optimize-contrast;
   -webkit-transform: translateZ(0);
+  transition: filter 0.3s ease, transform 0.3s ease;
 }
 
-
-
+/* Overlay always matches the image box perfectly */
 .work-category .overlay {
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
+  right: 0;
+  bottom: 0;
   background-color: rgba(0, 0, 0, 0);
   display: flex;
   justify-content: center;
@@ -221,43 +197,21 @@ footer {
   font-size: 1.8rem;
   font-family: "Playfair Display", serif;
   opacity: 0;
-  transition: background-color 0.3s ease, opacity 0.3s ease;
+  transition: background-color 0.4s ease, opacity 0.4s ease;
 }
 
 .work-category:hover img {
   filter: brightness(0.6);
-  transform: scale(1.02);
+  transform: scale(1.01);
 }
 
 .work-category:hover .overlay {
   background-color: rgba(0, 0, 0, 0.4);
   opacity: 1;
-}
-
-
-.work-category:hover img {
-  filter: brightness(0.6);
-  transform: scale(1.02);
-}
-
-.work-category:hover .overlay {
-  background-color: rgba(0, 0, 0, 0.4);
-  opacity: 1;
-}
-
-.work-category:hover {
-  transform: translateY(-3px);
 }
 
 @media (max-width: 768px) {
   .works-gallery {
     flex-direction: column;
   }
-}
-.work-category {
-
-  background-color: #f8f8f8;     /* Light backdrop for smaller images */
-  overflow: hidden;
-  border: 1px solid #ddd;
-  transition: transform 0.3s ease;
 }
