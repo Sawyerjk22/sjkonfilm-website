@@ -151,7 +151,7 @@ footer {
     border: none;
   }
 }
-/* === WORKS PAGE === */
+/* === WORKS PAGE (FINAL CLEAN VERSION) === */
 .works-gallery {
   display: flex;
   justify-content: center;
@@ -160,33 +160,24 @@ footer {
   margin: 3rem auto;
   max-width: 1200px;
   padding: 0 1rem;
+  flex-wrap: wrap;
 }
 
 .work-category {
   position: relative;
-  flex: 1;
+  flex: 1 1 30%;
   border: 1px solid #ddd;
   background-color: #f8f8f8;
   overflow: hidden;
   transition: transform 0.3s ease;
   backface-visibility: hidden;
   -webkit-font-smoothing: antialiased;
+  aspect-ratio: auto; /* let image ratio define height */
 }
-/* Ensures each category box has consistent ratio and sharp images */
-.work-category {
-  aspect-ratio: 4 / 3; /* keeps boxes even and symmetric */
-  overflow: hidden;
-}
-
-.work-category img {
-  max-width: 100%;
-  height: 100%;
-  object-fit: cover; /* fills the box cleanly without distortion */
-}
-
 
 .work-category a {
   display: block;
+  position: relative;
   width: 100%;
   height: 100%;
 }
@@ -195,23 +186,19 @@ footer {
   display: block;
   width: 100%;
   height: auto;
-  object-fit: cover; /* fills the space cleanly, preserves natural look */
-  image-rendering: auto; /* allows browser to handle smoothness naturally */
+  object-fit: contain; /* exact native ratio, no crop */
+  image-rendering: auto;
   -webkit-transform: none;
   transform: none;
   transition: filter 0.3s ease, transform 0.3s ease;
-  filter: none; /* ensure no unintentional blur from brightness filter */
+  filter: none;
   backface-visibility: hidden;
 }
 
-
-/* Overlay always matches the image box perfectly */
+/* Overlay matches image bounds perfectly */
 .work-category .overlay {
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  inset: 0;
   background-color: rgba(0, 0, 0, 0);
   display: flex;
   justify-content: center;
@@ -220,6 +207,7 @@ footer {
   font-size: 1.8rem;
   font-family: "Playfair Display", serif;
   opacity: 0;
+  pointer-events: none;
   transition: background-color 0.4s ease, opacity 0.4s ease;
 }
 
