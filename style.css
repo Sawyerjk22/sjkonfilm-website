@@ -169,30 +169,28 @@ footer {
   background-color: #f8f8f8;
   overflow: hidden;
   transition: transform 0.3s ease;
-  backface-visibility: hidden;
   display: inline-block;
-  text-align: center;
+  vertical-align: top;
+  max-width: 32%; /* keeps consistent layout with 3 columns */
 }
 
 .work-category a {
-  display: inline-block;
+  display: block;
   width: 100%;
-  height: auto;
-  position: relative;
+  height: auto; /* ensures no full-height stretching */
 }
 
 .work-category img {
   display: block;
   width: 100%;
-  height: auto;
+  height: auto; /* key: respects image’s natural ratio */
   object-fit: contain;
   image-rendering: auto;
-  -webkit-transform: translateZ(0);
   transition: filter 0.3s ease, transform 0.3s ease;
-  vertical-align: middle;
+  -webkit-transform: translateZ(0);
 }
 
-/* Overlay stays within the image bounds exactly */
+/* Overlay perfectly fits the visible image area */
 .work-category .overlay {
   position: absolute;
   inset: 0;
@@ -216,4 +214,13 @@ footer {
 .work-category:hover .overlay {
   background-color: rgba(0, 0, 0, 0.4);
   opacity: 1;
+}
+
+@media (max-width: 768px) {
+  .works-gallery {
+    flex-direction: column;
+  }
+  .work-category {
+    max-width: 100%;
+  }
 }
