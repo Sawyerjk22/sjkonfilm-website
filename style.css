@@ -165,37 +165,34 @@ footer {
 
 .work-category {
   position: relative;
-  flex: 1 1 30%;
   border: 1px solid #ddd;
   background-color: #f8f8f8;
   overflow: hidden;
   transition: transform 0.3s ease;
   backface-visibility: hidden;
-  -webkit-font-smoothing: antialiased;
-  aspect-ratio: auto; /* let image ratio define height */
+  display: inline-block;
+  text-align: center;
 }
 
 .work-category a {
-  display: block;
-  position: relative;
+  display: inline-block;
   width: 100%;
-  height: 100%;
+  height: auto;
+  position: relative;
 }
 
 .work-category img {
   display: block;
   width: 100%;
   height: auto;
-  object-fit: contain; /* exact native ratio, no crop */
+  object-fit: contain;
   image-rendering: auto;
-  -webkit-transform: none;
-  transform: none;
+  -webkit-transform: translateZ(0);
   transition: filter 0.3s ease, transform 0.3s ease;
-  filter: none;
-  backface-visibility: hidden;
+  vertical-align: middle;
 }
 
-/* Overlay matches image bounds perfectly */
+/* Overlay stays within the image bounds exactly */
 .work-category .overlay {
   position: absolute;
   inset: 0;
@@ -208,7 +205,7 @@ footer {
   font-family: "Playfair Display", serif;
   opacity: 0;
   pointer-events: none;
-  transition: background-color 0.4s ease, opacity 0.4s ease;
+  transition: background-color 0.3s ease, opacity 0.3s ease;
 }
 
 .work-category:hover img {
@@ -219,10 +216,4 @@ footer {
 .work-category:hover .overlay {
   background-color: rgba(0, 0, 0, 0.4);
   opacity: 1;
-}
-
-@media (max-width: 768px) {
-  .works-gallery {
-    flex-direction: column;
-  }
 }
