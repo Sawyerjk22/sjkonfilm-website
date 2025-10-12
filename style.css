@@ -24,15 +24,25 @@ h1, h2, h3, h4 {
   text-transform: none;
 }
 
-/* Elegant centered title */
+/* === HEADER & SITE TITLE === */
 .site-title {
   font-family: "Playfair Display", "Cormorant Garamond", serif;
   font-size: 2.6rem;
   font-weight: 500;
-  margin: 1.5rem 0 1rem 0;
   text-align: center;
-  color: #111;
+  margin: 1.5rem 0 1rem 0;
 }
+
+.site-title a {
+  text-decoration: none;
+  color: #111;
+  transition: color 0.3s ease;
+}
+
+.site-title a:hover {
+  color: #777;
+}
+
 /* --- Global image rendering settings --- */
 img {
   image-rendering: crisp-edges;
@@ -223,4 +233,10 @@ footer {
   .work-category {
     max-width: 100%;
   }
+}
+/* === ACTIVE PAGE HIGHLIGHT === */
+.nav-links a.active {
+  font-weight: 500;           /* slightly bolder text */
+  color: #333;                /* a bit darker */
+  border-bottom: 1px solid #333; /* thin underline for subtle emphasis */
 }
