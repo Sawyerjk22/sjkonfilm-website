@@ -1,3 +1,6 @@
+/* === FONT IMPORTS === */
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&family=Playfair+Display:wght@500&display=swap");
+
 /* === GLOBAL STYLES === */
 body {
   margin: 0;
@@ -165,12 +168,12 @@ footer {
 }
 
 
-/* === WORKS PAGE GRID (Handles 3 or 4 categories) === */
+/* === WORKS PAGE GRID (2×2 desktop, 2×2 mobile) === */
 .works-gallery {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(2, 1fr); /* 2x2 desktop */
   gap: 0.5rem;
-  max-width: 1300px;
+  max-width: 1100px;
   margin: 3rem auto;
   padding: 0 1rem;
 }
@@ -178,27 +181,21 @@ footer {
 .work-category {
   position: relative;
   overflow: hidden;
-  aspect-ratio: 3 / 2; /* Keeps all thumbnails visually consistent */
-}
-
-.work-category a {
-  display: block;
-  width: 100%;
-  height: 100%;
+  /* Let each tile adapt naturally to its image ratio */
 }
 
 .work-category img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  display: block;
+  image-rendering: auto;
   transition: filter 0.3s ease, transform 0.3s ease;
 }
 
-/* If a thumbnail is vertical (portrait), fit it without cropping */
+/* If a thumbnail is vertical (portrait), fit it fully without cropping */
 .work-category img.vertical-cover {
   object-fit: contain;
-  background-color: #f9f8f7; /* matches your site background */
+  background-color: #f9f8f7;
 }
 
 /* Overlay styling */
@@ -216,11 +213,11 @@ footer {
   transition: background-color 0.3s ease, opacity 0.3s ease;
 }
 
-/* Desktop hover effect */
+/* Hover (desktop) */
 @media (hover: hover) and (pointer: fine) {
   .work-category:hover img {
     filter: brightness(0.6);
-    transform: scale(1.01);
+    transform: scale(1.02);
   }
 
   .work-category:hover .overlay {
@@ -229,24 +226,24 @@ footer {
   }
 }
 
-/* Mobile behavior — show category names by default */
+/* Mobile — show labels always */
 @media (hover: none) and (pointer: coarse) {
   .work-category .overlay {
     opacity: 1;
     background-color: rgba(0, 0, 0, 0.25);
   }
-
   .work-category .overlay span {
     font-size: 1.2rem;
   }
 }
 
-/* Works page — 2×2 grid on mobile (4 items align perfectly) */
+/* Works page — keep 2x2 on mobile too */
 @media (max-width: 768px) {
   .works-gallery {
     grid-template-columns: repeat(2, 1fr);
   }
 }
+
 
 
 /* === ACTIVE PAGE HIGHLIGHT === */
