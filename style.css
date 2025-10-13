@@ -112,30 +112,31 @@ nav {
   display: block;
 }
 
-/* === GALLERY GRID === */
+/* === HOME PAGE GALLERY (3 COLUMNS ON DESKTOP, 2 ON MOBILE) === */
 .gallery {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: 0;
-  padding: 1rem;                 /* NEW: creates white space inside border */
-  margin: 3rem auto;             /* adds breathing room above and below */
-  max-width: 1500px;             /* keeps it from touching screen edges */
-  border: 1px solid #dcdcdc;     /* thin, elegant outer frame */
-  background-color: #f9f8f7;     /* same soft off-white background */
-  box-shadow: 0 2px 12px rgba(0,0,0,0.05); /* subtle shadow depth */
+  padding: 1rem;
+  margin: 3rem auto;
+  max-width: 1500px;
 }
-
-
-
 
 .gallery img {
   width: 100%;
   height: auto;
-  object-fit: contain;
+  object-fit: cover;
   display: block;
-  transition: transform 0.25s ease, opacity 0.25s ease;
   image-rendering: auto;
 }
+
+/* On mobile: 2 columns × 3 rows */
+@media (max-width: 768px) {
+  .gallery {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
 
 
 /* === FOOTER === */
@@ -230,11 +231,29 @@ footer {
   }
 }
 
-/* Keep 3 columns on all devices */
+/* === WORKS PAGE (FINAL CLEAN VERSION) === */
+
+/* ...keep everything above as-is ... */
+
+/* Mobile behavior — show category names by default */
+@media (hover: none) and (pointer: coarse) {
+  .work-category .overlay {
+    opacity: 1;
+    background-color: rgba(0, 0, 0, 0.25);
+  }
+
+  .work-category .overlay span {
+    font-size: 1.2rem;
+  }
+}
+
+/* On mobile: 1 column (stacked vertically) */
 @media (max-width: 768px) {
   .works-gallery {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: 1fr;
   }
+}
+
 }
 
 /* === ACTIVE PAGE HIGHLIGHT === */
