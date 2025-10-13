@@ -163,48 +163,37 @@ footer {
 }
 /* === WORKS PAGE (FINAL CLEAN VERSION) === */
 .works-gallery {
-  display: flex;
-  justify-content: center;
-  align-items: stretch;
-  gap: 1rem;
-  margin: 3rem auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
   max-width: 1200px;
+  margin: 3rem auto;
   padding: 0 1rem;
-  flex-wrap: wrap;
 }
 
 .work-category {
   position: relative;
-  border: 1px solid #ddd;
-  background-color: #f8f8f8;
   overflow: hidden;
-  transition: transform 0.3s ease;
-  display: inline-block;
-  vertical-align: top;
-  max-width: 32%; /* keeps consistent layout with 3 columns */
 }
 
 .work-category a {
   display: block;
   width: 100%;
-  height: auto; /* ensures no full-height stretching */
+  height: 100%;
 }
 
 .work-category img {
-  display: block;
   width: 100%;
-  height: auto; /* key: respects image’s natural ratio */
-  object-fit: contain;
-  image-rendering: auto;
+  height: 100%;
+  object-fit: cover;
+  display: block;
   transition: filter 0.3s ease, transform 0.3s ease;
-  -webkit-transform: translateZ(0);
 }
 
-/* Overlay perfectly fits the visible image area */
+/* Overlay styling */
 .work-category .overlay {
   position: absolute;
   inset: 0;
-  background-color: rgba(0, 0, 0, 0);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -212,28 +201,42 @@ footer {
   font-size: 1.8rem;
   font-family: "Playfair Display", serif;
   opacity: 0;
-  pointer-events: none;
+  background-color: rgba(0, 0, 0, 0);
   transition: background-color 0.3s ease, opacity 0.3s ease;
 }
 
-.work-category:hover img {
-  filter: brightness(0.6);
-  transform: scale(1.01);
+/* Desktop hover effect */
+@media (hover: hover) and (pointer: fine) {
+  .work-category:hover img {
+    filter: brightness(0.6);
+    transform: scale(1.01);
+  }
+
+  .work-category:hover .overlay {
+    opacity: 1;
+    background-color: rgba(0, 0, 0, 0.4);
+  }
 }
 
-.work-category:hover .overlay {
-  background-color: rgba(0, 0, 0, 0.4);
-  opacity: 1;
+/* Mobile behavior — show category names by default */
+@media (hover: none) and (pointer: coarse) {
+  .work-category .overlay {
+    opacity: 1;
+    background-color: rgba(0, 0, 0, 0.25);
+  }
+
+  .work-category .overlay span {
+    font-size: 1.2rem;
+  }
 }
 
+/* Keep 3 columns on all devices */
 @media (max-width: 768px) {
   .works-gallery {
-    flex-direction: column;
-  }
-  .work-category {
-    max-width: 100%;
+    grid-template-columns: repeat(3, 1fr);
   }
 }
+
 /* === ACTIVE PAGE HIGHLIGHT === */
 .nav-links a.active {
   font-weight: 500;           /* slightly bolder text */
