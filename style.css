@@ -168,11 +168,11 @@ footer {
 }
 
 
-/* === WORKS PAGE GRID (2×2 desktop, 2×2 mobile) === */
+/* === WORKS PAGE GRID (Crisp uniform 2×2 layout) === */
 .works-gallery {
   display: grid;
-  grid-template-columns: repeat(2, 1fr); /* 2x2 desktop */
-  gap: 0.5rem;
+  grid-template-columns: repeat(2, 1fr); /* 2 columns always */
+  gap: 0.75rem;
   max-width: 1100px;
   margin: 3rem auto;
   padding: 0 1rem;
@@ -181,21 +181,23 @@ footer {
 .work-category {
   position: relative;
   overflow: hidden;
-  /* Let each tile adapt naturally to its image ratio */
+  aspect-ratio: 3 / 2; /* every tile same horizontal shape */
+}
+
+.work-category a {
+  display: block;
+  width: 100%;
+  height: 100%;
 }
 
 .work-category img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  image-rendering: auto;
+  object-fit: cover;        /* fills box neatly */
+  object-position: center;  /* centers subject */
+  image-rendering: auto;    /* smooth high-res scaling */
+  display: block;
   transition: filter 0.3s ease, transform 0.3s ease;
-}
-
-/* If a thumbnail is vertical (portrait), fit it fully without cropping */
-.work-category img.vertical-cover {
-  object-fit: contain;
-  background-color: #f9f8f7;
 }
 
 /* Overlay styling */
@@ -213,7 +215,7 @@ footer {
   transition: background-color 0.3s ease, opacity 0.3s ease;
 }
 
-/* Hover (desktop) */
+/* Desktop hover effect */
 @media (hover: hover) and (pointer: fine) {
   .work-category:hover img {
     filter: brightness(0.6);
@@ -226,7 +228,7 @@ footer {
   }
 }
 
-/* Mobile — show labels always */
+/* Mobile – labels always visible */
 @media (hover: none) and (pointer: coarse) {
   .work-category .overlay {
     opacity: 1;
@@ -237,12 +239,14 @@ footer {
   }
 }
 
-/* Works page — keep 2x2 on mobile too */
+/* Works page – keep 2×2 on mobile too */
 @media (max-width: 768px) {
   .works-gallery {
     grid-template-columns: repeat(2, 1fr);
   }
 }
+
+
 
 
 
