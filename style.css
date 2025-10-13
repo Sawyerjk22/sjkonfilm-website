@@ -75,7 +75,7 @@ nav {
 .nav-links a {
   text-decoration: none;
   color: #111;
-  font-size: 1rem;
+  font-size: 1.1rem;
   font-family: "Cormorant Garamond", serif;
   transition: color 0.3s ease;
 }
