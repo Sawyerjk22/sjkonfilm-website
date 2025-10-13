@@ -130,12 +130,13 @@ nav {
   image-rendering: auto;
 }
 
-/* On mobile: 2 columns × 3 rows */
+/* Force 2 columns on mobile ONLY for the home page */
 @media (max-width: 768px) {
-  .gallery {
+  body.index-page .gallery {
     grid-template-columns: repeat(2, 1fr);
   }
 }
+
 
 
 
@@ -162,12 +163,14 @@ footer {
     border: none;
   }
 }
-/* === WORKS PAGE (FINAL CLEAN VERSION) === */
+
+
+/* === WORKS PAGE GRID (Handles 3 or 4 categories) === */
 .works-gallery {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 0.5rem;
-  max-width: 1200px;
+  max-width: 1300px;
   margin: 3rem auto;
   padding: 0 1rem;
 }
@@ -175,6 +178,7 @@ footer {
 .work-category {
   position: relative;
   overflow: hidden;
+  aspect-ratio: 3 / 2; /* Keeps all thumbnails visually consistent */
 }
 
 .work-category a {
@@ -189,6 +193,12 @@ footer {
   object-fit: cover;
   display: block;
   transition: filter 0.3s ease, transform 0.3s ease;
+}
+
+/* If a thumbnail is vertical (portrait), fit it without cropping */
+.work-category img.vertical-cover {
+  object-fit: contain;
+  background-color: #f9f8f7; /* matches your site background */
 }
 
 /* Overlay styling */
@@ -231,30 +241,13 @@ footer {
   }
 }
 
-/* === WORKS PAGE (FINAL CLEAN VERSION) === */
-
-/* ...keep everything above as-is ... */
-
-/* Mobile behavior — show category names by default */
-@media (hover: none) and (pointer: coarse) {
-  .work-category .overlay {
-    opacity: 1;
-    background-color: rgba(0, 0, 0, 0.25);
-  }
-
-  .work-category .overlay span {
-    font-size: 1.2rem;
-  }
-}
-
-/* On mobile: 1 column (stacked vertically) */
+/* Works page — 2×2 grid on mobile (4 items align perfectly) */
 @media (max-width: 768px) {
   .works-gallery {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
-}
 
 /* === ACTIVE PAGE HIGHLIGHT === */
 .nav-links a.active {
@@ -262,17 +255,16 @@ footer {
   color: #333;                /* a bit darker */
   border-bottom: 1px solid #333; /* thin underline for subtle emphasis */
 }
-/* === CATEGORY PAGES (Street, Scenes, Color, Vertical) === */
 
-/* By default, 3 columns like desktop */
-.gallery {
+/* === CATEGORY PAGES (Street, Scenes, Color, Vertical) === */
+body:not(.index-page) .gallery {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
 }
 
-/* On mobile: show one large image per row */
 @media (max-width: 768px) {
-  .gallery {
-    grid-template-columns: 1fr;
+  body:not(.index-page) .gallery {
+    grid-template-columns: 1fr; /* 1 column only on mobile */
   }
 }
+
