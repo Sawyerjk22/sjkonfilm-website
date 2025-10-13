@@ -307,15 +307,16 @@ body:not(.index-page) .gallery {
 /* Each portrait is fixed to a gentle landscape shape */
 .about-gallery img {
   width: 100%;
-  aspect-ratio: 3 / 4;        /* portrait shape, keeps all even */
-  object-fit: cover;
+  height: auto;
+  max-width: 420px;          /* allows them to fill rows comfortably */
+  aspect-ratio: 4 / 3;       /* landscape orientation */
+  object-fit: cover;         /* fills but keeps natural shape */
   object-position: center;
   image-rendering: auto;
   border-radius: 4px;
   transition: transform 0.3s ease;
-  max-width: 320px;           /* <— hard cap on image width */
-  height: auto;
 }
+
 
 .about-gallery img:hover {
   transform: scale(1.02);
