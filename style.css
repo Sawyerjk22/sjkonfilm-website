@@ -262,3 +262,17 @@ footer {
   color: #333;                /* a bit darker */
   border-bottom: 1px solid #333; /* thin underline for subtle emphasis */
 }
+/* === CATEGORY PAGES (Street, Scenes, Color, Vertical) === */
+
+/* By default, 3 columns like desktop */
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+/* On mobile: show one large image per row */
+@media (max-width: 768px) {
+  .gallery {
+    grid-template-columns: 1fr;
+  }
+}
