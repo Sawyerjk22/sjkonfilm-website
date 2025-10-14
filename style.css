@@ -318,10 +318,55 @@ body:not(.index-page) .gallery {
   }
 }
 
-<ul class="contact-links">
-        <li>Email: <a href="mailto:sjkonfilm@gmail.com">sjkonfilm@gmail.com</a></li>
-        <li>Instagram: <a href="https://www.instagram.com/sjkonfilm" target="_blank">@sjkonfilm</a></li>
-        <li>Instagram (personal): <a href="https://www.instagram.com/sawyer.j.knox" target="_blank">@sawyer.j.knox</a></li>
-      </ul>
-    </section>
-  </main>
+/* === CONTACT PAGE === */
+.contact-page {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 3rem 1rem 5rem 1rem;
+  text-align: center;
+  font-family: "Cormorant Garamond", serif;
+  color: #222;
+  line-height: 1.6;
+}
+
+.contact-text h2 {
+  font-family: "Playfair Display", serif;
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+}
+
+.contact-text p {
+  font-size: 1.05rem;
+  margin: 0 auto 2.5rem auto;
+  max-width: 600px;
+  color: #222;
+}
+
+.contact-links {
+  display: inline-block;
+  text-align: left;
+}
+
+.contact-links p {
+  margin: 0.5rem 0;
+  font-size: 1.05rem;
+}
+
+/* Neutral minimalist link style */
+.contact-links a {
+  color: #444;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: color 0.3s ease, border-color 0.3s ease;
+}
+
+.contact-links a:hover {
+  color: #000;
+  border-color: #000;
+}
+
+strong {
+  font-weight: 500;
+  color: #000;
+}
+
