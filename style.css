@@ -317,3 +317,11 @@ body:not(.index-page) .gallery {
     grid-template-columns: 1fr;
   }
 }
+
+<ul class="contact-links">
+        <li>Email: <a href="mailto:sjkonfilm@gmail.com">sjkonfilm@gmail.com</a></li>
+        <li>Instagram: <a href="https://www.instagram.com/sjkonfilm" target="_blank">@sjkonfilm</a></li>
+        <li>Instagram (personal): <a href="https://www.instagram.com/sawyer.j.knox" target="_blank">@sawyer.j.knox</a></li>
+      </ul>
+    </section>
+  </main>
