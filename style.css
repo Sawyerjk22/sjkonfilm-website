@@ -199,6 +199,12 @@ footer {
   display: block;
   transition: filter 0.3s ease, transform 0.3s ease;
 }
+/* Make the Vertical category image show the top portion within its horizontal frame */
+.work-category.vertical img {
+  object-fit: cover;
+  object-position: top;
+}
+
 
 /* Overlay styling */
 .work-category .overlay {
