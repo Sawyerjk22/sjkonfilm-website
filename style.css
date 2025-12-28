@@ -467,6 +467,92 @@ body.lightbox-open {
     font-size: 1.6rem;
   }
 }
+/* === LIGHTBOX (full-screen viewer) === */
+.lightbox {
+  position: fixed !important;
+  inset: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  display: none !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background: rgba(10, 10, 10, 0.92) !important;
+  z-index: 999999 !important;
+  padding: 16px !important;
+  box-sizing: border-box !important;
+}
+
+.lightbox.is-open {
+  display: flex !important;
+}
+
+body.lightbox-open {
+  overflow: hidden !important;
+  touch-action: none !important;
+}
+
+.lightbox__figure {
+  margin: 0 !important;
+  max-width: 96vw !important;
+  max-height: 90vh !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  gap: 12px !important;
+}
+
+.lightbox__img {
+  max-width: 96vw !important;
+  max-height: 86vh !important;
+  width: auto !important;
+  height: auto !important;
+  object-fit: contain !important;
+  display: block !important;
+}
+
+.lightbox__caption {
+  color: rgba(255,255,255,0.8) !important;
+  font-size: 0.95rem !important;
+  text-align: center !important;
+}
+
+.lightbox__close,
+.lightbox__prev,
+.lightbox__next {
+  position: absolute !important;
+  border: none !important;
+  background: rgba(255,255,255,0.12) !important;
+  color: #fff !important;
+  cursor: pointer !important;
+  border-radius: 999px !important;
+  padding: 10px 14px !important;
+  line-height: 1 !important;
+  user-select: none !important;
+}
+
+.lightbox__close {
+  top: 14px !important;
+  right: 14px !important;
+  font-size: 28px !important;
+}
+
+.lightbox__prev,
+.lightbox__next {
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  font-size: 40px !important;
+}
+
+.lightbox__prev { left: 14px !important; }
+.lightbox__next { right: 14px !important; }
+
+@media (max-width: 768px) {
+  .lightbox__prev,
+  .lightbox__next {
+    font-size: 34px !important;
+    padding: 8px 12px !important;
+  }
+}
 
 }
 
