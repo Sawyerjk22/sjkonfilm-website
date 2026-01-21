@@ -36,7 +36,7 @@
     const img = imgs[index];
 
     // Use current src; if you ever want separate full-res, add data-full and swap here.
-    lbImg.src = img.currentSrc || img.src;
+    lbImg.src = img.dataset.full || img.currentSrc || img.src;
     lbImg.alt = img.alt || "";
     caption.textContent = img.alt || "";
   };
