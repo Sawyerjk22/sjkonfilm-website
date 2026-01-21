@@ -554,6 +554,9 @@ body.lightbox-open {
     padding: 8px 12px !important;
   }
 }
-
+.gallery img {
+  background: #f1f1f1;
 }
+
+
 
