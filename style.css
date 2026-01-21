@@ -250,6 +250,19 @@ footer {
   .works-gallery {
     grid-template-columns: repeat(2, 1fr);
   }
+  
+  /* Force category labels to show on small screens (reliable mobile fallback) */
+@media (max-width: 900px) {
+  .work-category .overlay {
+    opacity: 1;
+    background-color: rgba(0, 0, 0, 0.28);
+  }
+
+  .work-category .overlay span {
+    font-size: 1.2rem;
+  }
+}
+
 }
 
 
