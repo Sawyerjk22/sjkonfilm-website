@@ -122,7 +122,12 @@ nav {
   display: block;
   image-rendering: auto;
 }
-
+/* === HOME PAGE ONLY: Force uniform 3:2 boxes for featured images === */
+.index-page .gallery img {
+  height: 100%;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+}
 /* Force 2 columns on mobile ONLY for the home page */
 @media (max-width: 768px) {
   body.index-page .gallery {

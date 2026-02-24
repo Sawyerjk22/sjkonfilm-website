@@ -13,11 +13,13 @@ foreach ($cat in $categories) {
     $w = if ($cat -eq "vertical") { "597" } else { "900" }
     $h = if ($cat -eq "vertical") { "900" } else { "597" }
 
-    $counter = 0
+    # FIXED: Added $script: scope so the counter doesn't reset on every image
+    $script:imgCount = 0 
+    
     $updated = [regex]::Replace($html, '(?i)<img\s+([^>]+)>', {
         param($m)
         $inner = $m.Groups[1].Value
-        $counter++
+        $script:imgCount++
 
         # Strip old attributes to prevent duplicates
         $inner = $inner -replace '(?i)\s*loading="lazy"', ''
@@ -28,7 +30,7 @@ foreach ($cat in $categories) {
         $inner = $inner.Trim()
 
         # Inject new optimized attributes (Top 3 eager, the rest lazy)
-        if ($counter -le 3) {
+        if ($script:imgCount -le 3) {
             return "<img $inner width=`"$w`" height=`"$h`" fetchpriority=`"high`" decoding=`"async`">"
         } else {
             return "<img $inner width=`"$w`" height=`"$h`" loading=`"lazy`" decoding=`"async`">"
@@ -36,5 +38,5 @@ foreach ($cat in $categories) {
     })
 
     Set-Content -Path $pagePath -Value $updated -Encoding UTF8
-    Write-Host "SUCCESS: Updated $pagePath ($counter images)."
+    Write-Host "SUCCESS: Updated $pagePath ($script:imgCount images processed)."
 }
