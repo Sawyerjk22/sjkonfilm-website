@@ -2,7 +2,7 @@
 $ErrorActionPreference = "Continue"
 
 # The 4 folders we are targeting
-$categories = @("street", "scenes", "color", "vertical")
+$categories = @("street", "scenes", "color", "vertical", "featured", "about")
 
 foreach ($cat in $categories) {
     $fullDir = "assets\images\$cat\full"
