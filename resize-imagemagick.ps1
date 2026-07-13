@@ -1,24 +1,33 @@
-# resize-imagemagick.ps1
-$ErrorActionPreference = "Continue"
-
-# The 4 folders we are targeting
+$ErrorActionPreference = "SilentlyContinue"
 $categories = @("street", "scenes", "color", "vertical", "featured", "about")
 
 foreach ($cat in $categories) {
     $fullDir = "assets\images\$cat\full"
-    $thumbDir = "assets\images\$cat\thumbs"
-
+    $thumbsDir = "assets\images\$cat\thumbs"
+    
     if (Test-Path $fullDir) {
-        Write-Host "Processing $cat..."
+        if (-not (Test-Path $thumbsDir)) { New-Item -ItemType Directory -Path $thumbsDir }
         
-        # The Dimension Logic: '900x' = 900px wide. 'x900' = 900px tall.
-        $resizeParam = if ($cat -eq "vertical") { "x900" } else { "900x" }
+        # Grab all WebP files
+        $images = Get-ChildItem -Path "$fullDir\*.webp"
         
-        # Runs ImageMagick: Grabs the full files, resizes them, maintains film grain, and saves as WebP to thumbs
-        magick mogrify -path $thumbDir -resize $resizeParam -format webp -quality 85 "$fullDir\*.*"
-    } else {
-        Write-Host "Could not find folder: $fullDir"
+        foreach ($img in $images) {
+            $baseName = $img.BaseName
+            $ext = $img.Extension
+            
+            # Define output paths
+            $thumb900 = Join-Path $thumbsDir "$baseName$ext"          # Desktop standard
+            $thumb400 = Join-Path $thumbsDir "$baseName-400w$ext"     # Mobile standard
+            
+            # Generate 900px if missing
+            if (-not (Test-Path $thumb900)) {
+                magick $($img.FullName) -resize 900x900 $thumb900
+            }
+            # Generate 400px if missing
+            if (-not (Test-Path $thumb400)) {
+                magick $($img.FullName) -resize 400x400 $thumb400
+            }
+        }
     }
 }
-
-Write-Host "All thumbnails successfully resized!"
+Write-Host "Responsive thumbnails generated."
