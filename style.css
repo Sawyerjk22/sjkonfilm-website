@@ -7,7 +7,16 @@ body {
   background-color: #f9f8f7; /* subtle off-white */
   color: #111;
   line-height: 1.6;
+  
+  /* NEW: Cinematic fade-in transition */
+  animation: fadeIn 0.7s ease-in-out;
 }
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
 /* === GLOBAL IMAGE RENDERING & ANTI-ALIASING === */
 img {
   -webkit-font-smoothing: antialiased;

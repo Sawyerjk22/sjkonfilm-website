@@ -31,7 +31,7 @@
     document.body.classList.toggle("lightbox-open", locked);
   };
 
-  const show = (i) => {
+ const show = (i) => {
     index = (i + imgs.length) % imgs.length;
     const img = imgs[index];
 
@@ -39,6 +39,12 @@
     lbImg.src = img.dataset.full || img.currentSrc || img.src;
     lbImg.alt = img.alt || "";
     caption.textContent = img.alt || "";
+
+    // === NEW: Silently preload the NEXT image in the background ===
+    const nextIndex = (index + 1) % imgs.length;
+    const nextImg = imgs[nextIndex];
+    const preload = new Image();
+    preload.src = nextImg.dataset.full || nextImg.currentSrc || nextImg.src;
   };
 
   const open = (i) => {
