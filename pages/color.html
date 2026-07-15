@@ -93,6 +93,28 @@
 
   <script src="../Lightbox.js" defer></script>
 
+  <!-- Instagram Glass Badge -->
+<a href="https://instagram.com/sawyer.j.knox" class="glass-badge" target="_blank" aria-label="Instagram">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+    <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+  </svg>
+</a>
+
+<script>
+  // Wait for the HTML document to fully load
+  document.addEventListener("DOMContentLoaded", () => {
+    // Set a 5-second (5000ms) timer
+    setTimeout(() => {
+      const badge = document.querySelector('.glass-badge');
+      if (badge) {
+        badge.classList.add('fade-in'); // Triggers the CSS fade
+      }
+    }, 5000); 
+  });
+</script>
+
 </body>
 </html>
 
