@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 
@@ -9,30 +9,60 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Color | Sawyer Knox</title>
   <meta name="description" content="Color film photography by Sawyer Knox. Real, gritty moments captured on 35mm film from travels and everyday wandering.">
+  <link rel="canonical" href="https://sjkonfilm.work/pages/color.html">
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&family=Playfair+Display:wght@500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../style.css?v=8">
   
+  <!-- Open Graph / Social -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://sjkonfilm.work/pages/color.html">
   <meta property="og:title" content="Color Photography | Sawyer Knox">
   <meta property="og:description" content="Color film photography capturing real moments from everyday wandering.">
   <meta property="og:image" content="https://sjkonfilm.work/assets/images/featured/thumbs/img_3461.webp">
 
+  <!-- Twitter Cards -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Color Photography | Sawyer Knox">
+  <meta name="twitter:description" content="Color film photography by Sawyer Knox. Real, gritty moments captured on 35mm film from travels and everyday wandering.">
+  <meta name="twitter:image" content="https://sjkonfilm.work/assets/images/featured/thumbs/img_3461.webp">
+
   <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "ImageGallery",
-  "name": "Sawyer Knox Photography Gallery",
-  "description": "Professional 35mm film photography portfolio by Sawyer Knox.",
-  "author": {
-    "@type": "Person",
-    "name": "Sawyer Knox"
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "CollectionPage",
+        "@id": "https://sjkonfilm.work/pages/color.html#webpage",
+        "url": "https://sjkonfilm.work/pages/color.html",
+        "name": "35mm Color Film Photography | Sawyer Knox",
+        "description": "35mm color film photography by Sawyer Knox.",
+        "publisher": { "@id": "https://sjkonfilm.work/#person" }
+      },
+      {
+        "@type": "Person",
+        "@id": "https://sjkonfilm.work/#person",
+        "name": "Sawyer Knox",
+        "jobTitle": "GPS Analyst",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "Deloitte"
+        },
+        "homeLocation": {
+          "@type": "Place",
+          "name": "Portland, Oregon"
+        },
+        "url": "https://sjkonfilm.work",
+        "sameAs": [
+          "https://www.instagram.com/sawyer.j.knox",
+          "https://www.linkedin.com/in/sawyer-knox"
+        ]
+      }
+    ]
   }
-}
-</script>
+  </script>
 </head>
 
 <body>
@@ -97,28 +127,14 @@
 
   <script src="../Lightbox.js" defer></script>
 
- <!-- Instagram Glass Badge -->
-<a href="https://instagram.com/sawyer.j.knox" class="glass-badge" target="_blank" aria-label="Instagram" style="z-index: 2147483647 !important;" onclick="event.stopPropagation();">
-  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-    <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
-    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
-  </svg>
-</a>
-
-<script>
-  // Wait for the HTML document to fully load
-  document.addEventListener("DOMContentLoaded", () => {
-    // Set a 5-second (5000ms) timer
-    setTimeout(() => {
-      const badge = document.querySelector('.glass-badge');
-      if (badge) {
-        badge.classList.add('fade-in'); // Triggers the CSS fade
-      }
-    }, 5000); 
-  });
-</script>
-
+  <!-- Instagram Glass Badge -->
+  <a href="https://instagram.com/sawyer.j.knox" class="glass-badge" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+      <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+      <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+    </svg>
+  </a>
 </body>
 </html>
 

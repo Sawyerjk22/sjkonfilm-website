@@ -1,25 +1,67 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-
   <link rel="icon" href="/favicon.png" type="image/png">
-<link rel="apple-touch-icon" href="/favicon.png">
+  <link rel="apple-touch-icon" href="/favicon.png">
 
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Works | Sawyer Knox</title>
   <meta name="description" content="Explore the film photography portfolio of Sawyer Knox, categorized by street photography, scenes, color film, and vertical formats.">
+  <link rel="canonical" href="https://sjkonfilm.work/works.html">
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&family=Playfair+Display:wght@500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css?v=8">
   
+  <!-- Open Graph / Social -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://sjkonfilm.work/works.html">
   <meta property="og:title" content="Works | Sawyer Knox">
   <meta property="og:description" content="Explore the film photography portfolio of Sawyer Knox.">
   <meta property="og:image" content="https://sjkonfilm.work/assets/images/featured/thumbs/img_3461.webp">
+
+  <!-- Twitter Cards -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Works | Sawyer Knox">
+  <meta name="twitter:description" content="Explore the film photography portfolio of Sawyer Knox, categorized by street photography, scenes, color film, and vertical formats.">
+  <meta name="twitter:image" content="https://sjkonfilm.work/assets/images/featured/thumbs/img_3461.webp">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "CollectionPage",
+        "@id": "https://sjkonfilm.work/works.html#webpage",
+        "url": "https://sjkonfilm.work/works.html",
+        "name": "Sawyer Knox Works & Collections",
+        "description": "Directory of 35mm film photography collections by Sawyer Knox.",
+        "publisher": { "@id": "https://sjkonfilm.work/#person" }
+      },
+      {
+        "@type": "Person",
+        "@id": "https://sjkonfilm.work/#person",
+        "name": "Sawyer Knox",
+        "jobTitle": "GPS Analyst",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "Deloitte"
+        },
+        "homeLocation": {
+          "@type": "Place",
+          "name": "Portland, Oregon"
+        },
+        "url": "https://sjkonfilm.work",
+        "sameAs": [
+          "https://www.instagram.com/sawyer.j.knox",
+          "https://www.linkedin.com/in/sawyer-knox"
+        ]
+      }
+    ]
+  }
+  </script>
 </head>
 
 <body>
@@ -36,91 +78,76 @@
     </nav>
   </header>
 
-  <section class="works-gallery">
+  <main>
+    <section class="works-gallery">
 
-    <!-- STREET -->
-<div class="work-category">
-  <a href="pages/street.html">
-    <img src="assets/images/featured/thumbs/img_0491a.webp" 
-    alt="accordian player florence" 
-    width="900" 
-  height="597"
-    fetchpriority="high" >
-    <div class="overlay"><span>Street</span></div>
-  </a>
-</div>
+      <!-- STREET -->
+      <div class="work-category">
+        <a href="pages/street.html">
+          <img src="assets/images/featured/thumbs/img_0491a.webp" 
+          alt="accordion player florence" 
+          width="900" 
+          height="597"
+          fetchpriority="high">
+          <div class="overlay"><span>Street</span></div>
+        </a>
+      </div>
 
+      <!-- SCENES -->
+      <div class="work-category">
+        <a href="pages/scenes.html">
+          <img src="assets/images/featured/thumbs/img_0538.webp" 
+          alt="Florence"
+          width="900" 
+          height="597"
+          fetchpriority="high">
+          <div class="overlay"><span>Scenes</span></div>
+        </a>
+      </div>
 
-    <!-- SCENES -->
-    <div class="work-category">
-      <a href="pages/scenes.html">
-        <img src="assets/images/featured/thumbs/img_0538.webp" 
-        alt="Florence"
-       width="900" 
-  height="597"
-    fetchpriority="high">
-        <div class="overlay"><span>Scenes</span></div>
-      </a>
-    </div>
+      <!-- COLOR -->
+      <div class="work-category">
+        <a href="pages/color.html">
+          <img src="assets/images/featured/thumbs/train123.webp" 
+          alt="Color desert train"
+          width="900" 
+          height="597"
+          fetchpriority="high">
+          <div class="overlay"><span>Color</span></div>
+        </a>
+      </div>
 
-    <!-- COLOR -->
-    <div class="work-category">
-      <a href="pages/color.html">
-        <img src="assets/images/featured/thumbs/train123.webp" 
-        alt="Color desert train"
-        width="900" 
-  height="597"
-    fetchpriority="high">
-        <div class="overlay"><span>Color</span></div>
-      </a>
-    </div>
+      <!-- VERTICAL -->
+      <div class="work-category vertical">
+        <a href="pages/vertical.html">
+          <img src="assets/images/featured/thumbs/img_2628.webp" 
+          alt="Vertical Lighthouse"
+          width="597" 
+          height="900"
+          fetchpriority="high">
+          <div class="overlay"><span>Vertical</span></div>
+        </a>
+      </div>
 
-    <!-- VERTICAL -->
-<div class="work-category vertical">
-  <a href="pages/vertical.html">
-    <img src="assets/images/featured/thumbs/img_2628.webp" 
-    alt="Vertical Lighthouse"
-    width="597" 
-  height="900"
-    fetchpriority="high">
-    <div class="overlay"><span>Vertical</span></div>
-  </a>
-</div>
+    </section>
+  </main>
 
-  </section>
-
- <footer>
+  <footer>
     <div class="footer-content">
       <p>© 2026 Sawyer Knox</p>
       <a href="https://www.instagram.com/sawyer.j.knox" target="_blank" rel="noopener noreferrer">Instagram</a>
     </div>
   </footer>
 
-    <!-- Instagram Glass Badge -->
-<a href="https://instagram.com/sawyer.j.knox" class="glass-badge" target="_blank" aria-label="Instagram" style="z-index: 2147483647 !important;" onclick="event.stopPropagation();">
-  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-    <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
-    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
-  </svg>
-</a>
+  <script src="Lightbox.js" defer></script>
 
-
-<script>
-  // Wait for the HTML document to fully load
-  document.addEventListener("DOMContentLoaded", () => {
-    // Set a 5-second (5000ms) timer
-    setTimeout(() => {
-      const badge = document.querySelector('.glass-badge');
-      if (badge) {
-        badge.classList.add('fade-in'); // Triggers the CSS fade
-      }
-    }, 5000); 
-  });
-</script>
-
-
+  <!-- Instagram Glass Badge -->
+  <a href="https://instagram.com/sawyer.j.knox" class="glass-badge" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+      <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+      <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+    </svg>
+  </a>
 </body>
 </html>
-
-

@@ -1,25 +1,68 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-
   <link rel="icon" href="/favicon.png" type="image/png">
-<link rel="apple-touch-icon" href="/favicon.png">
+  <link rel="apple-touch-icon" href="/favicon.png">
 
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Contact | Sawyer Knox</title>
   <meta name="description" content="Get in touch with Portland-based film photographer Sawyer Knox for inquiries, prints, or collaborations.">
+  <link rel="canonical" href="https://sjkonfilm.work/contact.html">
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&family=Playfair+Display:wght@500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=7">
+  <link rel="stylesheet" href="style.css?v=8">
   
+  <!-- Open Graph / Social -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://sjkonfilm.work/contact.html">
   <meta property="og:title" content="Contact | Sawyer Knox">
   <meta property="og:description" content="Get in touch with Portland-based film photographer Sawyer Knox.">
   <meta property="og:image" content="https://sjkonfilm.work/assets/images/featured/thumbs/img_3461.webp">
+
+  <!-- Twitter Cards -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Contact | Sawyer Knox">
+  <meta name="twitter:description" content="Get in touch with Portland-based film photographer Sawyer Knox for print orders, inquiries, or collaborations.">
+  <meta name="twitter:image" content="https://sjkonfilm.work/assets/images/featured/thumbs/img_3461.webp">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "ContactPage",
+        "@id": "https://sjkonfilm.work/contact.html#webpage",
+        "url": "https://sjkonfilm.work/contact.html",
+        "name": "Contact Sawyer Knox",
+        "description": "Contact information and print inquiries for Sawyer Knox.",
+        "mainEntity": { "@id": "https://sjkonfilm.work/#person" }
+      },
+      {
+        "@type": "Person",
+        "@id": "https://sjkonfilm.work/#person",
+        "name": "Sawyer Knox",
+        "email": "mailto:sjkonfilm@gmail.com",
+        "jobTitle": "GPS Analyst",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "Deloitte"
+        },
+        "homeLocation": {
+          "@type": "Place",
+          "name": "Portland, Oregon"
+        },
+        "url": "https://sjkonfilm.work",
+        "sameAs": [
+          "https://www.instagram.com/sawyer.j.knox",
+          "https://www.linkedin.com/in/sawyer-knox"
+        ]
+      }
+    ]
+  }
+  </script>
 </head>
 
 <body>
@@ -37,25 +80,25 @@
   </header>
 
   <main class="contact-page">
-  <section class="contact-text">
-    <h2>Contact</h2>
-    <p>
-      Here are a few ways to reach me. Feel free to reach out to order prints,
-      if I took your picture and you’d like to see it, or just to say hi.
-    </p>
+    <section class="contact-text">
+      <h2>Contact</h2>
+      <p>
+        Here are a few ways to reach me. Feel free to reach out to order prints,
+        if I took your picture and you’d like to see it, or just to say hi.
+      </p>
 
-    <div class="contact-links">
-      <p>
-        <strong>Email:</strong>
-        <a href="mailto:sjkonfilm@gmail.com">sjkonfilm@gmail.com</a>
-      </p>
-      <p>
-        <strong>Instagram:</strong>
-        <a href="https://www.instagram.com/sawyer.j.knox" target="_blank">@sawyer.j.knox</a>
-      </p>
-    </div>
-  </section>
-</main>
+      <div class="contact-links">
+        <p>
+          <strong>Email:</strong>
+          <a href="mailto:sjkonfilm@gmail.com">sjkonfilm@gmail.com</a>
+        </p>
+        <p>
+          <strong>Instagram:</strong>
+          <a href="https://www.instagram.com/sawyer.j.knox" target="_blank" rel="noopener noreferrer">@sawyer.j.knox</a>
+        </p>
+      </div>
+    </section>
+  </main>
 
   <footer>
     <div class="footer-content">
@@ -63,6 +106,16 @@
       <a href="https://www.instagram.com/sawyer.j.knox" target="_blank" rel="noopener noreferrer">Instagram</a>
     </div>
   </footer>
+
+  <script src="Lightbox.js" defer></script>
+
+  <!-- Instagram Glass Badge -->
+  <a href="https://instagram.com/sawyer.j.knox" class="glass-badge" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+      <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+      <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+    </svg>
+  </a>
 </body>
 </html>
-

@@ -108,3 +108,15 @@
     if (dx > 40) prev();
   }, { passive: true });
 })();
+
+// Automatic Glass Badge Initializer (Fades in after 5s)
+document.addEventListener("DOMContentLoaded", () => {
+  const badge = document.querySelector(".glass-badge");
+  if (badge) {
+    badge.addEventListener("click", (e) => e.stopPropagation());
+    setTimeout(() => {
+      badge.classList.add("fade-in");
+    }, 5000);
+  }
+});
+
