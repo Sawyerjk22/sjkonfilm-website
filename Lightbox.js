@@ -1,6 +1,8 @@
-// lightbox.js
 (() => {
-  const imgs = Array.from(document.querySelectorAll(".gallery img"));
+  // Do not activate Lightbox on landing page (index-page)
+  if (document.body.classList.contains("index-page")) return;
+
+  const imgs = Array.from(document.querySelectorAll(".gallery img[data-full]"));
   if (!imgs.length) return;
 
   // Build overlay once
@@ -31,7 +33,7 @@
     document.body.classList.toggle("lightbox-open", locked);
   };
 
- const show = (i) => {
+  const show = (i) => {
     index = (i + imgs.length) % imgs.length;
     const img = imgs[index];
 
