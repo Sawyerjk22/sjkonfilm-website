@@ -136,6 +136,9 @@ nav {
   height: 100%;
   aspect-ratio: 3 / 2;
   object-fit: cover;
+  cursor: default;
+  pointer-events: none;
+  user-select: none;
 }
 /* Force 2 columns on mobile ONLY for the home page */
 @media (max-width: 768px) {
