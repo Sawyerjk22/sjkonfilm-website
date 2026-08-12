@@ -19,14 +19,15 @@ This guide walks you through setting up a Pinterest Business account for **`sjko
 
 To immediately publish all existing images on your site to Pinterest:
 
-1. Run the local export script (if updated):
+1. Run the local export script:
    ```bash
    python scripts/export-pinterest-csv.py
    ```
-   This generates `pinterest_pins.csv` at the root of your workspace.
+   *(Since Pinterest limits CSV uploads to 200 rows per file, this generates `pinterest_pins_part1.csv` [200 pins] and `pinterest_pins_part2.csv` [115 pins]).*
 2. In Pinterest Business Hub, click **Create > Create Pins in Bulk**.
-3. Drag and drop `pinterest_pins.csv`.
-4. Pinterest will parse and create pins with high-resolution image previews, descriptive titles, camera keywords, and direct links back to `https://sjkonfilm.work`.
+3. Upload **`pinterest_pins_part1.csv`** first and click **Publish**.
+4. Repeat for **`pinterest_pins_part2.csv`**.
+5. Pinterest will parse and create pins with high-resolution image previews, descriptive titles, camera keywords, and direct links back to `https://sjkonfilm.work`.
 
 ---
 

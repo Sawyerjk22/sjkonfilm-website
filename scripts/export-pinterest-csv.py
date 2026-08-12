@@ -26,6 +26,8 @@ def export_pinterest_csv():
 
     pages = glob.glob("pages/*.html") + ["index.html"]
 
+    title_counts = {}
+
     for page_path in pages:
         cat = os.path.splitext(os.path.basename(page_path))[0]
         board_name = BOARD_MAP.get(cat, "Film Photography")
@@ -49,7 +51,14 @@ def export_pinterest_csv():
                 continue
             seen.add(media_url)
 
-            title = alt_text if alt_text and not alt_text.startswith("New Location") else f"{cat.title()} Film Photography"
+            base_title = alt_text.strip() if alt_text and not alt_text.startswith("New Location") else f"{cat.title()} Film Photography"
+            
+            title_counts[base_title] = title_counts.get(base_title, 0) + 1
+            if title_counts[base_title] > 1:
+                title = f"{base_title} #{title_counts[base_title]}"
+            else:
+                title = base_title
+
             desc = f"{title}. Shot on analog 35mm / 120 film by Sawyer Knox in Portland, Oregon. Explore more film photography at sjkonfilm.work."
 
             items.append({
@@ -57,18 +66,29 @@ def export_pinterest_csv():
                 "Media URL": media_url,
                 "Destination Link": dest_link,
                 "Description": desc,
-                "Board Name": board_name
+                "Pinterest board": board_name
             })
 
-    output_csv = "pinterest_pins.csv"
-    fieldnames = ["Title", "Media URL", "Destination Link", "Description", "Board Name"]
+    fieldnames = ["Title", "Media URL", "Destination Link", "Description", "Pinterest board"]
+    max_chunk = 200
 
-    with open(output_csv, "w", newline="", encoding="utf-8") as f:
-        writer = csv.DictWriter(f, fieldnames=fieldnames)
-        writer.writeheader()
-        writer.writerows(items)
+    if len(items) <= max_chunk:
+        output_files = [("pinterest_pins.csv", items)]
+    else:
+        output_files = []
+        for i in range(0, len(items), max_chunk):
+            chunk_num = (i // max_chunk) + 1
+            filename = f"pinterest_pins_part{chunk_num}.csv"
+            output_files.append((filename, items[i:i + max_chunk]))
+        # Also write the full set for reference
+        output_files.append(("pinterest_pins_full.csv", items))
 
-    print(f"Exported {len(items)} pins to {output_csv}")
+    for filename, chunk_items in output_files:
+        with open(filename, "w", newline="", encoding="utf-8") as f:
+            writer = csv.DictWriter(f, fieldnames=fieldnames)
+            writer.writeheader()
+            writer.writerows(chunk_items)
+        print(f"Exported {len(chunk_items)} pins to {filename}")
 
 if __name__ == "__main__":
     export_pinterest_csv()
