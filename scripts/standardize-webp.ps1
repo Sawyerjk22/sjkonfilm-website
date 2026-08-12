@@ -10,9 +10,9 @@ foreach ($cat in $categories) {
     if (Test-Path $fullDir) {
         Write-Host "Converting any JPEGs in $cat..."
         
-        # Convert any .jpg or .jpeg files to high-res .webp
-        magick mogrify -format webp -quality 90 "$fullDir\*.jpg"
-        magick mogrify -format webp -quality 90 "$fullDir\*.jpeg"
+        # Convert any .jpg or .jpeg files to high-res .webp (preserving camera & copyright metadata)
+        magick mogrify -format webp -quality 90 -define webp:keep-metadata=all "$fullDir\*.jpg"
+        magick mogrify -format webp -quality 90 -define webp:keep-metadata=all "$fullDir\*.jpeg"
         
         # Delete the original JPEGs to prevent messy duplicates
         Remove-Item "$fullDir\*.jpg"
