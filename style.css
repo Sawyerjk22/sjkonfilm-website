@@ -556,3 +556,61 @@ body.lightbox-open .glass-badge {
   border-color: rgba(255, 255, 255, 1) !important;
   box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2) !important;
 }
+
+/* === 120 MEDIUM FORMAT GALLERY GRID STYLES === */
+.gallery.medium-format-grid {
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 2rem;
+}
+
+.gallery.medium-format-grid img {
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 2px;
+}
+
+/* === LIMITED EDITION PRINT OVERLAY STYLES === */
+.lightbox__print-info {
+  margin-top: 0.8rem;
+  font-size: 0.95rem;
+  letter-spacing: 0.5px;
+  color: #ddd;
+}
+
+.lightbox__print-badge {
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 4px 12px;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  margin-bottom: 0.4rem;
+  text-transform: uppercase;
+}
+
+.lightbox__print-btn {
+  display: inline-block;
+  margin-top: 0.5rem;
+  color: #fff;
+  background: #111;
+  border: 1px solid #666;
+  padding: 6px 16px;
+  text-decoration: none;
+  font-size: 0.85rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+  border-radius: 2px;
+}
+
+.lightbox__print-btn:hover {
+  background: #fff;
+  color: #111;
+}
+
+.lightbox__sold-out {
+  color: #e74c3c;
+  font-weight: bold;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}

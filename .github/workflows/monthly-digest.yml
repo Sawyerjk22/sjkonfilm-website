@@ -1,0 +1,30 @@
+name: Monthly Ecosystem Digest & Indexing Ping
+
+on:
+  schedule:
+    - cron: '0 0 1 * *' # Run on 1st of every month
+  workflow_dispatch:      # Allow manual trigger from GitHub Actions tab
+
+jobs:
+  monthly-digest:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Send Search Engine Pings
+        run: python scripts/ping-search-engines.py
+        env:
+          INDEXNOW_KEY: ${{ secrets.INDEXNOW_KEY }}
+
+      - name: Send Monthly Email Digest
+        run: python scripts/send-monthly-digest.py
+        env:
+          MAIL_USERNAME: ${{ secrets.MAIL_USERNAME }}
+          MAIL_PASSWORD: ${{ secrets.MAIL_PASSWORD }}
+          TO_EMAIL: ${{ secrets.TO_EMAIL }}

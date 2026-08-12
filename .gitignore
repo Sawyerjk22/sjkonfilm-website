@@ -1,0 +1,11 @@
+# Staging raw drop folders
+Staging/*
+!Staging/35mm/
+!Staging/35mm/**
+!Staging/120/
+!Staging/120/**
+!Staging/.gitkeep
+
+# Output temp logs
+new-image-codes.txt
+*.log

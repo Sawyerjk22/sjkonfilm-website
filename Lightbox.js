@@ -1,4 +1,15 @@
 (() => {
+  // Direct Mobile Traffic Tracker (Business Card Conversion Proxy)
+  if (!sessionStorage.getItem("sjkonfilm_visited")) {
+    sessionStorage.setItem("sjkonfilm_visited", "true");
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    const isDirect = document.referrer === "" || document.referrer.indexOf(location.hostname) !== -1;
+    if (isMobile && isDirect) {
+      let mobileDirectHits = parseInt(localStorage.getItem("sjkonfilm_direct_mobile_hits") || "0", 10);
+      localStorage.setItem("sjkonfilm_direct_mobile_hits", (mobileDirectHits + 1).toString());
+    }
+  }
+
   // Do not activate Lightbox on landing page (index-page)
   if (document.body.classList.contains("index-page")) return;
 
@@ -14,6 +25,7 @@
     <figure class="lightbox__figure" aria-live="polite">
       <img class="lightbox__img" alt="">
       <figcaption class="lightbox__caption"></figcaption>
+      <div class="lightbox__print-info"></div>
     </figure>
     <button class="lightbox__next" aria-label="Next (Right arrow)">&rsaquo;</button>
   `;
@@ -21,6 +33,7 @@
 
   const lbImg = overlay.querySelector(".lightbox__img");
   const caption = overlay.querySelector(".lightbox__caption");
+  const printContainer = overlay.querySelector(".lightbox__print-info");
   const btnClose = overlay.querySelector(".lightbox__close");
   const btnPrev = overlay.querySelector(".lightbox__prev");
   const btnNext = overlay.querySelector(".lightbox__next");
@@ -37,12 +50,37 @@
     index = (i + imgs.length) % imgs.length;
     const img = imgs[index];
 
-    // Use current src; if you ever want separate full-res, add data-full and swap here.
     lbImg.src = img.dataset.full || img.currentSrc || img.src;
     lbImg.alt = img.alt || "";
     caption.textContent = img.alt || "";
 
-    // === NEW: Silently preload the NEXT image in the background ===
+    // Render Limited Edition Print Logic if attributes present
+    const totalEdition = parseInt(img.dataset.edition || "0", 10);
+    const soldEdition = parseInt(img.dataset.sold || "0", 10);
+    const price = img.dataset.printPrice || "$150";
+
+    if (totalEdition > 0 || img.dataset.print === "true") {
+      const remaining = totalEdition - soldEdition;
+      if (remaining <= 0 && totalEdition > 0) {
+        printContainer.innerHTML = `
+          <div class="lightbox__print-badge">Limited Edition Print</div>
+          <div class="lightbox__sold-out">Sold Out (Edition of ${totalEdition} Exhausted)</div>
+        `;
+      } else {
+        const availText = totalEdition > 0 ? `Edition ${soldEdition + 1} of ${totalEdition} Available &bull; ${price}` : `Limited Print Available &bull; ${price}`;
+        const photoTitle = encodeURIComponent(img.alt || "Film Photograph");
+        const inquireUrl = `../contact.html?inquiry=print&photo=${photoTitle}`;
+        printContainer.innerHTML = `
+          <div class="lightbox__print-badge">Archival Pigment Print</div>
+          <div>${availText}</div>
+          <a href="${inquireUrl}" class="lightbox__print-btn">Inquire for Print &rarr;</a>
+        `;
+      }
+    } else {
+      printContainer.innerHTML = "";
+    }
+
+    // Silently preload NEXT image
     const nextIndex = (index + 1) % imgs.length;
     const nextImg = imgs[nextIndex];
     const preload = new Image();
@@ -58,30 +96,25 @@
   const close = () => {
     overlay.classList.remove("is-open");
     setBodyScroll(false);
-    // Optional: clear src so it unloads
     lbImg.src = "";
   };
 
   const next = () => show(index + 1);
   const prev = () => show(index - 1);
 
-  // Click on gallery opens lightbox
   imgs.forEach((img, i) => {
     img.style.cursor = "zoom-in";
     img.addEventListener("click", () => open(i));
   });
 
-  // Buttons
   btnClose.addEventListener("click", close);
   btnNext.addEventListener("click", (e) => { e.stopPropagation(); next(); });
   btnPrev.addEventListener("click", (e) => { e.stopPropagation(); prev(); });
 
-  // Click outside image closes
   overlay.addEventListener("click", (e) => {
     if (e.target === overlay) close();
   });
 
-  // Keyboard
   document.addEventListener("keydown", (e) => {
     if (!overlay.classList.contains("is-open")) return;
     if (e.key === "Escape") close();
@@ -89,7 +122,6 @@
     if (e.key === "ArrowLeft") prev();
   });
 
-  // Swipe (mobile)
   overlay.addEventListener("touchstart", (e) => {
     if (!overlay.classList.contains("is-open")) return;
     const t = e.touches[0];
@@ -103,15 +135,13 @@
     const dx = t.clientX - startX;
     const dy = t.clientY - startY;
 
-    // Ignore mostly-vertical gestures
     if (Math.abs(dy) > Math.abs(dx)) return;
-
     if (dx < -40) next();
     if (dx > 40) prev();
   }, { passive: true });
 })();
 
-// Automatic Glass Badge Initializer (Fades in after 5s)
+// Automatic Glass Badge Initializer
 document.addEventListener("DOMContentLoaded", () => {
   const badge = document.querySelector(".glass-badge");
   if (badge) {
@@ -121,4 +151,3 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 5000);
   }
 });
-

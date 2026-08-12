@@ -1,11 +1,11 @@
 $ErrorActionPreference = "SilentlyContinue"
 $map = @(
-    @{ Cat="street"; File="pages\street.html"; Prefix="../assets" },
-    @{ Cat="scenes"; File="pages\scenes.html"; Prefix="../assets" },
-    @{ Cat="color"; File="pages\color.html"; Prefix="../assets" },
-    @{ Cat="vertical"; File="pages\vertical.html"; Prefix="../assets" },
-    @{ Cat="featured"; File="index.html"; Prefix="assets" },
-    @{ Cat="about"; File="about.html"; Prefix="assets" }
+    @{ Cat = "street"; File = "pages\street.html"; Prefix = "../assets" },
+    @{ Cat = "scenes"; File = "pages\scenes.html"; Prefix = "../assets" },
+    @{ Cat = "color"; File = "pages\color.html"; Prefix = "../assets" },
+    @{ Cat = "vertical"; File = "pages\vertical.html"; Prefix = "../assets" },
+    @{ Cat = "featured"; File = "index.html"; Prefix = "assets" },
+    @{ Cat = "about"; File = "about.html"; Prefix = "assets" }
 )
 $outputFile = "new-image-codes.txt"
 Clear-Content $outputFile -ErrorAction SilentlyContinue
