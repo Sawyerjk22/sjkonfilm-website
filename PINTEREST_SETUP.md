@@ -23,10 +23,10 @@ To immediately publish all existing images on your site to Pinterest:
    ```bash
    python scripts/export-pinterest-csv.py
    ```
-   *(Since Pinterest limits CSV uploads to 200 rows per file, this generates `pinterest_pins_part1.csv` [200 pins] and `pinterest_pins_part2.csv` [115 pins]).*
+*(Since Pinterest strictly limits bulk CSV uploads to 100 rows per file, this generates `pinterest_pins_part1.csv` through `part4.csv` [100, 100, 100, 15 pins]).*
 2. In Pinterest Business Hub, click **Create > Create Pins in Bulk**.
-3. Upload **`pinterest_pins_part1.csv`** first and click **Publish**.
-4. Repeat for **`pinterest_pins_part2.csv`**.
+3. Upload each CSV file (`part1.csv`, `part2.csv`, `part3.csv`, `part4.csv`) separately and click **Publish**.
+4. *Note: If you previously uploaded the old 200-row files where Pinterest processed the first 100 of each file (uploading Part 1 & Part 3 equivalents), you only need to upload **`pinterest_pins_part2.csv`** and **`pinterest_pins_part4.csv`** to finish backfilling all 315 photos.*
 5. Pinterest will parse and create pins with high-resolution image previews, descriptive titles, camera keywords, and direct links back to `https://sjkonfilm.work`.
 
 ---

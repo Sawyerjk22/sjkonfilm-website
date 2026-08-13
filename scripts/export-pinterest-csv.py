@@ -70,7 +70,7 @@ def export_pinterest_csv():
             })
 
     fieldnames = ["Title", "Media URL", "Destination Link", "Description", "Pinterest board"]
-    max_chunk = 200
+    max_chunk = 100
 
     if len(items) <= max_chunk:
         output_files = [("pinterest_pins.csv", items)]
