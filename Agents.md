@@ -23,4 +23,17 @@
 When publishing new photographs:
 1. **Source Assets:** Place full-size WebP/JPEG images into `/assets/images/[category]/full/`.
 2. **Standardize & Resize:** Run ImageMagick powershell scripts in `/scripts/` (`standardize-webp.ps1` and `resize-imagemagick.ps1`) to convert to WebP and generate `900w` + `400w` thumbnails.
-3. **HTML Generation & Optimization:** Run `generate-code.ps1` to produce HTML image tags, paste tags into the corresponding `pages/[category].html` gallery, and run `update-gallery-html.ps1` to enforce lazy loading and dimensions.
+3. **HTML Generation & Optimization:** Run `generate-code.ps1` to produce HTML image tags, paste tags into the corresponding `pages/[category].html` gallery, and run `update-gallery-html.ps1` to enforce lazy loading and dimensions.
+
+## Active Digital Entity & Social Network Matrix (Completed & Interlinked)
+- **Primary Domain:** `https://sjkonfilm.work` (Indexed, Schema JSON-LD `sameAs` array fully configured, `rel="me"` IndieWeb tags added).
+- **Instagram:** `@sawyer.j.knox` — Public profile, display name explicitly set to `Sawyer Knox`, bio linked to `sjkonfilm.work`.
+- **GitHub:** `Sawyerjk22` (Display Name: `Sawyer Knox`) — Location set to Portland, OR; bio and links pointing to `sjkonfilm.work`, IG, LinkedIn.
+- **Pinterest:** `sjkonfilm` (Display Name: `Sawyer Knox | Film Photography`) — Claimed domain `sjkonfilm.work`, bulk CSV pin automation active.
+- **Flickr:** `flickr.com/photos/sawyerknox` (Display Name: `Sawyer Knox`) — Custom vanity URL active, website link & bio configured, public indexing enabled.
+- **Unsplash:** `@sawyerknox` (Display Name: `Sawyer Knox`) — Creator profile active with uploaded photos, linked to `sjkonfilm.work` & IG.
+- **Medium:** `@sawyerknox` (Display Name: `Sawyer Knox`) — Profile active, bio and introduction article published linking to `sjkonfilm.work`.
+- **LinkedIn:** `in/sawyer-knox` — Linked in Schema.org and profile matrix.
+- **Google Search Console:** `sjkonfilm.work` verified, re-indexing requested, `sitemap.xml` submitted with updated `<lastmod>` dates.
+
+*Rule for AI Agents:* Do NOT suggest creating GitHub, Pinterest, Flickr, Unsplash, Medium, or Instagram accounts for Sawyer Knox, as they are fully set up, active, and interlinked in the website's Schema JSON-LD and `rel="me"` identity matrix.
