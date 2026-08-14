@@ -52,7 +52,14 @@
 
     lbImg.src = img.dataset.full || img.currentSrc || img.src;
     lbImg.alt = img.alt || "";
-    caption.textContent = img.alt || "";
+
+    // Clean up caption for human display while preserving rich HTML alt tags for Google SEO
+    const rawCaption = img.dataset.caption || img.alt || "";
+    const cleanCaption = rawCaption
+      .replace(/\s*-\s*(?:35mm|120)?\s*Film Photography/gi, "")
+      .replace(/\s*-\s*Sawyer Knox/gi, "")
+      .trim();
+    caption.textContent = cleanCaption;
 
     // Render Limited Edition Print Logic if attributes present
     const totalEdition = parseInt(img.dataset.edition || "0", 10);
