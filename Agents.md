@@ -18,6 +18,7 @@
 3. **Mobile and desktop compatibility:** Make sure the site looks good on both mobile and desktop. make sure changes to one never breaks the other. Optimize for both. 
 4. **Asset Management:** All images are stored locally in `/assets/images/` using a 2-tier decoupled engine (`full/` for Lightbox modals, `thumbs/` for gallery grids). Standard aspect dimensions are `900x597` (horizontal) and `597x900` (vertical). Thumbnails use WebP with srcset (`400w` for mobile, `900w` for desktop). Automation tools are stored in `/scripts/`.
 5. **Code Style:** Keep CSS classes semantic and clean. Do not leave orphaned code. Ensure cross-browser compatibility for basic styling.
+6. **Agent Self-Maintenance & Context Integrity:** Any AI agent working on this codebase MUST keep `AGENTS.md` updated whenever new features, social accounts, workflows, scripts, or architectural changes are implemented. Whenever a milestone is reached, the agent MUST update `AGENTS.md` so future agent sessions maintain continuous, perfect context without redundant suggestions.
 
 ## Image Pipeline & Maintenance Workflow
 When publishing new photographs:
