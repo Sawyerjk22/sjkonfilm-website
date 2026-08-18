@@ -19,6 +19,8 @@
 4. **Asset Management:** All images are stored locally in `/assets/images/` using a 2-tier decoupled engine (`full/` for Lightbox modals, `thumbs/` for gallery grids). Standard aspect dimensions are `900x597` (horizontal) and `597x900` (vertical). Thumbnails use WebP with srcset (`400w` for mobile, `900w` for desktop). Automation tools are stored in `/scripts/`.
 5. **Code Style:** Keep CSS classes semantic and clean. Do not leave orphaned code. Ensure cross-browser compatibility for basic styling.
 6. **Agent Self-Maintenance & Context Integrity:** Any AI agent working on this codebase MUST keep `AGENTS.md` updated whenever new features, social accounts, workflows, scripts, or architectural changes are implemented. Whenever a milestone is reached, the agent MUST update `AGENTS.md` so future agent sessions maintain continuous, perfect context without redundant suggestions.
+7. **Factual Captions Only (No AI Creativity):** All generated photo captions, metadata descriptions, and RSS/syndication text MUST be strictly factual—containing only basic facts: Photo Title/Subject, Location, Rough Date (Season & Year), Film Format (35mm / 120 film), Website link (`https://sjkonfilm.work`), and Instagram handle (`@sawyer.j.knox`). Do NOT add subjective descriptions, fluffy storytelling, or AI prose.
+
 
 ## Image Pipeline & Maintenance Workflow
 When publishing new photographs:
@@ -28,13 +30,14 @@ When publishing new photographs:
 
 ## Active Digital Entity & Social Network Matrix (Completed & Interlinked)
 - **Primary Domain:** `https://sjkonfilm.work` (Indexed, Schema JSON-LD `sameAs` array fully configured, `rel="me"` IndieWeb tags added).
-- **Instagram:** `@sawyer.j.knox` — Public profile, display name explicitly set to `Sawyer Knox`, bio linked to `sjkonfilm.work`.
-- **GitHub:** `Sawyerjk22` (Display Name: `Sawyer Knox`) — Location set to Portland, OR; bio and links pointing to `sjkonfilm.work`, IG, LinkedIn.
-- **Pinterest:** `sjkonfilm` (Display Name: `Sawyer Knox | Film Photography`) — Claimed domain `sjkonfilm.work`, bulk CSV pin automation active.
-- **Flickr:** `flickr.com/photos/sawyerknox` (Display Name: `Sawyer Knox`) — Custom vanity URL active, website link & bio configured, public indexing enabled.
+- **Instagram:** `@sawyer.j.knox` — Public profile, display name explicitly set to `Sawyer Knox`, bio linked to `sjkonfilm.work`. *(Note: Instagram posting is handled 100% manually by Sawyer; auto-posting is strictly disabled).*
+- **GitHub:** `Sawyerjk22` (Display Name: `Sawyer Knox`) — Location set to Portland, OR; Secrets (`MAIL_USERNAME`, `MAIL_PASSWORD`, `TO_EMAIL`) active for automated monthly digests and opportunity finder emails.
+- **Pinterest:** `sjkonfilm` (Display Name: `Sawyer Knox | Film Photography`) — Claimed domain `sjkonfilm.work`, RSS auto-pinning active via `https://sjkonfilm.work/rss.xml`.
+- **Flickr:** `flickr.com/photos/sawyerknox` (Display Name: `Sawyer Knox`) — Custom vanity URL active, website link & bio configured, RSS/API syndication configured in `scripts/syndicate-posts.py`.
 - **Unsplash:** `@sawyerknox` (Display Name: `Sawyer Knox`) — Creator profile active with uploaded photos, linked to `sjkonfilm.work` & IG.
-- **Medium:** `@sawyerknox` (Display Name: `Sawyer Knox`) — Profile active, bio and introduction article published linking to `sjkonfilm.work`.
+- **Medium:** `@sawyerknox` (Display Name: `Sawyer Knox`) — Profile active, bio and introduction article published, RSS auto-import & API syndication configured in `scripts/syndicate-posts.py`.
 - **LinkedIn:** `in/sawyer-knox` — Linked in Schema.org and profile matrix.
 - **Google Search Console:** `sjkonfilm.work` verified, re-indexing requested, `sitemap.xml` submitted with updated `<lastmod>` dates.
 
-*Rule for AI Agents:* Do NOT suggest creating GitHub, Pinterest, Flickr, Unsplash, Medium, or Instagram accounts for Sawyer Knox, as they are fully set up, active, and interlinked in the website's Schema JSON-LD and `rel="me"` identity matrix.
+*Rule for AI Agents:* Do NOT suggest creating GitHub, Pinterest, Flickr, Unsplash, Medium, or Instagram accounts for Sawyer Knox, as they are fully set up, active, and interlinked in the website's Schema JSON-LD and `rel="me"` identity matrix. Instagram posting is strictly manual.
+

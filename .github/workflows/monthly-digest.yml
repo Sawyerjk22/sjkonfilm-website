@@ -28,3 +28,11 @@ jobs:
           MAIL_USERNAME: ${{ secrets.MAIL_USERNAME }}
           MAIL_PASSWORD: ${{ secrets.MAIL_PASSWORD }}
           TO_EMAIL: ${{ secrets.TO_EMAIL }}
+
+      - name: Run Film Photography Opportunity Finder & Email Digest
+        run: python scripts/opportunity-finder.py
+        env:
+          MAIL_USERNAME: ${{ secrets.MAIL_USERNAME }}
+          MAIL_PASSWORD: ${{ secrets.MAIL_PASSWORD }}
+          TO_EMAIL: ${{ secrets.TO_EMAIL }}
+

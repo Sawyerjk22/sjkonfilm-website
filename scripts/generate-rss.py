@@ -43,9 +43,10 @@ def extract_gallery_items():
                 continue
             seen.add(img_url)
 
-            # Build item title and description
+            # Build item title and description (Strict facts only)
             title = alt_text if alt_text and not alt_text.startswith("New Location") else f"Film Photograph - {cat.title()}"
-            desc = f"{alt_text}. Captured on 35mm / 120 film by Sawyer Knox in Portland, Oregon and worldwide."
+            desc = f"{title}. Format: 35mm / 120 film. Website: {SITE_URL} | Instagram: @sawyer.j.knox"
+
 
             items.append({
                 "title": title,

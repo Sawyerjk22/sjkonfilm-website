@@ -186,6 +186,10 @@ def main():
         print("No staged images found in Staging subdirectories.")
     else:
         print(f"\nSuccessfully processed {total_processed} staged image(s).")
+        print("\n--- Triggering Post-Processing Automations ---")
+        subprocess.run([sys.executable, "scripts/generate-rss.py"], check=False)
+        subprocess.run([sys.executable, "scripts/syndicate-posts.py"], check=False)
+
 
 if __name__ == "__main__":
     main()
