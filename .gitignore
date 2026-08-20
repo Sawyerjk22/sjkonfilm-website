@@ -1,11 +1,30 @@
-# Staging raw drop folders
+# Raw image staging drop folders
 Staging/*
-!Staging/35mm/
-!Staging/35mm/**
-!Staging/120/
-!Staging/120/**
 !Staging/.gitkeep
+!Staging/**/.gitkeep
 
-# Output temp logs
+# Auto-generated / Backlog image variants
+*.avif
+
+# Exported data & digest files
+pinterest_pins*.csv
+popularity_metrics.json
+opportunities_digest.html
 new-image-codes.txt
 *.log
+
+# OS generated files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Python / Environment
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Editor / Scratch files
+.vscode/
+.idea/
+scratch/

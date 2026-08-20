@@ -1,0 +1,14 @@
+# Auto detect text files and normalize line endings
+* text=auto
+
+# Script files use LF
+*.sh text eol=lf
+*.py text eol=lf
+
+# Binary media files
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.webp binary
+*.avif binary
+*.ico binary
