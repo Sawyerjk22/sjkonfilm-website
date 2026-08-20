@@ -61,31 +61,17 @@
       .trim();
     caption.textContent = cleanCaption;
 
-    // Render Limited Edition Print Logic if attributes present
-    const totalEdition = parseInt(img.dataset.edition || "0", 10);
-    const soldEdition = parseInt(img.dataset.sold || "0", 10);
-    const price = img.dataset.printPrice || "$150";
+    // Render Subtle Archival Print Inquiry Link (Path A)
+    const isSubpage = window.location.pathname.includes("/pages/");
+    const contactPath = isSubpage ? "../contact.html" : "contact.html";
+    const photoTitle = encodeURIComponent(cleanCaption || img.alt || "Film Photograph");
+    const inquireUrl = `${contactPath}?inquiry=print&photo=${photoTitle}`;
+    
+    // Always render subtle, understated inquiry link
+    printContainer.innerHTML = `
+      <a href="${inquireUrl}" class="lightbox__print-inquiry">Inquire about an archival print &rarr;</a>
+    `;
 
-    if (totalEdition > 0 || img.dataset.print === "true") {
-      const remaining = totalEdition - soldEdition;
-      if (remaining <= 0 && totalEdition > 0) {
-        printContainer.innerHTML = `
-          <div class="lightbox__print-badge">Limited Edition Print</div>
-          <div class="lightbox__sold-out">Sold Out (Edition of ${totalEdition} Exhausted)</div>
-        `;
-      } else {
-        const availText = totalEdition > 0 ? `Edition ${soldEdition + 1} of ${totalEdition} Available &bull; ${price}` : `Limited Print Available &bull; ${price}`;
-        const photoTitle = encodeURIComponent(img.alt || "Film Photograph");
-        const inquireUrl = `../contact.html?inquiry=print&photo=${photoTitle}`;
-        printContainer.innerHTML = `
-          <div class="lightbox__print-badge">Archival Pigment Print</div>
-          <div>${availText}</div>
-          <a href="${inquireUrl}" class="lightbox__print-btn">Inquire for Print &rarr;</a>
-        `;
-      }
-    } else {
-      printContainer.innerHTML = "";
-    }
 
     // Silently preload NEXT image
     const nextIndex = (index + 1) % imgs.length;

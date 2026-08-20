@@ -92,10 +92,17 @@
         if I took your picture and you’d like to see it, or just to say hi.
       </p>
 
+      <div id="print-inquiry-note" style="display:none; margin: 1.5rem auto; padding: 1rem; background: #f2efe9; border-left: 3px solid #333; max-width: 550px; text-align: left;">
+        <p style="margin: 0; font-size: 1.05rem;">
+          Inquiring about an archival print of <strong id="print-photo-name">this photograph</strong>? 
+          Send an email to <a id="print-email-link" href="mailto:sjkonfilm@gmail.com">sjkonfilm@gmail.com</a> with your desired dimensions (e.g. 8x10, 11x14, 16x20) and paper preferences.
+        </p>
+      </div>
+
       <div class="contact-links">
         <p>
           <strong>Email:</strong>
-          <a href="mailto:sjkonfilm@gmail.com">sjkonfilm@gmail.com</a>
+          <a href="mailto:sjkonfilm@gmail.com" id="primary-email-link">sjkonfilm@gmail.com</a>
         </p>
         <p>
           <strong>Instagram:</strong>
@@ -104,6 +111,26 @@
       </div>
     </section>
   </main>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const inquiry = urlParams.get("inquiry");
+      const photo = urlParams.get("photo");
+      if (inquiry === "print" && photo) {
+        const decodedPhoto = decodeURIComponent(photo);
+        const noteElem = document.getElementById("print-inquiry-note");
+        const photoElem = document.getElementById("print-photo-name");
+        const emailLink = document.getElementById("print-email-link");
+        if (noteElem && photoElem && emailLink) {
+          photoElem.textContent = `"${decodedPhoto}"`;
+          emailLink.href = `mailto:sjkonfilm@gmail.com?subject=${encodeURIComponent("Archival Print Inquiry: " + decodedPhoto)}&body=${encodeURIComponent("Hi Sawyer,\n\nI am interested in acquiring an archival print of \"" + decodedPhoto + "\".\n\nPreferred Dimensions: \nShipping Location: \n\nThanks!")}`;
+          noteElem.style.display = "block";
+        }
+      }
+    });
+  </script>
+
 
   <footer>
     <div class="footer-content">

@@ -20,6 +20,9 @@
 5. **Code Style:** Keep CSS classes semantic and clean. Do not leave orphaned code. Ensure cross-browser compatibility for basic styling.
 6. **Agent Self-Maintenance & Context Integrity:** Any AI agent working on this codebase MUST keep `AGENTS.md` updated whenever new features, social accounts, workflows, scripts, or architectural changes are implemented. Whenever a milestone is reached, the agent MUST update `AGENTS.md` so future agent sessions maintain continuous, perfect context without redundant suggestions.
 7. **Factual Captions Only (No AI Creativity):** All generated photo captions, metadata descriptions, and RSS/syndication text MUST be strictly factual—containing only basic facts: Photo Title/Subject, Location, Rough Date (Season & Year), Film Format (35mm / 120 film), Website link (`https://sjkonfilm.work`), and Instagram handle (`@sawyer.j.knox`). Do NOT add subjective descriptions, fluffy storytelling, or AI prose.
+8. **No EXIF/Camera Overlays:** Do NOT suggest or add EXIF, film stock, camera gear, or technical badges to the lightbox viewer or gallery pages.
+9. **No Geospatial / GPS Maps:** Do NOT suggest or add interactive GIS/GPS photo location maps.
+
 
 
 ## Image Pipeline & Maintenance Workflow

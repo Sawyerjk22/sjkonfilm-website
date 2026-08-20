@@ -107,19 +107,27 @@ def process_image(src_path, cat, cat_info, dry_run=False):
     else:
         w_out, h_out = 900, 597
 
+    dest_full_avif = os.path.join(full_dir, f"{slug_base}.avif")
+    dest_thumb_900_avif = os.path.join(thumbs_dir, f"{slug_base}.avif")
+    dest_thumb_400_avif = os.path.join(thumbs_dir, f"{slug_base}-400w.avif")
+
     if not dry_run:
-        # 1. Convert to high-quality Full WebP (Max dimension 1800 for lightbox sharpness)
+        # 1. Convert to high-quality Full WebP & AVIF
         subprocess.run(["magick", src_path, "-resize", "1800x1800>", "-quality", "88", dest_full], check=True)
+        subprocess.run(["magick", src_path, "-resize", "1800x1800>", "-quality", "82", dest_full_avif], check=True)
 
-        # 2. Convert to 900w Thumbnail WebP
+        # 2. Convert to 900w Thumbnail WebP & AVIF
         subprocess.run(["magick", src_path, "-resize", f"{w_out}x{h_out}", "-quality", "85", dest_thumb_900], check=True)
+        subprocess.run(["magick", src_path, "-resize", f"{w_out}x{h_out}", "-quality", "78", dest_thumb_900_avif], check=True)
 
-        # 3. Convert to 400w Mobile Thumbnail WebP
+        # 3. Convert to 400w Mobile Thumbnail WebP & AVIF
         w_400 = 400 if not is_vertical else int(400 * (597 / 900))
         h_400 = int(400 * (597 / 900)) if not is_vertical else 400
         if is_square:
             w_400, h_400 = 400, 400
         subprocess.run(["magick", src_path, "-resize", f"{w_400}x{h_400}", "-quality", "82", dest_thumb_400], check=True)
+        subprocess.run(["magick", src_path, "-resize", f"{w_400}x{h_400}", "-quality", "75", dest_thumb_400_avif], check=True)
+
 
     prefix = cat_info["html_prefix"]
     img_src = f"{prefix}/images/{cat}/thumbs/{slug_fname}"
