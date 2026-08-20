@@ -195,57 +195,7 @@ body:not(.index-page) .gallery:not(.about-gallery) img:hover {
   }
 }
 
-/* === ABOUT PAGE STYLES === */
-.about-page {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 2rem 1rem 4rem 1rem;
-  text-align: center;
-  font-family: "Cormorant Garamond", Georgia, serif;
-  color: #222;
-  line-height: 1.6;
-}
 
-.about-text h2 {
-  font-family: "Playfair Display", Georgia, serif;
-  font-size: 2rem;
-  font-weight: 500;
-  margin-bottom: 1rem;
-  color: #111;
-}
-
-.about-text p {
-  font-size: 1.1rem;
-  margin: 0 auto 2.5rem auto;
-  max-width: 650px;
-  color: #333;
-}
-
-.about-gallery {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1.25rem;
-  padding: 1rem;
-  margin: 0 auto;
-  max-width: 1000px;
-}
-
-.about-gallery img {
-  width: 100%;
-  height: auto;
-  aspect-ratio: 3 / 2;
-  object-fit: cover;
-  display: block;
-  margin-bottom: 0;
-  border-radius: 2px;
-}
-
-@media (max-width: 768px) {
-  .about-gallery {
-    grid-template-columns: 1fr;
-    gap: 1rem;
-  }
-}
 
 /* === IDEA E: CLEAN & EDITORIAL WORKS PAGE CARDS === */
 .works-gallery {
@@ -365,13 +315,13 @@ body:not(.index-page) .gallery:not(.about-gallery) img:hover {
 }
 
 /* === CATEGORY PAGES (Street, Scenes, Color, Vertical) === */
-body:not(.index-page) .gallery {
+body:not(.index-page) .gallery:not(.about-gallery) {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
 }
 
 @media (max-width: 768px) {
-  body:not(.index-page) .gallery {
+  body:not(.index-page) .gallery:not(.about-gallery) {
     grid-template-columns: 1fr; /* 1 column only on mobile */
   }
 }
@@ -400,7 +350,7 @@ body:not(.index-page) .gallery {
   max-width: 600px;
 }
 
-/* Self-portrait gallery (modern spacing & lightbox integration) */
+/* Self-portrait gallery (2x2 grid layout) */
 .about-gallery {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -413,6 +363,7 @@ body:not(.index-page) .gallery {
 .about-gallery img {
   width: 100%;
   height: auto;
+  aspect-ratio: 3 / 2;
   object-fit: cover;
   display: block;
   border-radius: 3px;
