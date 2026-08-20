@@ -72,15 +72,19 @@
       .trim();
     caption.textContent = cleanCaption;
 
-    // Render Subtle Archival Print Inquiry Link (Path A)
+    // Render Subtle Archival Print Inquiry Link with unique filename identifier
     const isSubpage = window.location.pathname.includes("/pages/");
     const contactPath = isSubpage ? "../contact.html" : "contact.html";
-    const photoTitle = encodeURIComponent(cleanCaption || img.alt || "Film Photograph");
+    
+    // Extract unique filename identifier to differentiate photos from same location/timeframe
+    const photoFilename = targetSrc.split("/").pop().split("#")[0].split("?")[0];
+    const photoRef = cleanCaption ? `${cleanCaption} [${photoFilename}]` : photoFilename;
+    const photoTitle = encodeURIComponent(photoRef);
     const inquireUrl = `${contactPath}?inquiry=print&photo=${photoTitle}`;
     
-    // Always render subtle, understated inquiry link
+    // Subtle, understated inquiry link
     printContainer.innerHTML = `
-      <a href="${inquireUrl}" class="lightbox__print-inquiry">Inquire about an archival print &rarr;</a>
+      <a href="${inquireUrl}" class="lightbox__print-inquiry">inquire about print &rarr;</a>
     `;
 
     // Silently preload NEXT image

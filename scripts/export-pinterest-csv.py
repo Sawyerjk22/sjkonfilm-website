@@ -59,7 +59,7 @@ def export_pinterest_csv():
             else:
                 title = base_title
 
-            desc = f"{title}. Shot on analog 35mm / 120 film by Sawyer Knox in Portland, Oregon. Explore more film photography at sjkonfilm.work."
+            desc = f"{title}. Shot on analog 35mm / 120 film by Sawyer Knox in Portland, Oregon. Instagram: @sawyer.j.knox | Portfolio & prints: {SITE_URL}"
 
             items.append({
                 "Title": title,

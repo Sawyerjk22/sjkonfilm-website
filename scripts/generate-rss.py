@@ -45,7 +45,7 @@ def extract_gallery_items():
 
             # Build item title and description (Strict facts only)
             title = alt_text if alt_text and not alt_text.startswith("New Location") else f"Film Photograph - {cat.title()}"
-            desc = f"{title}. Format: 35mm / 120 film. Website: {SITE_URL} | Instagram: @sawyer.j.knox"
+            desc = f"{title}. Shot on analog 35mm / 120 film by Sawyer Knox in Portland, OR. Instagram: @sawyer.j.knox | Portfolio & prints: {SITE_URL}"
 
 
             items.append({
