@@ -301,8 +301,6 @@ body:not(.index-page) .gallery img:hover {
   }
 }
 
-}
-
 
 
 
@@ -449,29 +447,37 @@ body.lightbox-open {
 
 .lightbox__figure {
   margin: 0;
-  max-width: 96vw;
-  max-height: 90vh;
+  max-width: 92vw;
+  max-height: 92vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.75rem;
+  justify-content: center;
+  gap: 0.5rem;
 }
 
 .lightbox__img {
-  max-width: 96vw;
-  max-height: 86vh;
+  max-width: 92vw;
+  max-height: 72vh;
   width: auto;
   height: auto;
   object-fit: contain;
   display: block;
-  box-shadow: 0 10px 40px rgba(0,0,0,0.35);
+  box-shadow: 0 10px 40px rgba(0,0,0,0.45);
+  border-radius: 2px;
+  transition: opacity 0.25s ease;
 }
 
 .lightbox__caption {
-  color: rgba(255,255,255,0.8);
-  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 0.9rem;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-style: italic;
+  letter-spacing: 0.03em;
   text-align: center;
-  max-width: 80ch;
+  max-width: 75ch;
+  line-height: 1.4;
+  margin-top: 0.25rem;
 }
 
 .lightbox__close,
@@ -611,11 +617,14 @@ body.lightbox-open .glass-badge {
 }
 
 /* === LIMITED EDITION PRINT OVERLAY STYLES === */
+.lightbox a {
+  color: inherit;
+  text-decoration: none;
+}
+
 .lightbox__print-info {
-  margin-top: 0.8rem;
-  font-size: 0.95rem;
-  letter-spacing: 0.5px;
-  color: #ddd;
+  margin-top: 0.35rem;
+  text-align: center;
 }
 
 .lightbox__print-badge {
@@ -629,24 +638,38 @@ body.lightbox-open .glass-badge {
   text-transform: uppercase;
 }
 
+.lightbox__print-inquiry,
 .lightbox__print-btn {
-  display: inline-block;
-  margin-top: 0.5rem;
-  color: #fff;
-  background: #111;
-  border: 1px solid #666;
-  padding: 6px 16px;
-  text-decoration: none;
-  font-size: 0.85rem;
-  letter-spacing: 1px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.45rem 1.1rem;
+  font-size: 0.78rem;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  transition: all 0.3s ease;
-  border-radius: 2px;
+  color: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 20px;
+  text-decoration: none;
+  transition: all 0.25s ease;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
+.lightbox__print-inquiry:visited,
+.lightbox__print-btn:visited {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.lightbox__print-inquiry:hover,
 .lightbox__print-btn:hover {
-  background: #fff;
-  color: #111;
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.22);
+  border-color: rgba(255, 255, 255, 0.5);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
 }
 
 .lightbox__sold-out {

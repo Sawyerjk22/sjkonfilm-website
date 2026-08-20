@@ -50,7 +50,18 @@
     index = (i + imgs.length) % imgs.length;
     const img = imgs[index];
 
-    lbImg.src = img.dataset.full || img.currentSrc || img.src;
+    const targetSrc = img.dataset.full || img.currentSrc || img.src;
+    
+    // Smooth image load transition
+    if (lbImg.src !== targetSrc) {
+      lbImg.style.opacity = "0.2";
+      lbImg.onload = () => {
+        lbImg.style.opacity = "1";
+      };
+      lbImg.src = targetSrc;
+    } else {
+      lbImg.style.opacity = "1";
+    }
     lbImg.alt = img.alt || "";
 
     // Clean up caption for human display while preserving rich HTML alt tags for Google SEO
@@ -72,7 +83,6 @@
       <a href="${inquireUrl}" class="lightbox__print-inquiry">Inquire about an archival print &rarr;</a>
     `;
 
-
     // Silently preload NEXT image
     const nextIndex = (index + 1) % imgs.length;
     const nextImg = imgs[nextIndex];
@@ -90,6 +100,7 @@
     overlay.classList.remove("is-open");
     setBodyScroll(false);
     lbImg.src = "";
+    lbImg.style.opacity = "0";
   };
 
   const next = () => show(index + 1);

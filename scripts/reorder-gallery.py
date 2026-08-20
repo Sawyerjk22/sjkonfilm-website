@@ -14,8 +14,8 @@ from pathlib import Path
 
 # Optional Google Analytics Data API import
 try:
-    from google.analytics.data_v1beta import BetaAnalyticsDataClient
-    from google.analytics.data_v1beta.types import RunReportRequest, Metric, Dimension
+    from google.analytics.data_v1beta import BetaAnalyticsDataClient  # type: ignore
+    from google.analytics.data_v1beta.types import RunReportRequest, Metric, Dimension  # type: ignore
     GA_AVAILABLE = True
 except ImportError:
     GA_AVAILABLE = False
