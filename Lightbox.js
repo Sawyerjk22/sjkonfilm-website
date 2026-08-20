@@ -25,7 +25,6 @@
     <figure class="lightbox__figure" aria-live="polite">
       <img class="lightbox__img" alt="">
       <figcaption class="lightbox__caption"></figcaption>
-      <div class="lightbox__print-info"></div>
     </figure>
     <button class="lightbox__next" aria-label="Next (Right arrow)">&rsaquo;</button>
   `;
@@ -33,7 +32,6 @@
 
   const lbImg = overlay.querySelector(".lightbox__img");
   const caption = overlay.querySelector(".lightbox__caption");
-  const printContainer = overlay.querySelector(".lightbox__print-info");
   const btnClose = overlay.querySelector(".lightbox__close");
   const btnPrev = overlay.querySelector(".lightbox__prev");
   const btnNext = overlay.querySelector(".lightbox__next");
@@ -71,21 +69,6 @@
       .replace(/\s*-\s*Sawyer Knox/gi, "")
       .trim();
     caption.textContent = cleanCaption;
-
-    // Render Subtle Archival Print Inquiry Link with unique filename identifier
-    const isSubpage = window.location.pathname.includes("/pages/");
-    const contactPath = isSubpage ? "../contact.html" : "contact.html";
-    
-    // Extract unique filename identifier to differentiate photos from same location/timeframe
-    const photoFilename = targetSrc.split("/").pop().split("#")[0].split("?")[0];
-    const photoRef = cleanCaption ? `${cleanCaption} [${photoFilename}]` : photoFilename;
-    const photoTitle = encodeURIComponent(photoRef);
-    const inquireUrl = `${contactPath}?inquiry=print&photo=${photoTitle}`;
-    
-    // Subtle, understated inquiry link
-    printContainer.innerHTML = `
-      <a href="${inquireUrl}" class="lightbox__print-inquiry">inquire about print &rarr;</a>
-    `;
 
     // Silently preload NEXT image
     const nextIndex = (index + 1) % imgs.length;
