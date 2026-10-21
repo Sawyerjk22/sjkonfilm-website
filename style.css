@@ -98,7 +98,7 @@ nav {
   position: relative;
 }
 
-/* Dropdown menu */
+/* Dropdown menu (hover on Work: just 35mm and 120) */
 .dropdown {
   display: none;
   position: absolute;
@@ -109,13 +109,13 @@ nav {
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border: 1px solid rgba(0, 0, 0, 0.08);
-  border-radius: 4px;
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+  border-radius: 3px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
   list-style: none;
-  padding: 0.6rem 0;
-  min-width: 210px;
+  padding: 0.4rem 0;
+  min-width: 140px;
   z-index: 100;
-  text-align: left;
+  text-align: center;
 }
 
 .dropdown::before {
@@ -134,37 +134,19 @@ nav {
 
 .dropdown li a {
   display: block;
-  padding: 0.45rem 1.25rem;
-  color: #222;
-  font-size: 0.82rem;
-  letter-spacing: 0.12em;
+  padding: 0.45rem 1rem;
+  color: #333;
+  font-size: 0.85rem;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
   white-space: nowrap;
-  transition: background-color 0.2s ease, color 0.2s ease, padding-left 0.2s ease;
+  transition: background-color 0.2s ease, color 0.2s ease;
   border-bottom: none !important;
 }
 
 .dropdown li a:hover {
   background-color: rgba(0, 0, 0, 0.04);
   color: #000;
-  padding-left: 1.45rem;
-}
-
-.dropdown li.dropdown-sub a {
-  padding-left: 2rem;
-  font-size: 0.75rem;
-  color: #666;
-}
-
-.dropdown li.dropdown-sub a:hover {
-  color: #000;
-  padding-left: 2.2rem;
-}
-
-.dropdown-divider {
-  height: 1px;
-  background: rgba(0, 0, 0, 0.06);
-  margin: 0.35rem 0;
 }
 
 .nav-item:hover .dropdown,
@@ -259,26 +241,18 @@ body:not(.index-page) .gallery:not(.about-gallery) img:hover {
 /* === WORKS PAGE: EXHIBITION CARDS (35MM & 120 MEDIUM FORMAT) === */
 .works-intro {
   text-align: center;
-  max-width: 680px;
-  margin: 1.5rem auto 2.5rem auto;
+  margin: 2rem auto 2.5rem auto;
   padding: 0 1.5rem;
 }
 
 .works-intro h2 {
   font-family: "Playfair Display", "Cormorant Garamond", serif;
-  font-size: 2rem;
+  font-size: 2.2rem;
   font-weight: 400;
   letter-spacing: 0.04em;
-  margin-bottom: 0.5rem;
-  color: #111;
-}
-
-.works-intro p {
-  font-family: "Cormorant Garamond", Georgia, serif;
-  font-size: 1.15rem;
-  color: #555;
   margin: 0;
-  line-height: 1.6;
+  color: #111;
+  text-transform: capitalize;
 }
 
 .works-exhibition {
@@ -380,29 +354,14 @@ body:not(.index-page) .gallery:not(.about-gallery) img:hover {
   margin: 0 0 1.25rem 0;
 }
 
-.subcat-pills {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  margin-bottom: 1.75rem;
-}
-
-.subcat-pill {
-  font-size: 0.78rem;
-  letter-spacing: 0.12em;
+/* Simple text subcategories on exhibition cards (NO bubbles) */
+.exhibition-subtext {
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 0.95rem;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  padding: 0.35rem 0.75rem;
-  background: #f7f6f4;
-  border: 1px solid rgba(0, 0, 0, 0.07);
-  border-radius: 2px;
-  color: #333;
-  font-weight: 500;
-}
-
-.subcat-pill.in-progress {
-  color: #888;
-  border-style: dashed;
-  background: transparent;
+  color: #666;
+  margin: 0 0 1.5rem 0;
 }
 
 .exhibition-cta {
@@ -423,93 +382,45 @@ body:not(.index-page) .gallery:not(.about-gallery) img:hover {
   gap: 0.85rem;
 }
 
-/* === CATEGORY SUB-NAVIGATION & FILTER BAR === */
-.category-subnav {
-  max-width: 1200px;
-  margin: 0.5rem auto 2.25rem auto;
-  padding: 0 1rem;
+/* === MINIMALIST TEXT SUB-NAVIGATION (NO BUBBLES, NO HIGHLIGHTS) === */
+.subcat-text-nav {
   display: flex;
-  flex-direction: column;
+  justify-content: center;
   align-items: center;
   gap: 1.25rem;
-}
-
-.format-switch {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  background: rgba(0, 0, 0, 0.04);
-  padding: 0.3rem;
-  border-radius: 30px;
-  border: 1px solid rgba(0, 0, 0, 0.06);
-}
-
-.format-pill {
-  text-decoration: none;
-  font-size: 0.85rem;
+  margin: 1.25rem auto 2.25rem auto;
   font-family: "Cormorant Garamond", Georgia, serif;
-  font-weight: 500;
-  letter-spacing: 0.14em;
+  font-size: 1.12rem;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
-  padding: 0.45rem 1.15rem;
-  border-radius: 20px;
+}
+
+.subcat-text-nav a,
+.subcat-text-nav button {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  font-family: inherit;
+  font-size: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
   color: #555;
-  transition: all 0.25s ease;
+  cursor: pointer;
+  text-decoration: none;
+  transition: color 0.25s ease;
   border-bottom: none !important;
 }
 
-.format-pill:hover {
+.subcat-text-nav a:hover,
+.subcat-text-nav button:hover {
   color: #000;
 }
 
-.format-pill.active {
-  background: #111;
-  color: #ffffff !important;
-  font-weight: 600;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-}
-
-.filter-pills {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 0.5rem;
-}
-
-.filter-btn {
-  background: transparent;
-  border: 1px solid rgba(0, 0, 0, 0.14);
-  font-family: "Cormorant Garamond", Georgia, serif;
-  font-size: 0.82rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  padding: 0.35rem 0.9rem;
-  border-radius: 20px;
-  color: #444;
-  cursor: pointer;
-  transition: all 0.25s ease;
-}
-
-.filter-btn:hover {
-  border-color: #000;
-  color: #000;
-}
-
-.filter-btn.active {
-  background: #111;
-  border-color: #111;
-  color: #fff;
-  font-weight: 600;
-}
-
-/* Category Page Gallery Info Bar */
-.gallery-status-bar {
-  text-align: center;
-  margin: 0 auto 1.5rem auto;
-  font-family: "Cormorant Garamond", Georgia, serif;
-  font-size: 1rem;
-  letter-spacing: 0.06em;
-  color: #777;
+.subcat-text-nav .nav-sep {
+  color: #888;
+  user-select: none;
+  font-size: 0.9rem;
 }
 
 /* Filtering animations */
