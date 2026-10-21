@@ -26,12 +26,14 @@
 
 
 ## Site Architecture & Taxonomy Hierarchy
-- **Works Overview (`works.html`):** Two-tier museum exhibition presentation separating work by physical film format:
-  1. **35mm Film:** 3:2 landscape showcase card linking to `pages/35mm.html`, featuring gallery curatorial text and subcategory indicators (Black & White, Color, Street, Scenes).
-  2. **120 Medium Format:** 1:1 square showcase card linking to `pages/120.html`, featuring curatorial text for 6×6 square format analog film. *(Constraint: Do not specify camera brand/model like Rolleiflex in public exhibition titles/subtitles)*.
-- **35mm Collection Hub (`pages/35mm.html`):** Unified master gallery with client-side filter pills (`All 35mm`, `Black & White`, `Color`, `Street`, `Scenes`, `Vertical`) supporting direct URL parameters (`?filter=bw`, `?filter=color`, etc.) and dynamic Lightbox cycling. Individual category pages (`street.html`, `scenes.html`, `color.html`, `vertical.html`) remain active for SEO and direct bookmarking.
-- **120 Medium Format (`pages/120.html`):** Dedicated square grid for 6×6 medium format scans (Black & White currently; Color expandable).
-- **Navigation Architecture:** Site-wide header contains a sleek dropdown menu under `Work` (Overview, 35mm Film, 35mm Black & White, 35mm Color, 120 Medium Format). All gallery pages feature a synchronized `.category-subnav` format pill switcher for instant 1-click jumps between 35mm and 120 Medium Format.
+- **Categorization Model:** Exactly two top-level film formats: **35mm** and **120**.
+  - **35mm:** Subdivided strictly into **Color** and **Black & White**. All previous street, scenes, and vertical categories have been unified directly into their respective B&W and Color collections (no separate street, scenes, or vertical categories).
+  - **120:** Dedicated to 6×6 square medium format negatives (currently all Black & White; no color 120 exists yet).
+- **Works Page (`works.html`):** Features "Selected Works" with two clean exhibition display cards:
+  1. **35mm Film:** 3:2 landscape display image, curatorial description, simple text subcategories (`Black & White · Color`), and direct collection link.
+  2. **120 Medium Format:** 1:1 square display image, curatorial description, simple text (`Black & White`), and direct collection link. *(Strict rule: Do NOT specify camera brand/model like Rolleiflex in public card titles/subtitles)*.
+- **Minimalist Sub-Navigation:** No rounded bubble pills or active highlighting buttons anywhere. Under 35mm, subcategories are presented as quiet, elegant text links: `Black & White · Color`. No format switchers between 35 and 120 on gallery pages, and no status counts ("Showing X photographs").
+- **Header Navigation:** Dropdown on hover over `Work` consists strictly of two direct items: `35mm` and `120`.
 
 ## Image Pipeline & Maintenance Workflow
 When publishing new photographs:

@@ -18,11 +18,8 @@ SITEMAP_URLS = [
     f"{SITE_URL}/works.html",
     f"{SITE_URL}/about.html",
     f"{SITE_URL}/contact.html",
-    f"{SITE_URL}/pages/street.html",
-    f"{SITE_URL}/pages/scenes.html",
-    f"{SITE_URL}/pages/color.html",
-    f"{SITE_URL}/pages/vertical.html",
     f"{SITE_URL}/pages/35mm.html",
+    f"{SITE_URL}/pages/color.html",
     f"{SITE_URL}/pages/120.html"
 ]
 

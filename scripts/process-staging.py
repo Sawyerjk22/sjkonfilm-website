@@ -9,6 +9,14 @@ from pathlib import Path
 
 # Category Mapping to target HTML files and asset paths
 CATEGORY_MAP = {
+    "bw": {
+        "staging_dir": os.path.join("Staging", "35mm", "bw"),
+        "html_file": os.path.join("pages", "35mm.html"),
+        "asset_dir": os.path.join("assets", "images", "street"),
+        "html_prefix": "../assets",
+        "default_alt": "35mm Black & White Film Photography - Sawyer Knox",
+        "default_dims": (900, 597)
+    },
     "color": {
         "staging_dir": os.path.join("Staging", "35mm", "color"),
         "html_file": os.path.join("pages", "color.html"),
@@ -17,30 +25,6 @@ CATEGORY_MAP = {
         "default_alt": "Color 35mm Film Photography - Sawyer Knox",
         "default_dims": (900, 597)
     },
-    "street": {
-        "staging_dir": os.path.join("Staging", "35mm", "street"),
-        "html_file": os.path.join("pages", "street.html"),
-        "asset_dir": os.path.join("assets", "images", "street"),
-        "html_prefix": "../assets",
-        "default_alt": "Candid 35mm Street Photography - Sawyer Knox",
-        "default_dims": (900, 597)
-    },
-    "scenes": {
-        "staging_dir": os.path.join("Staging", "35mm", "scenes"),
-        "html_file": os.path.join("pages", "scenes.html"),
-        "asset_dir": os.path.join("assets", "images", "scenes"),
-        "html_prefix": "../assets",
-        "default_alt": "Analog Landscape and Scene Photography - Sawyer Knox",
-        "default_dims": (900, 597)
-    },
-    "vertical": {
-        "staging_dir": os.path.join("Staging", "35mm", "vertical"),
-        "html_file": os.path.join("pages", "vertical.html"),
-        "asset_dir": os.path.join("assets", "images", "vertical"),
-        "html_prefix": "../assets",
-        "default_alt": "Vertical 35mm Film Portrait - Sawyer Knox",
-        "default_dims": (597, 900)
-    },
     "120": {
         "staging_dir": os.path.join("Staging", "120"),
         "html_file": os.path.join("pages", "120.html"),
@@ -48,6 +32,30 @@ CATEGORY_MAP = {
         "html_prefix": "../assets",
         "default_alt": "120 Medium Format Film Photography - Sawyer Knox",
         "default_dims": (900, 900)
+    },
+    "street": {
+        "staging_dir": os.path.join("Staging", "35mm", "street"),
+        "html_file": os.path.join("pages", "35mm.html"),
+        "asset_dir": os.path.join("assets", "images", "street"),
+        "html_prefix": "../assets",
+        "default_alt": "35mm Black & White Film Photography - Sawyer Knox",
+        "default_dims": (900, 597)
+    },
+    "scenes": {
+        "staging_dir": os.path.join("Staging", "35mm", "scenes"),
+        "html_file": os.path.join("pages", "35mm.html"),
+        "asset_dir": os.path.join("assets", "images", "scenes"),
+        "html_prefix": "../assets",
+        "default_alt": "35mm Black & White Film Photography - Sawyer Knox",
+        "default_dims": (900, 597)
+    },
+    "vertical": {
+        "staging_dir": os.path.join("Staging", "35mm", "vertical"),
+        "html_file": os.path.join("pages", "35mm.html"),
+        "asset_dir": os.path.join("assets", "images", "vertical"),
+        "html_prefix": "../assets",
+        "default_alt": "35mm Film Photography - Sawyer Knox",
+        "default_dims": (597, 900)
     }
 }
 

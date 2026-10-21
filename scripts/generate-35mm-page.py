@@ -2,19 +2,27 @@
 import os
 import re
 
+COLOR_VERTICALS = {
+    "img_0830.webp",
+    "img_3685.webp",
+    "img_5824.webp",
+    "img_7945 copy.webp",
+    "img_5758.webp"
+}
+
 def build_35mm_page():
-    # Define sources with their subcategory and tone
     sources = [
-        ("pages/street.html", "street", "bw"),
-        ("pages/scenes.html", "scenes", "bw"),
-        ("pages/color.html", "color", "color"),
-        ("pages/vertical.html", "vertical", "mixed")
+        ("pages/street.html", "bw"),
+        ("pages/scenes.html", "bw"),
+        ("pages/color.html", "color"),
+        ("pages/vertical.html", "mixed")
     ]
     
     collected_imgs = []
     seen_srcs = set()
+    color_vertical_tags = []
 
-    for html_file, subcat, default_tone in sources:
+    for html_file, default_tone in sources:
         if not os.path.exists(html_file):
             print(f"File not found: {html_file}")
             continue
@@ -27,7 +35,6 @@ def build_35mm_page():
             continue
 
         raw_imgs = re.findall(r'<img\s+[^>]+>', gallery_match.group(1))
-        print(f"{html_file}: extracted {len(raw_imgs)} images")
 
         for img_tag in raw_imgs:
             src_match = re.search(r'src=["\']([^"\']+)["\']', img_tag)
@@ -36,36 +43,36 @@ def build_35mm_page():
                 continue
             seen_srcs.add(src)
 
-            # Determine tone
-            tone = default_tone
-            if subcat == "vertical":
-                # Detect if it's color or bw based on filename or alt
-                # If "Color" in alt or specific color files, mark color, else bw
-                if "color" in img_tag.lower():
+            filename = os.path.basename(src).lower()
+
+            if default_tone == "mixed":
+                if filename in COLOR_VERTICALS:
                     tone = "color"
+                    color_vertical_tags.append(img_tag)
                 else:
                     tone = "bw"
+            else:
+                tone = default_tone
 
-            # Clean and enrich img tag
             clean_tag = img_tag.strip()
-            # Remove any existing data-subcat or data-tone
             clean_tag = re.sub(r'\s*data-subcat=["\'][^"\']*["\']', '', clean_tag)
             clean_tag = re.sub(r'\s*data-tone=["\'][^"\']*["\']', '', clean_tag)
             
-            # Insert data-subcat and data-tone right after <img
-            enriched_tag = re.sub(r'^<img', f'<img data-subcat="{subcat}" data-tone="{tone}"', clean_tag)
-            
-            # Ensure loading="lazy" for all except first 4
+            enriched_tag = re.sub(r'^<img', f'<img data-tone="{tone}"', clean_tag)
+
             if len(collected_imgs) >= 4:
                 enriched_tag = re.sub(r'\s*fetchpriority=["\'][^"\']*["\']', '', enriched_tag)
                 if 'loading=' not in enriched_tag:
                     enriched_tag = enriched_tag[:-1] + ' loading="lazy">'
 
-            collected_imgs.append(enriched_tag)
+            collected_imgs.append((tone, enriched_tag))
 
-    print(f"Total unique 35mm images collected: {len(collected_imgs)}")
+    bw_count = sum(1 for tone, _ in collected_imgs if tone == "bw")
+    color_count = sum(1 for tone, _ in collected_imgs if tone == "color")
+    print(f"Collected total {len(collected_imgs)} images: {bw_count} Black & White, {color_count} Color.")
+    print(f"Added {len(color_vertical_tags)} vertical color images to Color.")
 
-    # Template for 35mm.html
+    # Generate pages/35mm.html
     html_content = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -75,25 +82,25 @@ def build_35mm_page():
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>35mm Film Photography | Sawyer Knox</title>
-  <meta name="description" content="Explore authentic 35mm film photography by Sawyer Knox. Featuring candid street moments, travel scenes, and analog color archives.">
+  <meta name="description" content="35mm film photography by Sawyer Knox. Featuring authentic black and white and color analog archives.">
   <link rel="canonical" href="https://sjkonfilm.work/pages/35mm.html">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&family=Playfair+Display:wght@500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../style.css?v=11">
+  <link rel="stylesheet" href="../style.css?v=12">
 
   <!-- Open Graph / Social -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://sjkonfilm.work/pages/35mm.html">
   <meta property="og:title" content="35mm Film Photography | Sawyer Knox">
-  <meta property="og:description" content="Authentic 35mm film photography portfolio: street, architectural scenes, and color archives.">
+  <meta property="og:description" content="35mm film photography portfolio: authentic black and white and color archives.">
   <meta property="og:image" content="https://sjkonfilm.work/assets/images/og-main.png">
 
   <!-- Twitter Cards -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="35mm Film Photography | Sawyer Knox">
-  <meta name="twitter:description" content="Authentic 35mm film photography portfolio: street, architectural scenes, and color archives.">
+  <meta name="twitter:description" content="35mm film photography portfolio: authentic black and white and color archives.">
   <meta name="twitter:image" content="https://sjkonfilm.work/assets/images/og-main.png">
 
   <script type="application/ld+json">
@@ -104,8 +111,8 @@ def build_35mm_page():
         "@type": "CollectionPage",
         "@id": "https://sjkonfilm.work/pages/35mm.html#webpage",
         "url": "https://sjkonfilm.work/pages/35mm.html",
-        "name": "35mm Film Photography Archive | Sawyer Knox",
-        "description": "Complete 35mm film photography collection by Sawyer Knox, featuring black and white street scenes, travel, and color archives.",
+        "name": "35mm Film Photography | Sawyer Knox",
+        "description": "35mm film photography collection by Sawyer Knox, featuring black and white and color archives.",
         "publisher": {{ "@id": "https://sjkonfilm.work/#person" }}
       }},
       {{
@@ -145,15 +152,10 @@ def build_35mm_page():
     <nav>
       <ul class="nav-links">
         <li class="nav-item has-dropdown">
-          <a href="../works.html" class="active">Work</a>
+          <a href="../works.html">Work</a>
           <ul class="dropdown">
-            <li><a href="../works.html">Overview</a></li>
-            <li class="dropdown-divider"></li>
-            <li><a href="35mm.html"><strong>35mm Film</strong></a></li>
-            <li class="dropdown-sub"><a href="35mm.html?filter=bw">35mm Black & White</a></li>
-            <li class="dropdown-sub"><a href="35mm.html?filter=color">35mm Color</a></li>
-            <li class="dropdown-divider"></li>
-            <li><a href="120.html"><strong>120 Medium Format</strong></a></li>
+            <li><a href="35mm.html">35mm</a></li>
+            <li><a href="120.html">120</a></li>
           </ul>
         </li>
         <li><a href="../about.html">About</a></li>
@@ -163,29 +165,15 @@ def build_35mm_page():
   </header>
 
   <main>
-    <!-- CATEGORY SUB-NAVIGATION & FILTER BAR -->
-    <nav class="category-subnav" aria-label="Film Category Filters">
-      <div class="format-switch">
-        <a href="35mm.html" class="format-pill active" aria-current="page">35mm Film</a>
-        <a href="120.html" class="format-pill">120 Medium Format</a>
-      </div>
-
-      <div class="filter-pills" id="filterPills" role="toolbar" aria-label="35mm Subcategories">
-        <button class="filter-btn active" data-filter="all" aria-pressed="true">All 35mm</button>
-        <button class="filter-btn" data-filter="bw" aria-pressed="false">Black & White</button>
-        <button class="filter-btn" data-filter="color" aria-pressed="false">Color</button>
-        <button class="filter-btn" data-filter="street" aria-pressed="false">Street</button>
-        <button class="filter-btn" data-filter="scenes" aria-pressed="false">Scenes</button>
-        <button class="filter-btn" data-filter="vertical" aria-pressed="false">Vertical</button>
-      </div>
+    <!-- SIMPLE TEXT SUB-NAVIGATION (NO BUBBLES, NO HIGHLIGHTS) -->
+    <nav class="subcat-text-nav" aria-label="35mm Subcategories">
+      <button type="button" class="text-nav-btn" data-filter="bw">Black & White</button>
+      <span class="nav-sep">·</span>
+      <button type="button" class="text-nav-btn" data-filter="color">Color</button>
     </nav>
 
-    <div class="gallery-status-bar" id="galleryStatusBar" aria-live="polite">
-      Showing all {len(collected_imgs)} 35mm photographs
-    </div>
-
     <section class="gallery" id="filmGallery">
-      {chr(10).join("      " + img for img in collected_imgs)}
+{chr(10).join("      " + tag for _, tag in collected_imgs)}
     </section>
   </main>
 
@@ -198,87 +186,40 @@ def build_35mm_page():
 
   <script src="../Lightbox.js?v=11" defer></script>
 
-  <!-- Client-Side Gallery Subcategory Filter Script -->
+  <!-- Clean Subcategory Toggle (No bubbles, no highlights) -->
   <script>
     document.addEventListener("DOMContentLoaded", () => {{
-      const filterBtns = document.querySelectorAll("#filterPills .filter-btn");
+      const filterBtns = document.querySelectorAll(".subcat-text-nav .text-nav-btn");
       const gallery = document.getElementById("filmGallery");
+      if (!gallery) return;
       const imgs = Array.from(gallery.querySelectorAll("img"));
-      const statusBar = document.getElementById("galleryStatusBar");
 
       const applyFilter = (filterKey) => {{
-        let visibleCount = 0;
-
         imgs.forEach((img) => {{
-          const subcat = img.dataset.subcat || "";
-          const tone = img.dataset.tone || "";
-
-          let match = false;
+          const tone = img.dataset.tone || "bw";
           if (filterKey === "all") {{
-            match = true;
-          }} else if (filterKey === "bw") {{
-            match = (tone === "bw");
-          }} else if (filterKey === "color") {{
-            match = (tone === "color");
-          }} else if (filterKey === "street") {{
-            match = (subcat === "street");
-          }} else if (filterKey === "scenes") {{
-            match = (subcat === "scenes");
-          }} else if (filterKey === "vertical") {{
-            match = (subcat === "vertical");
-          }}
-
-          if (match) {{
             img.classList.remove("is-filtered-out");
-            visibleCount++;
+          }} else if (tone === filterKey) {{
+            img.classList.remove("is-filtered-out");
           }} else {{
             img.classList.add("is-filtered-out");
           }}
         }});
 
-        // Update Buttons
-        filterBtns.forEach((btn) => {{
-          const isActive = btn.dataset.filter === filterKey;
-          btn.classList.toggle("active", isActive);
-          btn.setAttribute("aria-pressed", isActive ? "true" : "false");
-        }});
-
-        // Update Status Bar
-        const labels = {{
-          all: "all " + visibleCount + " 35mm photographs",
-          bw: visibleCount + " Black & White 35mm photographs",
-          color: visibleCount + " Color 35mm photographs",
-          street: visibleCount + " 35mm street photographs",
-          scenes: visibleCount + " 35mm architectural & landscape scenes",
-          vertical: visibleCount + " vertical 35mm frames"
-        }};
-        if (statusBar) {{
-          statusBar.textContent = "Showing " + (labels[filterKey] || visibleCount + " photographs");
-        }}
-
-        // Update URL query param quietly
         const url = new URL(window.location);
-        if (filterKey === "all") {{
-          url.searchParams.delete("filter");
-        }} else {{
-          url.searchParams.set("filter", filterKey);
-        }}
+        url.searchParams.set("filter", filterKey);
         window.history.replaceState({{}}, "", url);
       }};
 
-      // Attach button clicks
       filterBtns.forEach((btn) => {{
         btn.addEventListener("click", () => {{
           applyFilter(btn.dataset.filter);
         }});
       }});
 
-      // Read initial filter from URL params if present
       const params = new URLSearchParams(window.location.search);
-      const initialFilter = params.get("filter") || "all";
-      if (initialFilter && initialFilter !== "all") {{
-        applyFilter(initialFilter);
-      }}
+      const initialFilter = params.get("filter") || "bw";
+      applyFilter(initialFilter);
     }});
   </script>
 
@@ -295,7 +236,7 @@ def build_35mm_page():
 """
     with open("pages/35mm.html", "w", encoding="utf-8") as f:
         f.write(html_content)
-    print("Successfully built pages/35mm.html!")
+    print("Successfully rebuilt pages/35mm.html!")
 
 if __name__ == "__main__":
     build_35mm_page()
