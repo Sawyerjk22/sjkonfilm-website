@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -18,7 +18,7 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&family=Playfair+Display:wght@500&display=swap"
     rel="stylesheet">
-  <link rel="stylesheet" href="../style.css?v=8">
+  <link rel="stylesheet" href="../style.css?v=11">
 
   <!-- Open Graph / Social -->
   <meta property="og:type" content="website">
@@ -88,7 +88,18 @@
     </h1>
     <nav>
       <ul class="nav-links">
-        <li><a href="../works.html" class="active">Work</a></li>
+        <li class="nav-item has-dropdown">
+          <a href="../works.html" class="active">Work</a>
+          <ul class="dropdown">
+            <li><a href="../works.html">Overview</a></li>
+            <li class="dropdown-divider"></li>
+            <li><a href="35mm.html"><strong>35mm Film</strong></a></li>
+            <li class="dropdown-sub"><a href="35mm.html?filter=bw">35mm Black & White</a></li>
+            <li class="dropdown-sub"><a href="35mm.html?filter=color">35mm Color</a></li>
+            <li class="dropdown-divider"></li>
+            <li><a href="120.html"><strong>120 Medium Format</strong></a></li>
+          </ul>
+        </li>
         <li><a href="../about.html">About</a></li>
         <li><a href="../contact.html">Contact</a></li>
       </ul>
@@ -96,6 +107,26 @@
   </header>
 
   <main>
+    <!-- CATEGORY SUB-NAVIGATION & FILTER BAR -->
+    <nav class="category-subnav" aria-label="Film Category Filters">
+      <div class="format-switch">
+        <a href="35mm.html" class="format-pill active">35mm Film</a>
+        <a href="120.html" class="format-pill">120 Medium Format</a>
+      </div>
+      <div class="filter-pills" role="navigation" aria-label="35mm Subcategories">
+        <a href="35mm.html" class="filter-btn">All 35mm</a>
+        <a href="35mm.html?filter=bw" class="filter-btn">Black & White</a>
+        <a href="color.html" class="filter-btn">Color</a>
+        <a href="street.html" class="filter-btn">Street</a>
+        <a href="scenes.html" class="filter-btn">Scenes</a>
+        <a href="vertical.html" class="filter-btn active" aria-current="page">Vertical</a>
+      </div>
+    </nav>
+
+    <div class="gallery-status-bar">
+      35mm Vertical Format Compositions
+    </div>
+
     <section class="gallery">
       <img src="../assets/images/vertical/thumbs/000094770003.webp"
         srcset="../assets/images/vertical/thumbs/000094770003-400w.webp 400w, ../assets/images/vertical/thumbs/000094770003.webp 900w"

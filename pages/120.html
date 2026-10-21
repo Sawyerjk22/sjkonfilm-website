@@ -6,14 +6,14 @@
 
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>120 Medium Format | Sawyer Knox</title>
-  <meta name="description" content="120 medium format film photography by Sawyer Knox. Captured on Rolleiflex 2.8F 6x6 square film.">
+  <title>120 Medium Format Film Photography | Sawyer Knox</title>
+  <meta name="description" content="120 medium format film photography by Sawyer Knox. Captured on 6x6 square format analog film.">
   <link rel="canonical" href="https://sjkonfilm.work/pages/120.html">
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&family=Playfair+Display:wght@500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../style.css?v=10">
+  <link rel="stylesheet" href="../style.css?v=11">
   
   <!-- Open Graph / Social -->
   <meta property="og:type" content="website">
@@ -25,7 +25,7 @@
   <!-- Twitter Cards -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="120 Medium Format Photography | Sawyer Knox">
-  <meta name="twitter:description" content="120 medium format film photography by Sawyer Knox. Captured on Rolleiflex 2.8F 6x6 square film.">
+  <meta name="twitter:description" content="120 medium format film photography by Sawyer Knox. Captured on 6x6 square format analog film.">
   <meta name="twitter:image" content="https://sjkonfilm.work/assets/images/featured/thumbs/img_3461.webp">
 
   <script type="application/ld+json">
@@ -76,7 +76,18 @@
     </h1>
     <nav>
       <ul class="nav-links">
-        <li><a href="../works.html">Work</a></li>
+        <li class="nav-item has-dropdown">
+          <a href="../works.html" class="active">Work</a>
+          <ul class="dropdown">
+            <li><a href="../works.html">Overview</a></li>
+            <li class="dropdown-divider"></li>
+            <li><a href="35mm.html"><strong>35mm Film</strong></a></li>
+            <li class="dropdown-sub"><a href="35mm.html?filter=bw">35mm Black & White</a></li>
+            <li class="dropdown-sub"><a href="35mm.html?filter=color">35mm Color</a></li>
+            <li class="dropdown-divider"></li>
+            <li><a href="120.html"><strong>120 Medium Format</strong></a></li>
+          </ul>
+        </li>
         <li><a href="../about.html">About</a></li>
         <li><a href="../contact.html">Contact</a></li>
       </ul>
@@ -84,7 +95,19 @@
   </header>
 
   <main>
-    <section class="gallery">
+    <!-- CATEGORY SUB-NAVIGATION -->
+    <nav class="category-subnav" aria-label="Film Category Switcher">
+      <div class="format-switch">
+        <a href="35mm.html" class="format-pill">35mm Film</a>
+        <a href="120.html" class="format-pill active" aria-current="page">120 Medium Format</a>
+      </div>
+    </nav>
+
+    <div class="gallery-status-bar">
+      6×6 Square Negatives • Black & White Collection
+    </div>
+
+    <section class="gallery medium-format-grid">
       <!-- Staged 120 Medium Format square scans will auto-populate here -->
     </section>
   </main>

@@ -93,36 +93,95 @@ nav {
   border-bottom: 1.5px solid #111;
 }
 
+/* Navigation Links */
+.nav-links li {
+  position: relative;
+}
+
 /* Dropdown menu */
 .dropdown {
   display: none;
   position: absolute;
-  top: 1.8rem;
-  left: 0;
-  background-color: #fff;
-  border: 1px solid #eee;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  top: calc(100% + 0.4rem);
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(249, 248, 247, 0.98);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 4px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
   list-style: none;
-  padding: 0.5rem 0;
-  min-width: 150px;
-  z-index: 10;
+  padding: 0.6rem 0;
+  min-width: 210px;
+  z-index: 100;
+  text-align: left;
+}
+
+.dropdown::before {
+  content: "";
+  position: absolute;
+  top: -8px;
+  left: 0;
+  right: 0;
+  height: 8px;
 }
 
 .dropdown li {
-  padding: 0.4rem 1rem;
+  padding: 0;
+  margin: 0;
 }
 
 .dropdown li a {
-  color: #111;
-  text-decoration: none;
+  display: block;
+  padding: 0.45rem 1.25rem;
+  color: #222;
+  font-size: 0.82rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transition: background-color 0.2s ease, color 0.2s ease, padding-left 0.2s ease;
+  border-bottom: none !important;
 }
 
 .dropdown li a:hover {
-  color: #777;
+  background-color: rgba(0, 0, 0, 0.04);
+  color: #000;
+  padding-left: 1.45rem;
 }
 
-.nav-item:hover .dropdown {
+.dropdown li.dropdown-sub a {
+  padding-left: 2rem;
+  font-size: 0.75rem;
+  color: #666;
+}
+
+.dropdown li.dropdown-sub a:hover {
+  color: #000;
+  padding-left: 2.2rem;
+}
+
+.dropdown-divider {
+  height: 1px;
+  background: rgba(0, 0, 0, 0.06);
+  margin: 0.35rem 0;
+}
+
+.nav-item:hover .dropdown,
+.nav-item:focus-within .dropdown {
   display: block;
+  animation: dropFade 0.2s ease-out;
+}
+
+@keyframes dropFade {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -4px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
 }
 
 /* === HOME PAGE GALLERY (FORCE 3 COLUMNS UNIFORM Aspect) === */
@@ -197,109 +256,275 @@ body:not(.index-page) .gallery:not(.about-gallery) img:hover {
 
 
 
-/* === IDEA E: CLEAN & EDITORIAL WORKS PAGE CARDS === */
-.works-gallery {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1.5rem;
-  max-width: 1200px;
-  margin: 2.5rem auto;
+/* === WORKS PAGE: EXHIBITION CARDS (35MM & 120 MEDIUM FORMAT) === */
+.works-intro {
+  text-align: center;
+  max-width: 680px;
+  margin: 1.5rem auto 2.5rem auto;
   padding: 0 1.5rem;
 }
 
-.work-category {
-  position: relative;
+.works-intro h2 {
+  font-family: "Playfair Display", "Cormorant Garamond", serif;
+  font-size: 2rem;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  margin-bottom: 0.5rem;
+  color: #111;
+}
+
+.works-intro p {
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 1.15rem;
+  color: #555;
+  margin: 0;
+  line-height: 1.6;
+}
+
+.works-exhibition {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 3rem;
+  max-width: 1200px;
+  margin: 0 auto 4rem auto;
+  padding: 0 2rem;
+  align-items: stretch;
+}
+
+.exhibition-card {
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  color: inherit;
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 4px;
   overflow: hidden;
-  aspect-ratio: 3 / 2;
-  background-color: #f2efe9;
-  border-radius: 2px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease, border-color 0.4s ease;
 }
 
-.work-category a {
-  display: block;
+.exhibition-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.09);
+  border-color: rgba(0, 0, 0, 0.16);
+}
+
+.exhibition-media {
+  position: relative;
   width: 100%;
-  height: 100%;
+  overflow: hidden;
+  background-color: #f2efe9;
 }
 
-.work-category img {
+/* 35mm Card Aspect Ratio */
+.exhibition-card.card-35mm .exhibition-media {
+  aspect-ratio: 3 / 2;
+}
+
+/* 120 Medium Format Square Aspect Ratio */
+.exhibition-card.card-120 .exhibition-media {
+  aspect-ratio: 1 / 1;
+}
+
+.exhibition-media img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center;
   display: block;
-  transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), filter 0.5s ease;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), filter 0.4s ease;
 }
 
-.work-category.vertical img {
-  object-position: top;
+.exhibition-card:hover .exhibition-media img {
+  transform: scale(1.03);
+  filter: brightness(0.97);
 }
 
-/* Elegant Bottom Gradient & Typography for Idea E */
-.work-category .overlay {
-  position: absolute;
-  inset: 0;
+.exhibition-caption {
+  padding: 2rem 2.2rem 2.2rem 2.2rem;
   display: flex;
-  justify-content: flex-start;
-  align-items: flex-end;
-  padding: 1.5rem;
-  color: #ffffff;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.65) 0%, rgba(0, 0, 0, 0.15) 45%, transparent 100%);
-  opacity: 0.92;
-  transition: opacity 0.3s ease, background 0.3s ease;
+  flex-direction: column;
+  flex-grow: 1;
+  background: #ffffff;
 }
 
-.work-category .overlay span {
+.format-badge {
   font-family: "Cormorant Garamond", Georgia, serif;
-  font-size: 1.65rem;
-  font-weight: 500;
+  font-size: 0.8rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #777;
+  margin-bottom: 0.4rem;
+  font-weight: 600;
+}
+
+.exhibition-title {
+  font-family: "Playfair Display", "Cormorant Garamond", serif;
+  font-size: 1.9rem;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  margin: 0 0 0.65rem 0;
+  color: #111;
+  transition: color 0.3s ease;
+}
+
+.exhibition-card:hover .exhibition-title {
+  color: #333;
+}
+
+.exhibition-desc {
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 1.08rem;
+  line-height: 1.6;
+  color: #555;
+  margin: 0 0 1.25rem 0;
+}
+
+.subcat-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1.75rem;
+}
+
+.subcat-pill {
+  font-size: 0.78rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+  padding: 0.35rem 0.75rem;
+  background: #f7f6f4;
+  border: 1px solid rgba(0, 0, 0, 0.07);
+  border-radius: 2px;
+  color: #333;
+  font-weight: 500;
 }
 
-@media (hover: hover) and (pointer: fine) {
-  .work-category:hover img {
-    transform: scale(1.03);
-    filter: brightness(0.95);
-  }
-  .work-category:hover .overlay {
-    opacity: 1;
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.75) 0%, rgba(0, 0, 0, 0.2) 50%, transparent 100%);
-  }
+.subcat-pill.in-progress {
+  color: #888;
+  border-style: dashed;
+  background: transparent;
 }
 
-@media (max-width: 768px) {
-  .works-gallery {
-    grid-template-columns: repeat(1, 1fr);
-    gap: 1.25rem;
-  }
-  .work-category .overlay span {
-    font-size: 1.4rem;
-  }
+.exhibition-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #111;
+  margin-top: auto;
+  transition: gap 0.3s ease;
 }
 
-/* 
- * PRESERVED ORIGINAL OVERLAY STYLES (Easily uncomment to revert if desired):
- *
- * .work-category .overlay {
- *   position: absolute; inset: 0; display: flex; justify-content: center; align-items: center;
- *   color: white; font-size: 1.8rem; font-family: "Playfair Display", serif; opacity: 0; background-color: rgba(0, 0, 0, 0);
- *   transition: background-color 0.3s ease, opacity 0.3s ease;
- * }
- * .work-category:hover img { filter: brightness(0.6); transform: scale(1.02); }
- * .work-category:hover .overlay { opacity: 1; background-color: rgba(0, 0, 0, 0.4); }
- */
+.exhibition-card:hover .exhibition-cta {
+  gap: 0.85rem;
+}
 
-  
-  /* Force category labels to show on small screens (reliable mobile fallback) */
+/* === CATEGORY SUB-NAVIGATION & FILTER BAR === */
+.category-subnav {
+  max-width: 1200px;
+  margin: 0.5rem auto 2.25rem auto;
+  padding: 0 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.format-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: rgba(0, 0, 0, 0.04);
+  padding: 0.3rem;
+  border-radius: 30px;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.format-pill {
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 0.45rem 1.15rem;
+  border-radius: 20px;
+  color: #555;
+  transition: all 0.25s ease;
+  border-bottom: none !important;
+}
+
+.format-pill:hover {
+  color: #000;
+}
+
+.format-pill.active {
+  background: #111;
+  color: #ffffff !important;
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.filter-pills {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.filter-btn {
+  background: transparent;
+  border: 1px solid rgba(0, 0, 0, 0.14);
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 0.82rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 0.35rem 0.9rem;
+  border-radius: 20px;
+  color: #444;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.filter-btn:hover {
+  border-color: #000;
+  color: #000;
+}
+
+.filter-btn.active {
+  background: #111;
+  border-color: #111;
+  color: #fff;
+  font-weight: 600;
+}
+
+/* Category Page Gallery Info Bar */
+.gallery-status-bar {
+  text-align: center;
+  margin: 0 auto 1.5rem auto;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 1rem;
+  letter-spacing: 0.06em;
+  color: #777;
+}
+
+/* Filtering animations */
+.gallery img.is-filtered-out {
+  display: none !important;
+}
+
 @media (max-width: 900px) {
-  .work-category .overlay {
-    opacity: 1;
-    background-color: rgba(0, 0, 0, 0.28);
+  .works-exhibition {
+    grid-template-columns: 1fr;
+    gap: 2.25rem;
+    padding: 0 1rem;
   }
-
-  .work-category .overlay span {
-    font-size: 1.2rem;
+  .exhibition-caption {
+    padding: 1.5rem;
   }
 }
 

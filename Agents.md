@@ -25,11 +25,19 @@
 
 
 
+## Site Architecture & Taxonomy Hierarchy
+- **Works Overview (`works.html`):** Two-tier museum exhibition presentation separating work by physical film format:
+  1. **35mm Film:** 3:2 landscape showcase card linking to `pages/35mm.html`, featuring gallery curatorial text and subcategory indicators (Black & White, Color, Street, Scenes).
+  2. **120 Medium Format:** 1:1 square showcase card linking to `pages/120.html`, featuring curatorial text for 6×6 square format analog film. *(Constraint: Do not specify camera brand/model like Rolleiflex in public exhibition titles/subtitles)*.
+- **35mm Collection Hub (`pages/35mm.html`):** Unified master gallery with client-side filter pills (`All 35mm`, `Black & White`, `Color`, `Street`, `Scenes`, `Vertical`) supporting direct URL parameters (`?filter=bw`, `?filter=color`, etc.) and dynamic Lightbox cycling. Individual category pages (`street.html`, `scenes.html`, `color.html`, `vertical.html`) remain active for SEO and direct bookmarking.
+- **120 Medium Format (`pages/120.html`):** Dedicated square grid for 6×6 medium format scans (Black & White currently; Color expandable).
+- **Navigation Architecture:** Site-wide header contains a sleek dropdown menu under `Work` (Overview, 35mm Film, 35mm Black & White, 35mm Color, 120 Medium Format). All gallery pages feature a synchronized `.category-subnav` format pill switcher for instant 1-click jumps between 35mm and 120 Medium Format.
+
 ## Image Pipeline & Maintenance Workflow
 When publishing new photographs:
-1. **Source Assets:** Place full-size WebP/JPEG images into `/assets/images/[category]/full/`.
-2. **Standardize & Resize:** Run ImageMagick powershell scripts in `/scripts/` (`standardize-webp.ps1` and `resize-imagemagick.ps1`) to convert to WebP and generate `900w` + `400w` thumbnails.
-3. **HTML Generation & Optimization:** Run `generate-code.ps1` to produce HTML image tags, paste tags into the corresponding `pages/[category].html` gallery, and run `update-gallery-html.ps1` to enforce lazy loading and dimensions.
+1. **Drop into Staging:** Place exported full-size scans into their respective folder under `/Staging/` (e.g., `Staging/35mm/color/`, `Staging/35mm/street/`, `Staging/35mm/scenes/`, `Staging/35mm/vertical/`, or `Staging/120/`).
+2. **Automated Staging Processing:** Run `python scripts/process-staging.py`. The script handles SEO slug renaming, metadata injection, WebP/AVIF generation (`full/` at max 1800px, `thumbs/` at 900w and 400w), appends the responsive `<img>` node directly to the target `pages/[category].html` gallery and syncs with `pages/35mm.html`, cleans up by deleting the staging file, and updates `rss.xml` for Pinterest syndication.
+3. **Commit & Deploy:** Inspect the updated HTML, then commit and push to GitHub (`git push origin main`) for live deployment on GitHub Pages.
 
 ## Active Digital Entity & Social Network Matrix (Completed & Interlinked)
 - **Primary Domain:** `https://sjkonfilm.work` (Indexed, Schema JSON-LD `sameAs` array fully configured, `rel="me"` IndieWeb tags added).

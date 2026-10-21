@@ -6,7 +6,6 @@ import glob
 import subprocess
 import argparse
 from pathlib import Path
-from datetime import datetime
 
 # Category Mapping to target HTML files and asset paths
 CATEGORY_MAP = {
@@ -47,7 +46,7 @@ CATEGORY_MAP = {
         "html_file": os.path.join("pages", "120.html"),
         "asset_dir": os.path.join("assets", "images", "120"),
         "html_prefix": "../assets",
-        "default_alt": "Rolleiflex 120 Medium Format Film Photography - Sawyer Knox",
+        "default_alt": "120 Medium Format Film Photography - Sawyer Knox",
         "default_dims": (900, 900)
     }
 }
@@ -154,9 +153,10 @@ def process_image(src_path, cat, cat_info, dry_run=False):
             content = f.read()
 
         if slug_fname not in content:
-            gallery_sec = '<section class="gallery">'
-            if gallery_sec in content and not dry_run:
-                updated_content = content.replace(gallery_sec, f"{gallery_sec}\n{html_tag}")
+            gallery_match = re.search(r'(<section class="gallery[^"]*">)', content)
+            if gallery_match and not dry_run:
+                target_open = gallery_match.group(1)
+                updated_content = content.replace(target_open, f"{target_open}\n{html_tag}")
                 with open(html_file, "w", encoding="utf-8") as f:
                     f.write(updated_content)
                 print(f"  [HTML Updated] Appended image node to {html_file}")
@@ -165,16 +165,36 @@ def process_image(src_path, cat, cat_info, dry_run=False):
         else:
             print(f"  [Skipped] Image {slug_fname} already present in {html_file}")
 
-    # Move raw source to Staging/processed/
-    processed_dir = os.path.join("Staging", "processed")
-    os.makedirs(processed_dir, exist_ok=True)
+    # If this is a 35mm category, also append to pages/35mm.html
+    if cat in ("color", "street", "scenes", "vertical"):
+        hub_35mm = os.path.join("pages", "35mm.html")
+        if os.path.exists(hub_35mm) and not dry_run:
+            with open(hub_35mm, "r", encoding="utf-8") as f:
+                hub_content = f.read()
+            if slug_fname not in hub_content:
+                tone = "color" if cat == "color" else "bw"
+                hub_tag = (
+                    f'      <img data-subcat="{cat}" data-tone="{tone}" src="{img_src}" srcset="{img_srcset}" '
+                    f'sizes="(max-width: 768px) 100vw, 33vw" data-full="{img_full}" alt="{alt_text}" '
+                    f'width="{w_out}" height="{h_out}" loading="lazy" decoding="async">'
+                )
+                hub_gallery_match = re.search(r'(<section class="gallery[^"]*"[^>]*>)', hub_content)
+                if hub_gallery_match:
+                    target_hub_open = hub_gallery_match.group(1)
+                    updated_hub = hub_content.replace(target_hub_open, f"{target_hub_open}\n{hub_tag}")
+                    with open(hub_35mm, "w", encoding="utf-8") as f:
+                        f.write(updated_hub)
+                    print(f"  [Hub Updated] Appended image node to {hub_35mm}")
+
+    # Delete staging file after processing
     if not dry_run:
-        dest_proc = os.path.join(processed_dir, fname)
-        if os.path.exists(dest_proc):
-            timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-            dest_proc = os.path.join(processed_dir, f"{base_name}_{timestamp}{ext}")
-        os.rename(src_path, dest_proc)
-        print(f"  [Staging Cleaned] Moved raw file to {dest_proc}")
+        try:
+            os.remove(src_path)
+            print(f"  [Staging Cleaned] Deleted staging file: {src_path}")
+        except OSError as e:
+            print(f"  [Warning] Could not delete staging file {src_path}: {e}")
+    else:
+        print(f"  [Dry Run] Would delete staging file: {src_path}")
 
 def main():
     parser = argparse.ArgumentParser(description="Process staged gallery images.")

@@ -19,8 +19,6 @@ jobs:
 
       - name: Send Search Engine Pings
         run: python scripts/ping-search-engines.py
-        env:
-          INDEXNOW_KEY: ${{ secrets.INDEXNOW_KEY }}
 
       - name: Send Monthly Email Digest
         run: python scripts/send-monthly-digest.py

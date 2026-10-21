@@ -13,8 +13,10 @@
   // Do not activate Lightbox on landing page (index-page)
   if (document.body.classList.contains("index-page")) return;
 
-  const imgs = Array.from(document.querySelectorAll(".gallery img[data-full]"));
-  if (!imgs.length) return;
+  const allImgs = Array.from(document.querySelectorAll(".gallery img[data-full]"));
+  if (!allImgs.length) return;
+
+  let activeImgs = allImgs;
 
   // Build overlay once
   const overlay = document.createElement("div");
@@ -45,8 +47,9 @@
   };
 
   const show = (i) => {
-    index = (i + imgs.length) % imgs.length;
-    const img = imgs[index];
+    if (!activeImgs.length) return;
+    index = (i + activeImgs.length) % activeImgs.length;
+    const img = activeImgs[index];
 
     const targetSrc = img.dataset.full || img.currentSrc || img.src;
     
@@ -71,8 +74,8 @@
     caption.textContent = cleanCaption;
 
     // Silently preload NEXT image
-    const nextIndex = (index + 1) % imgs.length;
-    const nextImg = imgs[nextIndex];
+    const nextIndex = (index + 1) % activeImgs.length;
+    const nextImg = activeImgs[nextIndex];
     const preload = new Image();
     preload.src = nextImg.dataset.full || nextImg.currentSrc || nextImg.src;
   };
@@ -93,9 +96,14 @@
   const next = () => show(index + 1);
   const prev = () => show(index - 1);
 
-  imgs.forEach((img, i) => {
+  allImgs.forEach((img) => {
     img.style.cursor = "zoom-in";
-    img.addEventListener("click", () => open(i));
+    img.addEventListener("click", () => {
+      const visible = allImgs.filter(el => !el.classList.contains("is-filtered-out") && el.offsetParent !== null);
+      activeImgs = visible.length ? visible : allImgs;
+      const clickedIdx = activeImgs.indexOf(img);
+      open(clickedIdx >= 0 ? clickedIdx : 0);
+    });
   });
 
   btnClose.addEventListener("click", close);

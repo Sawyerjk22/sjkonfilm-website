@@ -22,6 +22,7 @@ SITEMAP_URLS = [
     f"{SITE_URL}/pages/scenes.html",
     f"{SITE_URL}/pages/color.html",
     f"{SITE_URL}/pages/vertical.html",
+    f"{SITE_URL}/pages/35mm.html",
     f"{SITE_URL}/pages/120.html"
 ]
 

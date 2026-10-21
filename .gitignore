@@ -1,5 +1,7 @@
 # Raw image staging drop folders
 Staging/*
+Staging/*/
+Staging/processed/
 !Staging/.gitkeep
 !Staging/**/.gitkeep
 
