@@ -238,21 +238,21 @@ body:not(.index-page) .gallery:not(.about-gallery) img:hover {
 
 
 
-/* === WORKS PAGE: EXHIBITION CARDS (35MM & 120 MEDIUM FORMAT) === */
+/* === WORKS PAGE: EXHIBITION CARDS (35MM & 120) === */
 .works-intro {
   text-align: center;
-  margin: 2rem auto 2.5rem auto;
+  margin: 1.5rem auto 2.25rem auto;
   padding: 0 1.5rem;
 }
 
 .works-intro h2 {
-  font-family: "Playfair Display", "Cormorant Garamond", serif;
-  font-size: 2.2rem;
-  font-weight: 400;
-  letter-spacing: 0.04em;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 1.1rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
   margin: 0;
-  color: #111;
-  text-transform: capitalize;
+  color: #444;
+  text-transform: uppercase;
 }
 
 .works-exhibition {
@@ -262,7 +262,7 @@ body:not(.index-page) .gallery:not(.about-gallery) img:hover {
   max-width: 1200px;
   margin: 0 auto 4rem auto;
   padding: 0 2rem;
-  align-items: stretch;
+  align-items: start;
 }
 
 .exhibition-card {
@@ -272,16 +272,16 @@ body:not(.index-page) .gallery:not(.about-gallery) img:hover {
   color: inherit;
   background: #ffffff;
   border: 1px solid rgba(0, 0, 0, 0.08);
-  border-radius: 4px;
+  border-radius: 2px;
   overflow: hidden;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
   transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease, border-color 0.4s ease;
 }
 
 .exhibition-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.09);
-  border-color: rgba(0, 0, 0, 0.16);
+  transform: translateY(-4px);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.07);
+  border-color: rgba(0, 0, 0, 0.14);
 }
 
 .exhibition-media {
@@ -310,88 +310,53 @@ body:not(.index-page) .gallery:not(.about-gallery) img:hover {
 }
 
 .exhibition-card:hover .exhibition-media img {
-  transform: scale(1.03);
+  transform: scale(1.025);
   filter: brightness(0.97);
 }
 
+/* Gallery Placard Style Typography */
 .exhibition-caption {
-  padding: 2rem 2.2rem 2.2rem 2.2rem;
+  padding: 1.5rem 1.75rem;
   display: flex;
   flex-direction: column;
-  flex-grow: 1;
+  align-items: center;
+  text-align: center;
   background: #ffffff;
-}
-
-.format-badge {
-  font-family: "Cormorant Garamond", Georgia, serif;
-  font-size: 0.8rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: #777;
-  margin-bottom: 0.4rem;
-  font-weight: 600;
 }
 
 .exhibition-title {
   font-family: "Playfair Display", "Cormorant Garamond", serif;
-  font-size: 1.9rem;
+  font-size: 1.5rem;
   font-weight: 400;
-  letter-spacing: 0.02em;
-  margin: 0 0 0.65rem 0;
+  letter-spacing: 0.04em;
+  margin: 0 0 0.35rem 0;
   color: #111;
   transition: color 0.3s ease;
 }
 
 .exhibition-card:hover .exhibition-title {
-  color: #333;
-}
-
-.exhibition-desc {
-  font-family: "Cormorant Garamond", Georgia, serif;
-  font-size: 1.08rem;
-  line-height: 1.6;
   color: #555;
-  margin: 0 0 1.25rem 0;
 }
 
-/* Simple text subcategories on exhibition cards (NO bubbles) */
 .exhibition-subtext {
   font-family: "Cormorant Garamond", Georgia, serif;
-  font-size: 0.95rem;
-  letter-spacing: 0.16em;
+  font-size: 0.78rem;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: #666;
-  margin: 0 0 1.5rem 0;
+  color: #777;
+  margin: 0;
 }
 
-.exhibition-cta {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-family: "Cormorant Garamond", Georgia, serif;
-  font-size: 0.95rem;
-  font-weight: 600;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: #111;
-  margin-top: auto;
-  transition: gap 0.3s ease;
-}
-
-.exhibition-card:hover .exhibition-cta {
-  gap: 0.85rem;
-}
-
-/* === MINIMALIST TEXT SUB-NAVIGATION (NO BUBBLES, NO HIGHLIGHTS) === */
+/* === MINIMALIST TEXT SUB-NAVIGATION (SMALLER THAN MAIN NAV HEADERS) === */
 .subcat-text-nav {
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 1.25rem;
-  margin: 1.25rem auto 2.25rem auto;
+  margin: 1rem auto 2rem auto;
   font-family: "Cormorant Garamond", Georgia, serif;
-  font-size: 1.12rem;
-  letter-spacing: 0.18em;
+  font-size: 0.78rem;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
 }
 
@@ -405,7 +370,8 @@ body:not(.index-page) .gallery:not(.about-gallery) img:hover {
   font-size: inherit;
   letter-spacing: inherit;
   text-transform: inherit;
-  color: #555;
+  color: #666;
+  font-weight: 500;
   cursor: pointer;
   text-decoration: none;
   transition: color 0.25s ease;
@@ -418,9 +384,9 @@ body:not(.index-page) .gallery:not(.about-gallery) img:hover {
 }
 
 .subcat-text-nav .nav-sep {
-  color: #888;
+  color: #aaa;
   user-select: none;
-  font-size: 0.9rem;
+  font-size: 0.75rem;
 }
 
 /* Filtering animations */
@@ -435,7 +401,7 @@ body:not(.index-page) .gallery:not(.about-gallery) img:hover {
     padding: 0 1rem;
   }
   .exhibition-caption {
-    padding: 1.5rem;
+    padding: 1.25rem;
   }
 }
 

@@ -29,10 +29,10 @@
 - **Categorization Model:** Exactly two top-level film formats: **35mm** and **120**.
   - **35mm:** Subdivided strictly into **Color** and **Black & White**. All previous street, scenes, and vertical categories have been unified directly into their respective B&W and Color collections (no separate street, scenes, or vertical categories).
   - **120:** Dedicated to 6×6 square medium format negatives (currently all Black & White; no color 120 exists yet).
-- **Works Page (`works.html`):** Features "Selected Works" with two clean exhibition display cards:
-  1. **35mm Film:** 3:2 landscape display image, curatorial description, simple text subcategories (`Black & White · Color`), and direct collection link.
-  2. **120 Medium Format:** 1:1 square display image, curatorial description, simple text (`Black & White`), and direct collection link. *(Strict rule: Do NOT specify camera brand/model like Rolleiflex in public card titles/subtitles)*.
-- **Minimalist Sub-Navigation:** No rounded bubble pills or active highlighting buttons anywhere. Under 35mm, subcategories are presented as quiet, elegant text links: `Black & White · Color`. No format switchers between 35 and 120 on gallery pages, and no status counts ("Showing X photographs").
+- **Works Page (`works.html`):** Features "Selected Works" with two clean, minimalist gallery display cards:
+  1. **35mm:** 3:2 landscape display image, clean title `35mm`, and straightforward format subtitle (`Black & White · Color`). No cheesy marketing copy, format badges, or CTA arrows.
+  2. **120:** 1:1 square display image, clean title `120`, and straightforward format subtitle (`Black & White`). *(Strict rule: Do NOT specify camera brand/model like Rolleiflex in public card titles/subtitles)*.
+- **Minimalist Sub-Navigation:** No rounded bubble pills or active highlighting buttons anywhere. Under 35mm, subcategories are presented as quiet, understated text links (`Black & White · Color`) styled noticeably smaller than the main header navigation (`Work`, `About`, `Contact`). No format switchers between 35 and 120 on gallery pages, and no status counts ("Showing X photographs").
 - **Header Navigation:** Dropdown on hover over `Work` consists strictly of two direct items: `35mm` and `120`.
 
 ## Image Pipeline & Maintenance Workflow
