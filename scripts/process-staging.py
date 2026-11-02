@@ -143,14 +143,21 @@ def process_image(src_path, cat, cat_info, dry_run=False):
 
 
     prefix = cat_info["html_prefix"]
-    img_src = f"{prefix}/images/{cat}/thumbs/{slug_fname}"
-    img_srcset = f"{prefix}/images/{cat}/thumbs/{slug_base}-400w.webp 400w, {prefix}/images/{cat}/thumbs/{slug_fname} 900w"
-    img_full = f"{prefix}/images/{cat}/full/{slug_fname}"
+    asset_sub = os.path.basename(cat_info["asset_dir"])
+    img_src = f"{prefix}/images/{asset_sub}/thumbs/{slug_fname}"
+    img_srcset = f"{prefix}/images/{asset_sub}/thumbs/{slug_base}-400w.webp 400w, {prefix}/images/{asset_sub}/thumbs/{slug_fname} 900w"
+    img_full = f"{prefix}/images/{asset_sub}/full/{slug_fname}"
 
     alt_text = f"{cat_info['default_alt']} - {base_name.replace('-', ' ').title()}"
 
+    tone_attr = ""
+    if cat in ("bw", "street", "scenes", "vertical"):
+        tone_attr = 'data-tone="bw" '
+    elif cat == "color":
+        tone_attr = 'data-tone="color" '
+
     html_tag = (
-        f'      <img src="{img_src}" srcset="{img_srcset}" sizes="(max-width: 768px) 100vw, 33vw" '
+        f'      <img {tone_attr}src="{img_src}" srcset="{img_srcset}" sizes="(max-width: 768px) 100vw, 33vw" '
         f'data-full="{img_full}" alt="{alt_text}" width="{w_out}" height="{h_out}" loading="lazy" decoding="async">'
     )
 
@@ -161,7 +168,7 @@ def process_image(src_path, cat, cat_info, dry_run=False):
             content = f.read()
 
         if slug_fname not in content:
-            gallery_match = re.search(r'(<section class="gallery[^"]*">)', content)
+            gallery_match = re.search(r'(<section class="gallery[^"]*"[^>]*>)', content)
             if gallery_match and not dry_run:
                 target_open = gallery_match.group(1)
                 updated_content = content.replace(target_open, f"{target_open}\n{html_tag}")

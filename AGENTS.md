@@ -106,9 +106,9 @@ When working on macOS:
    The repository contains legacy `.ps1` scripts from Windows development; on macOS, always use the equivalent Python scripts (`process-staging.py`, `generate-rss.py`, etc.).
 
 ## Where We Left Off (Current Project Milestone)
-- **MacBook Setup & First 120 Upload:** Cloned repository to `/Users/sawyerknox/Photography/03_Website_sjkonfilm`, installed Homebrew and ImageMagick (`magick`), updated `scripts/process-staging.py` square detection for high-res 6×6 scans and Python 3.9 f-string compatibility in `generate-rss.py` / `export-pinterest-csv.py`, and processed 15 new 120 medium format photographs into `pages/120.html` and `rss.xml`.
+- **MacBook Setup & First 120 + 35mm Batch:** Cloned repository to `/Users/sawyerknox/Photography/03_Website_sjkonfilm`, installed Homebrew, ImageMagick (`magick`), and GitHub CLI (`gh`), fixed `scripts/process-staging.py` (square detection for high-res 6×6 scans + `bw` category asset paths and `<section id="filmGallery">` regex), fixed Python 3.9 f-string compatibility in `generate-rss.py` / `export-pinterest-csv.py`, added IndexNow verification key file (`sjkonfilm-indexnow-key-2026.txt`), added the floating Instagram `.glass-badge` to `pages/120.html` plus RSS auto-discovery `<link>` tags across gallery pages, and published 15 new 120 medium format photographs (`pages/120.html`) and 8 new 35mm B&W photographs (`pages/35mm.html`).
 - **Recent Completion:** Completed "Rehaul 4" which finalized the site simplification. Navigation dropdown now cleanly features `35mm` and `120`. `works.html` displays the two minimalist format cards. `pages/35mm.html` serves as the unified gallery with instant B&W/Color client-side filtering.
-- **Pinterest Backfill:** 315+ photos backfilled across CSV parts 1–4. `rss.xml` auto-pinning enabled (now 290 feed items).
+- **Pinterest Backfill:** 315+ photos backfilled across CSV parts 1–4. `rss.xml` auto-pinning enabled (now 298 feed items).
 - **Staging Pipeline:** Staging directory tree preserved with `.gitkeep` files across all categories.
 - **Active / Open Working Documents:**
   - `pages/35mm.html` (primary 35mm collection)
