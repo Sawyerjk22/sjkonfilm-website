@@ -80,24 +80,26 @@ def reorder_gallery_html(filepath, metrics):
     with open(filepath, "r", encoding="utf-8") as f:
         content = f.read()
 
-    sec_match = re.search(r'(<section class="gallery">)(.*?)(</section>)', content, re.DOTALL)
+    sec_match = re.search(r'(<section class="gallery[^"]*"[^>]*>)(.*?)(</section>)', content, re.DOTALL)
     if not sec_match:
         return
 
     opening_tag, inner_html, closing_tag = sec_match.groups()
     
     # Extract all <img> tags
-    img_tags = re.findall(r'<img\s+[^>]+>', inner_html)
+    img_tags = re.findall(r'<img\s+[^>]+>', inner_html, flags=re.DOTALL)
     if not img_tags:
         return
 
-    # Sort img_tags based on metrics score (higher score first)
+    # Sort img_tags keeping all horizontal images first and all vertical images at the bottom
     def sort_key(img_tag):
         img_id = extract_image_id(img_tag)
-        return metrics.get(img_id, 0)
+        w_m = re.search(r'width="(\d+)"', img_tag)
+        h_m = re.search(r'height="(\d+)"', img_tag)
+        is_vert = 1 if (w_m and h_m and int(h_m.group(1)) > int(w_m.group(1))) else 0
+        return (is_vert, -metrics.get(img_id, 0))
 
-    # Sort descending by score, maintaining relative order for ties
-    sorted_img_tags = sorted(img_tags, key=sort_key, reverse=True)
+    sorted_img_tags = sorted(img_tags, key=sort_key)
 
     # Reconstruct inner gallery HTML
     new_inner_html = "\n      " + "\n      ".join(sorted_img_tags) + "\n    "

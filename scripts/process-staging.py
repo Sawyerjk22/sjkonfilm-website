@@ -204,20 +204,35 @@ def process_image(src_path, cat, cat_info, date_override=None, dry_run=False):
         f'data-full="{img_full}" alt="{alt_text}" width="{w_out}" height="{h_out}" loading="lazy" decoding="async">'
     )
 
-    # Insert into target HTML if exists
+    # Insert into target HTML if exists (horizontal at top, vertical in bottom vertical section)
+    def insert_gallery_node(html_content, node_tag, vertical_flag):
+        if vertical_flag:
+            first_vert = re.search(r'(\n[ \t]*<img\b[^>]*\bwidth="597"\s+height="900"[^>]*>)', html_content)
+            if first_vert:
+                target_vert = first_vert.group(1)
+                return html_content.replace(target_vert, f"\n{node_tag}{target_vert}", 1)
+            sec_close = re.search(r'(\n[ \t]*</section>)', html_content)
+            if sec_close:
+                target_close = sec_close.group(1)
+                return html_content.replace(target_close, f"\n{node_tag}{target_close}", 1)
+        gallery_match = re.search(r'(<section class="gallery[^"]*"[^>]*>)', html_content)
+        if gallery_match:
+            target_open = gallery_match.group(1)
+            return html_content.replace(target_open, f"{target_open}\n{node_tag}", 1)
+        return html_content
+
     html_file = cat_info["html_file"]
     if os.path.exists(html_file):
         with open(html_file, "r", encoding="utf-8") as f:
             content = f.read()
 
         if slug_fname not in content:
-            gallery_match = re.search(r'(<section class="gallery[^"]*"[^>]*>)', content)
-            if gallery_match and not dry_run:
-                target_open = gallery_match.group(1)
-                updated_content = content.replace(target_open, f"{target_open}\n{html_tag}")
+            if not dry_run:
+                updated_content = insert_gallery_node(content, html_tag, is_vertical and cat != "120")
                 with open(html_file, "w", encoding="utf-8") as f:
                     f.write(updated_content)
-                print(f"  [HTML Updated] Appended image node to {html_file}")
+                pos_note = "vertical bottom section" if (is_vertical and cat != "120") else "horizontal top section"
+                print(f"  [HTML Updated] Appended image node to {html_file} ({pos_note})")
             else:
                 print(f"  [Generated Tag] {html_tag}")
         else:
@@ -236,13 +251,10 @@ def process_image(src_path, cat, cat_info, date_override=None, dry_run=False):
                     f'sizes="(max-width: 768px) 100vw, 33vw" data-full="{img_full}" alt="{alt_text}" '
                     f'width="{w_out}" height="{h_out}" loading="lazy" decoding="async">'
                 )
-                hub_gallery_match = re.search(r'(<section class="gallery[^"]*"[^>]*>)', hub_content)
-                if hub_gallery_match:
-                    target_hub_open = hub_gallery_match.group(1)
-                    updated_hub = hub_content.replace(target_hub_open, f"{target_hub_open}\n{hub_tag}")
-                    with open(hub_35mm, "w", encoding="utf-8") as f:
-                        f.write(updated_hub)
-                    print(f"  [Hub Updated] Appended image node to {hub_35mm}")
+                updated_hub = insert_gallery_node(hub_content, hub_tag, is_vertical)
+                with open(hub_35mm, "w", encoding="utf-8") as f:
+                    f.write(updated_hub)
+                print(f"  [Hub Updated] Appended image node to {hub_35mm}")
 
     # Delete staging file after processing
     if not dry_run:
