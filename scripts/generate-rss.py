@@ -19,10 +19,11 @@ def extract_gallery_items():
     items = []
     seen = set()
 
-    pages = glob.glob("pages/*.html") + ["index.html"]
+    pages = sorted(glob.glob("pages/*.html")) + ["index.html"]
     for page_path in pages:
         cat = os.path.splitext(os.path.basename(page_path))[0]
-        page_url = f"{SITE_URL}/{page_path.replace('\\', '/')}"
+        normalized_page = page_path.replace("\\", "/")
+        page_url = f"{SITE_URL}/{normalized_page}"
 
         with open(page_path, "r", encoding="utf-8") as f:
             content = f.read()

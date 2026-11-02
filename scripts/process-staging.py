@@ -105,7 +105,7 @@ def process_image(src_path, cat, cat_info, dry_run=False):
     # Get input dimensions
     orig_w, orig_h = get_image_info(src_path)
     is_vertical = orig_h > orig_w
-    is_square = abs(orig_w - orig_h) < 50
+    is_square = (cat == "120") or (abs(orig_w - orig_h) < 50) or (abs(orig_w - orig_h) / max(orig_w, orig_h, 1) < 0.08)
 
     if is_square:
         w_out, h_out = 900, 900

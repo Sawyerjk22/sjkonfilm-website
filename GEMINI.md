@@ -77,18 +77,17 @@ When publishing new photographs:
 
 ## MacBook / macOS Environment & Setup Instructions
 When working on macOS:
-1. **Repository Location:** Clone the repository to the desired local folder:
+1. **Repository Location:** The repository is permanently located at `/Users/sawyerknox/Photography/03_Website_sjkonfilm`:
    ```bash
-   git clone https://github.com/Sawyerjk22/sjkonfilm-website.git
-   cd sjkonfilm-website
+   cd /Users/sawyerknox/Photography/03_Website_sjkonfilm
    ```
 2. **Homebrew & ImageMagick (Required for Staging Pipeline):**
-   The staging script `process-staging.py` calls `magick` to resize and compress photos. Install ImageMagick via Homebrew:
+   The staging script `process-staging.py` calls `magick` to resize and compress photos. Installed at `/opt/homebrew/bin/magick` via Homebrew:
    ```bash
    brew install imagemagick
    ```
 3. **Python 3:**
-   macOS includes Python 3 by default. All Python scripts use the standard library (`os`, `sys`, `re`, `glob`, `subprocess`, `urllib`, `smtplib`, `xml`). No virtual environment is strictly required. Verify with:
+   macOS includes Python 3 by default (`python3`). All Python scripts use the standard library (`os`, `sys`, `re`, `glob`, `subprocess`, `urllib`, `smtplib`, `xml`) and are compatible with macOS Python 3.9+. Verify with:
    ```bash
    python3 --version
    ```
@@ -109,16 +108,16 @@ When working on macOS:
    The repository contains legacy `.ps1` scripts from Windows development; on macOS, always use the equivalent Python scripts (`process-staging.py`, `generate-rss.py`, etc.).
 
 ## Where We Left Off (Current Project Milestone)
+- **MacBook Setup & First 120 Upload:** Cloned repository to `/Users/sawyerknox/Photography/03_Website_sjkonfilm`, installed Homebrew and ImageMagick (`magick`), updated `scripts/process-staging.py` square detection for high-res 6×6 scans and Python 3.9 f-string compatibility in `generate-rss.py` / `export-pinterest-csv.py`, and processed 15 new 120 medium format photographs into `pages/120.html` and `rss.xml`.
 - **Recent Completion:** Completed "Rehaul 4" which finalized the site simplification. Navigation dropdown now cleanly features `35mm` and `120`. `works.html` displays the two minimalist format cards. `pages/35mm.html` serves as the unified gallery with instant B&W/Color client-side filtering.
-- **Pinterest Backfill:** 315+ photos backfilled across CSV parts 1–4. `rss.xml` auto-pinning enabled.
+- **Pinterest Backfill:** 315+ photos backfilled across CSV parts 1–4. `rss.xml` auto-pinning enabled (now 290 feed items).
 - **Staging Pipeline:** Staging directory tree preserved with `.gitkeep` files across all categories.
 - **Active / Open Working Documents:**
   - `pages/35mm.html` (primary 35mm collection)
+  - `pages/120.html` (6×6 medium format collection, now populated with 15 scans)
   - `pages/color.html` & `pages/street.html` (legacy subpages maintained for backwards compatibility)
   - `UNSPLASH_PINTEREST_FUNNEL.md` (active inbound strategy)
   - `scripts/syndicate-posts.py` (syndication hub)
 - **Immediate Next Steps on MacBook:**
-  1. Pull repository from GitHub on MacBook.
-  2. Open directory in Antigravity.
-  3. Ensure `brew install imagemagick` is run.
-  4. Continue adding new film rolls by dropping scans into `Staging/35mm/bw/`, `Staging/35mm/color/`, or `Staging/120/` and running `python3 scripts/process-staging.py`.
+  1. Continue adding new 35mm film rolls by dropping scans into `Staging/35mm/bw/` or `Staging/35mm/color/` (or `Staging/120/`) and running `python3 scripts/process-staging.py`.
+  2. Commit and push processed updates (`git push origin main`) to deploy live on GitHub Pages.

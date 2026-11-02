@@ -24,14 +24,15 @@ def export_pinterest_csv():
     items = []
     seen = set()
 
-    pages = glob.glob("pages/*.html") + ["index.html"]
+    pages = sorted(glob.glob("pages/*.html")) + ["index.html"]
 
     title_counts = {}
 
     for page_path in pages:
         cat = os.path.splitext(os.path.basename(page_path))[0]
         board_name = BOARD_MAP.get(cat, "Film Photography")
-        dest_link = f"{SITE_URL}/{page_path.replace('\\', '/')}"
+        normalized_page = page_path.replace("\\", "/")
+        dest_link = f"{SITE_URL}/{normalized_page}"
 
         with open(page_path, "r", encoding="utf-8") as f:
             content = f.read()
