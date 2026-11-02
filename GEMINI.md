@@ -1,6 +1,4 @@
-# GEMINI.md - Antigravity Workspace Context & Directives
-
-> This file provides workspace context, identity constraints, architectural rules, and project history for Google Antigravity. It is maintained in exact sync with `AGENTS.md`.
+# AGENTS.md
 
 ## Project & Persona Context
 - **Identity:** Sawyer Knox, GPS Analyst at Deloitte and film photographer based in Portland, Oregon.
@@ -54,7 +52,8 @@ When publishing new photographs:
 
 ## Automation & Scripting Ecosystem
 - **`scripts/publish.py` ( & `git push` / `publish` Shell Trigger):** Master one-step automation. Simply drop scans into `Staging/` and run `git push` (or `publish` / `python3 scripts/publish.py`). Automatically executes `process-staging.py`, updates `rss.xml`, `sitemap.xml`, and `pinterest_pins_*.csv`, commits all generated assets and HTML, pushes to `origin main`, and pings IndexNow.
-- **`scripts/process-staging.py`:** Core asset pipeline using ImageMagick (`magick`) to resize, compress, inject IPTC/EXIF metadata, generate clean factual Season + Year captions (e.g. `Late Summer 2026 - 35mm Film Photography`—no locations or manual renaming required), save metadata-stamped high-res `.jpg` copies + `captions.txt` into `Staging/processed/unsplash-ready/` for Unsplash/Instagram, and insert HTML tags.
+- **`scripts/curate.py` ( & `curate` Shell Trigger):** Local visual portfolio curation web UI (`http://localhost:8080/curate`). Allows Sawyer to visually browse all photos by category/orientation (`35mm B&W Horizontal`, `35mm B&W Vertical`, `35mm Color Horizontal`, `35mm Color Vertical`, `120 Medium Format`), click any photos to mark for removal, automatically strip their HTML nodes across `pages/35mm.html`, `pages/120.html`, and legacy subpages, safely archive removed `.webp`/`.avif` files into `Staging/processed/archived/`, regenerate `rss.xml`/`sitemap.xml`/Pinterest CSVs, and push live to GitHub with one button click.
+- **`scripts/process-staging.py`:** Core asset pipeline using ImageMagick (`magick`) to resize, compress, inject IPTC/EXIF metadata, generate clean factual Season + Year captions (e.g. `Late Summer 2026 - 35mm Film Photography`—no locations or manual renaming required), save metadata-stamped high-res `.jpg` copies + `captions.txt` into `Staging/processed/unsplash-ready/` for Unsplash/Instagram, and insert HTML tags (automatically placing 35mm horizontal photos at the top and vertical photos at the bottom of `pages/35mm.html`).
 - **`scripts/generate-rss.py`:** Parses gallery HTML, builds `rss.xml` with deep-linked Lightbox URLs (`#photo-slug`) and Media RSS tags for Pinterest auto-pinning, and regenerates `sitemap.xml` with full Google Image Sitemap (`<image:image>`) tags across all 333 gallery image nodes.
 - **`scripts/export-pinterest-csv.py`:** Exports gallery images with deep-linked `#photo-slug` destination URLs into Pinterest-compliant bulk CSV upload files (`pinterest_pins_part1.csv` through `part3.csv`).
 - **`scripts/generate-og-cards.py`:** Generates 1200×630 Open Graph preview cards (`og-main.png`, `og-120.png`, `og-street.png`, etc.).
