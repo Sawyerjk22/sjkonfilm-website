@@ -730,4 +730,27 @@ body.lightbox-open .glass-badge {
   border-radius: 2px;
 }
 
-
+
+/* === LIGHTBOX META & PRINT INQUIRY LINKS === */
+.lightbox__meta-links {
+  margin-top: 0.25rem;
+  font-style: normal;
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.lightbox__meta-links a {
+  color: rgba(255, 255, 255, 0.65);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.lightbox__meta-links a:hover {
+  color: #ffffff;
+}
+
+.lightbox__sep {
+  margin: 0 0.4rem;
+  color: rgba(255, 255, 255, 0.35);
+}

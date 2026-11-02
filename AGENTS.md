@@ -51,13 +51,16 @@ When publishing new photographs:
 3. **Commit & Deploy:** Inspect the updated HTML, then commit and push to GitHub (`git push origin main`) for live deployment on GitHub Pages.
 
 ## Automation & Scripting Ecosystem
-- **`scripts/process-staging.py`:** Core asset pipeline using ImageMagick (`magick`) to resize, compress, inject IPTC/EXIF metadata, and insert HTML tags.
-- **`scripts/generate-rss.py`:** Parses gallery HTML and builds standard `rss.xml` with Media RSS tags for RSS readers and Pinterest auto-pinning.
-- **`scripts/export-pinterest-csv.py`:** Exports existing gallery images into Pinterest-compliant bulk CSV upload files (`pinterest_pins_part1.csv` through `part4.csv`, 100 rows each).
+- **`scripts/publish.py` ( & `git push` / `publish` Shell Trigger):** Master one-step automation. Simply drop scans into `Staging/` and run `git push` (or `publish` / `python3 scripts/publish.py`). Automatically executes `process-staging.py`, updates `rss.xml`, `sitemap.xml`, and `pinterest_pins_*.csv`, commits all generated assets and HTML, pushes to `origin main`, and pings IndexNow.
+- **`scripts/process-staging.py`:** Core asset pipeline using ImageMagick (`magick`) to resize, compress, inject IPTC/EXIF metadata, generate clean factual Season + Year captions (e.g. `Late Summer 2026 - 35mm Film Photography`—no locations or manual renaming required), save metadata-stamped high-res `.jpg` copies + `captions.txt` into `Staging/processed/unsplash-ready/` for Unsplash/Instagram, and insert HTML tags.
+- **`scripts/generate-rss.py`:** Parses gallery HTML, builds `rss.xml` with deep-linked Lightbox URLs (`#photo-slug`) and Media RSS tags for Pinterest auto-pinning, and regenerates `sitemap.xml` with full Google Image Sitemap (`<image:image>`) tags across all 333 gallery image nodes.
+- **`scripts/export-pinterest-csv.py`:** Exports gallery images with deep-linked `#photo-slug` destination URLs into Pinterest-compliant bulk CSV upload files (`pinterest_pins_part1.csv` through `part3.csv`).
+- **`scripts/generate-og-cards.py`:** Generates 1200×630 Open Graph preview cards (`og-main.png`, `og-120.png`, `og-street.png`, etc.).
 - **`scripts/syndicate-posts.py`:** Multi-platform syndication to Flickr and Medium. *(Instagram auto-posting is strictly disabled; manual only)*.
 - **`scripts/opportunity-finder.py`:** Crawls open calls for entry, zines, and gallery exhibition deadlines for analog photography.
 - **`scripts/send-monthly-digest.py`:** Generates and emails a monthly ecosystem summary to Sawyer via SMTP.
-- **`scripts/ping-search-engines.py`:** Pings Google Sitemap and IndexNow endpoints after batch updates.
+- **`scripts/ping-search-engines.py`:** Pings IndexNow (`sjkonfilm-indexnow-key-2026.txt`) and Google Sitemap endpoints after batch updates.
+- **`.github/workflows/auto-publish.yml`:** Automated GitHub Action triggered on every `push` to `main` to process any staged scans, sync `rss.xml` and Google Image `sitemap.xml`, and ping IndexNow + syndication endpoints.
 - **`.github/workflows/monthly-digest.yml`:** Automated GitHub Action running on the 1st of every month to execute search engine pings, monthly digest email, and the opportunity finder.
 
 ## Active Digital Entity & Social Network Matrix (Completed & Interlinked)

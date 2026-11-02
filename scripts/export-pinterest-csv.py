@@ -47,6 +47,8 @@ def export_pinterest_csv():
             
             clean_full = full_src.replace("../", "").replace("./", "")
             media_url = f"{SITE_URL}/{clean_full.lstrip('/')}"
+            slug = re.sub(r'\.(webp|avif|jpe?g|png)$', '', os.path.basename(clean_full), flags=re.IGNORECASE)
+            deep_dest_link = f"{dest_link}#{slug}" if slug and normalized_page != "index.html" else dest_link
 
             if media_url in seen:
                 continue
@@ -65,7 +67,7 @@ def export_pinterest_csv():
             items.append({
                 "Title": title,
                 "Media URL": media_url,
-                "Destination Link": dest_link,
+                "Destination Link": deep_dest_link,
                 "Description": desc,
                 "Pinterest board": board_name
             })

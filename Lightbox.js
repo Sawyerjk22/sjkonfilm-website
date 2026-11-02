@@ -18,6 +18,19 @@
 
   let activeImgs = allImgs;
 
+  const getSlug = (img) => {
+    const src = img.dataset.full || img.getAttribute("src") || "";
+    const base = src.split("/").pop() || "";
+    return base.replace(/\.(webp|avif|jpe?g|png)$/i, "").replace(/-400w$/i, "");
+  };
+
+  allImgs.forEach((img) => {
+    const slug = getSlug(img);
+    if (slug && !img.id) {
+      img.id = slug;
+    }
+  });
+
   // Build overlay once
   const overlay = document.createElement("div");
   overlay.className = "lightbox";
@@ -26,14 +39,22 @@
     <button class="lightbox__prev" aria-label="Previous (Left arrow)">&lsaquo;</button>
     <figure class="lightbox__figure" aria-live="polite">
       <img class="lightbox__img" alt="">
-      <figcaption class="lightbox__caption"></figcaption>
+      <figcaption class="lightbox__caption">
+        <div class="lightbox__caption-text"></div>
+        <div class="lightbox__meta-links">
+          <a href="https://www.instagram.com/sawyer.j.knox" target="_blank" rel="me noopener noreferrer">@sawyer.j.knox</a>
+          <span class="lightbox__sep">&middot;</span>
+          <a class="lightbox__print-link" href="/contact.html">Print Inquiry</a>
+        </div>
+      </figcaption>
     </figure>
     <button class="lightbox__next" aria-label="Next (Right arrow)">&rsaquo;</button>
   `;
   document.body.appendChild(overlay);
 
   const lbImg = overlay.querySelector(".lightbox__img");
-  const caption = overlay.querySelector(".lightbox__caption");
+  const captionText = overlay.querySelector(".lightbox__caption-text");
+  const printLink = overlay.querySelector(".lightbox__print-link");
   const btnClose = overlay.querySelector(".lightbox__close");
   const btnPrev = overlay.querySelector(".lightbox__prev");
   const btnNext = overlay.querySelector(".lightbox__next");
@@ -68,10 +89,20 @@
     // Clean up caption for human display while preserving rich HTML alt tags for Google SEO
     const rawCaption = img.dataset.caption || img.alt || "";
     const cleanCaption = rawCaption
-      .replace(/\s*-\s*(?:35mm|120)?\s*Film Photography/gi, "")
+      .replace(/\s*-\s*(?:35mm|120)?(?:\s*Black\s*&\s*White|\s*Color|\s*Medium\s*Format)?\s*Film Photography/gi, "")
       .replace(/\s*-\s*Sawyer Knox/gi, "")
       .trim();
-    caption.textContent = cleanCaption;
+    captionText.textContent = cleanCaption;
+
+    const slug = getSlug(img);
+    const photoRef = cleanCaption ? `${cleanCaption} (${slug})` : slug;
+    if (printLink) {
+      printLink.href = `/contact.html?inquiry=print&photo=${encodeURIComponent(photoRef)}`;
+    }
+
+    if (slug && overlay.classList.contains("is-open")) {
+      window.history.replaceState(null, "", `#${slug}`);
+    }
 
     // Silently preload NEXT image
     const nextIndex = (index + 1) % activeImgs.length;
@@ -91,6 +122,9 @@
     setBodyScroll(false);
     lbImg.src = "";
     lbImg.style.opacity = "0";
+    if (window.location.hash) {
+      window.history.replaceState(null, "", window.location.pathname + window.location.search);
+    }
   };
 
   const next = () => show(index + 1);
@@ -138,6 +172,33 @@
     if (dx < -40) next();
     if (dx > 40) prev();
   }, { passive: true });
+
+  // Deep-link support (e.g. from Pinterest RSS or direct shared links: #photo-slug)
+  const openFromHash = () => {
+    const rawHash = window.location.hash ? decodeURIComponent(window.location.hash.slice(1)).trim() : "";
+    if (!rawHash) return;
+    const targetImg = allImgs.find((img) => getSlug(img).toLowerCase() === rawHash.toLowerCase());
+    if (!targetImg) return;
+
+    const tone = targetImg.getAttribute("data-tone");
+    if (tone && targetImg.classList.contains("is-filtered-out")) {
+      const filterBtn = document.querySelector(`.text-nav-btn[data-filter="${tone}"]`);
+      if (filterBtn) filterBtn.click();
+    }
+
+    const visible = allImgs.filter((el) => !el.classList.contains("is-filtered-out") && el.offsetParent !== null);
+    activeImgs = visible.length ? visible : allImgs;
+    const idx = activeImgs.indexOf(targetImg);
+    if (idx >= 0) {
+      open(idx);
+    }
+  };
+
+  if (document.readyState === "complete" || document.readyState === "interactive") {
+    setTimeout(openFromHash, 50);
+  } else {
+    window.addEventListener("DOMContentLoaded", () => setTimeout(openFromHash, 50));
+  }
 })();
 
 // Automatic Glass Badge Initializer

@@ -33,6 +33,12 @@ OG_CONFIG = [
         "hero_img": os.path.join("assets", "images", "vertical", "thumbs", "img_2628.webp"),
         "title": "VERTICAL PORTRAITS",
         "subtitle": "Vertical 35mm Analog Frames | Sawyer Knox"
+    },
+    {
+        "output": os.path.join("assets", "images", "og-120.png"),
+        "hero_img": os.path.join("assets", "images", "120", "thumbs", "2026-r05-120-10.webp"),
+        "title": "120 MEDIUM FORMAT",
+        "subtitle": "6x6 Square Analog Portfolio | Sawyer Knox"
     }
 ]
 
@@ -43,6 +49,8 @@ def generate_og_card(cfg):
     subtitle = cfg["subtitle"]
 
     os.makedirs(os.path.dirname(out_path), exist_ok=True)
+    mac_georgia = "/System/Library/Fonts/Supplemental/Georgia.ttf"
+    font_arg = mac_georgia if os.path.exists(mac_georgia) else "Georgia"
 
     if os.path.exists(hero):
         # Composite hero image resized inside 1200x630 dark canvas
@@ -51,7 +59,7 @@ def generate_og_card(cfg):
             "-size", "1200x630", "xc:#0e0d0c",
             "(", hero, "-resize", "800x550>", "-bordercolor", "#1a1918", "-border", "1", ")",
             "-gravity", "center", "-composite",
-            "-font", "Georgia", "-fill", "#ffffff", "-pointsize", "42",
+            "-font", font_arg, "-fill", "#ffffff", "-pointsize", "42",
             "-gravity", "south", "-geometry", "+0+60",
             "-annotate", "+0+0", title,
             "-fill", "#a09d98", "-pointsize", "22",
@@ -63,7 +71,7 @@ def generate_og_card(cfg):
         cmd = [
             "magick",
             "-size", "1200x630", "xc:#0e0d0c",
-            "-font", "Georgia", "-fill", "#ffffff", "-pointsize", "52",
+            "-font", font_arg, "-fill", "#ffffff", "-pointsize", "52",
             "-gravity", "center", "-annotate", "+0-20", title,
             "-fill", "#a09d98", "-pointsize", "24",
             "-annotate", "+0+40", subtitle,
