@@ -1,8 +1,6 @@
-# Raw image staging drop folders
-Staging/*
-Staging/*/
-Staging/processed/
-!Staging/.gitkeep
+# Raw image staging drop folders (ignore dropped files, preserve folder structure)
+Staging/**
+!Staging/**/
 !Staging/**/.gitkeep
 
 # Auto-generated / Backlog image variants
