@@ -11,7 +11,7 @@ import urllib.request
 import urllib.parse
 
 SITE_URL = "https://sjkonfilm.work"
-INDEXNOW_KEY = os.environ.get("INDEXNOW_KEY", "sjkonfilm_indexnow_key_2026")
+INDEXNOW_KEY = os.environ.get("INDEXNOW_KEY", "sjkonfilm-indexnow-key-2026")
 
 SITEMAP_URLS = [
     f"{SITE_URL}/",
