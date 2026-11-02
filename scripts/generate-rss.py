@@ -1,14 +1,15 @@
 #!/usr/bin/env python3
 """
 RSS 2.0, Media RSS Feed & Google Image Sitemap Generator for sjkonfilm.work
-Scans all gallery images, builds rss.xml with deep-linked Lightbox URLs for Pinterest Auto-Pinning,
+Scans all gallery images, builds rss.xml with unique titles, <enclosure>, <media:content>,
+and ?photo=slug deep-linked Lightbox URLs for Pinterest Auto-Pinning,
 and updates sitemap.xml with full Google Image Sitemap (<image:image>) entries.
 """
 
 import os
 import re
 import glob
-from datetime import datetime, timezone
+from datetime import datetime, timezone, timedelta
 from xml.sax.saxutils import escape
 
 SITE_URL = "https://sjkonfilm.work"
@@ -26,6 +27,7 @@ def extract_gallery_items():
     items = []
     seen = set()
     page_images = {}
+    title_counts = {}
 
     pages = sorted(glob.glob("pages/*.html")) + ["index.html"]
     for page_path in pages:
@@ -52,22 +54,20 @@ def extract_gallery_items():
             thumb_src, full_src, alt_text = match.groups()
             
             # Normalize full image URL
-            clean_full = full_src.replace("../", "").replace("./", "")
-            img_url = f"{SITE_URL}/{clean_full.lstrip('/')}"
+            clean_full = full_src.replace("../", "").replace("./", "").lstrip("/")
+            img_url = f"{SITE_URL}/{clean_full}"
             slug = get_slug_from_path(clean_full)
 
             # Build item title and description (Strict facts only)
-            title = alt_text.strip() if alt_text and not alt_text.startswith("New Location") else f"Film Photograph - {cat.title()}"
-            if "Sawyer Knox" not in title:
-                full_title = f"{title} - Sawyer Knox"
-            else:
-                full_title = title
+            base_title = alt_text.strip() if alt_text and not alt_text.startswith("New Location") else f"Film Photograph - {cat.title()}"
+            if "Sawyer Knox" not in base_title:
+                base_title = f"{base_title} - Sawyer Knox"
 
             film_label = "120 medium format film" if cat == "120" else "35mm film"
-            desc = f"{title}. Shot on analog {film_label} by Sawyer Knox. Instagram: @sawyer.j.knox | Portfolio & prints: {SITE_URL}"
+            desc = f"{base_title}. Shot on analog {film_label} by Sawyer Knox. Instagram: @sawyer.j.knox | Portfolio & prints: {SITE_URL}"
 
             page_images[page_url].append({
-                "title": full_title,
+                "title": base_title,
                 "caption": desc,
                 "image_url": img_url
             })
@@ -76,13 +76,22 @@ def extract_gallery_items():
                 continue
             seen.add(img_url)
 
-            deep_link = f"{page_url}#{slug}" if slug and normalized_page != "index.html" else page_url
+            # Deduplicate titles with #2, #3, etc. for Pinterest RSS compliance
+            title_counts[base_title] = title_counts.get(base_title, 0) + 1
+            if title_counts[base_title] > 1:
+                unique_title = f"{base_title} #{title_counts[base_title]}"
+            else:
+                unique_title = base_title
+
+            deep_link = f"{page_url}?photo={slug}" if slug and normalized_page != "index.html" else page_url
+            file_size = os.path.getsize(clean_full) if os.path.exists(clean_full) else 0
 
             items.append({
-                "title": full_title,
+                "title": unique_title,
                 "link": deep_link,
                 "guid": img_url,
                 "image_url": img_url,
+                "file_size": file_size,
                 "description": desc,
                 "category": cat
             })
@@ -90,8 +99,9 @@ def extract_gallery_items():
     return items, page_images
 
 def generate_rss_xml(items):
-    """Generate RSS 2.0 XML string with Media RSS namespace."""
-    now_rfc822 = datetime.now(timezone.utc).strftime("%a, %d %b %Y %H:%M:%S +0000")
+    """Generate RSS 2.0 XML string with Media RSS namespace and <enclosure> tags."""
+    now_dt = datetime.now(timezone.utc)
+    now_rfc822 = now_dt.strftime("%a, %d %b %Y %H:%M:%S +0000")
 
     xml_lines = [
         '<?xml version="1.0" encoding="UTF-8"?>',
@@ -105,15 +115,17 @@ def generate_rss_xml(items):
         f'    <atom:link href="{SITE_URL}/rss.xml" rel="self" type="application/rss+xml" />',
     ]
 
-    for item in items:
+    for idx, item in enumerate(items):
+        item_dt = (now_dt - timedelta(seconds=idx)).strftime("%a, %d %b %Y %H:%M:%S +0000")
         xml_lines.extend([
             '    <item>',
             f'      <title>{escape(item["title"])}</title>',
             f'      <link>{escape(item["link"])}</link>',
             f'      <guid isPermaLink="true">{escape(item["guid"])}</guid>',
-            f'      <pubDate>{now_rfc822}</pubDate>',
+            f'      <pubDate>{item_dt}</pubDate>',
             f'      <description>{escape(item["description"])}</description>',
             f'      <category>{escape(item["category"])}</category>',
+            f'      <enclosure url="{escape(item["image_url"])}" length="{item["file_size"]}" type="image/webp" />',
             f'      <media:content url="{escape(item["image_url"])}" medium="image" type="image/webp" />',
             '    </item>'
         ])

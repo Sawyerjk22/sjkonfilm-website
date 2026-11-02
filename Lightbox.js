@@ -173,11 +173,14 @@
     if (dx > 40) prev();
   }, { passive: true });
 
-  // Deep-link support (e.g. from Pinterest RSS or direct shared links: #photo-slug)
-  const openFromHash = () => {
+  // Deep-link support (e.g. from Pinterest RSS ?photo=slug or #photo-slug)
+  const openFromDeepLink = () => {
+    const params = new URLSearchParams(window.location.search);
+    const paramSlug = params.get("photo") ? params.get("photo").trim() : "";
     const rawHash = window.location.hash ? decodeURIComponent(window.location.hash.slice(1)).trim() : "";
-    if (!rawHash) return;
-    const targetImg = allImgs.find((img) => getSlug(img).toLowerCase() === rawHash.toLowerCase());
+    const targetSlug = paramSlug || rawHash;
+    if (!targetSlug) return;
+    const targetImg = allImgs.find((img) => getSlug(img).toLowerCase() === targetSlug.toLowerCase());
     if (!targetImg) return;
 
     const tone = targetImg.getAttribute("data-tone");
@@ -195,9 +198,9 @@
   };
 
   if (document.readyState === "complete" || document.readyState === "interactive") {
-    setTimeout(openFromHash, 50);
+    setTimeout(openFromDeepLink, 50);
   } else {
-    window.addEventListener("DOMContentLoaded", () => setTimeout(openFromHash, 50));
+    window.addEventListener("DOMContentLoaded", () => setTimeout(openFromDeepLink, 50));
   }
 })();
 

@@ -48,7 +48,7 @@ def export_pinterest_csv():
             clean_full = full_src.replace("../", "").replace("./", "")
             media_url = f"{SITE_URL}/{clean_full.lstrip('/')}"
             slug = re.sub(r'\.(webp|avif|jpe?g|png)$', '', os.path.basename(clean_full), flags=re.IGNORECASE)
-            deep_dest_link = f"{dest_link}#{slug}" if slug and normalized_page != "index.html" else dest_link
+            deep_dest_link = f"{dest_link}?photo={slug}" if slug and normalized_page != "index.html" else dest_link
 
             if media_url in seen:
                 continue
@@ -85,6 +85,10 @@ def export_pinterest_csv():
             output_files.append((filename, items[i:i + max_chunk]))
         # Also write the full set for reference
         output_files.append(("pinterest_pins_full.csv", items))
+        # Also write the latest batch (Late Summer 2026 / newest uploads) for instant upload
+        latest_items = [it for it in items if "Late Summer 2026" in it["Title"]][:100]
+        if latest_items:
+            output_files.append(("pinterest_pins_latest_batch.csv", latest_items))
 
     for filename, chunk_items in output_files:
         with open(filename, "w", newline="", encoding="utf-8") as f:
