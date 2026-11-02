@@ -52,7 +52,8 @@ def main():
             msg = f"feat(gallery): auto-publish staged film scans and update feeds ({now_str})"
             subprocess.run(["git", "commit", "-m", msg], check=True)
 
-    print("Pushing to GitHub (origin main)...")
+    print("Syncing and pushing to GitHub (origin main)...")
+    subprocess.run(["git", "pull", "--rebase", "-X", "ours", "origin", "main"], env=env, check=False)
     subprocess.run(["git", "push", "origin", "main"], env=env, check=True)
 
     print("Pinging search engines (IndexNow)...")

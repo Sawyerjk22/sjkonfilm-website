@@ -23,23 +23,18 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Process Any Staged Scans & Regenerate RSS / Image Sitemap
+      - name: Process Any Staged Scans if Present
         run: |
           if find Staging -mindepth 2 -maxdepth 3 -not -path "*/processed/*" \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" -o -iname "*.webp" \) | grep -q .; then
             sudo apt-get update && sudo apt-get install -y imagemagick webp libheif-examples
             python scripts/process-staging.py
-          else
-            python scripts/generate-rss.py
-          fi
-
-      - name: Commit & Push Updated Feeds if Changed
-        run: |
-          git config user.name "Sawyer Knox"
-          git config user.email "sawyerknox@gmail.com"
-          git add assets/images/ pages/ rss.xml sitemap.xml
-          if ! git diff --cached --quiet; then
-            git commit -m "chore(auto): sync processed gallery assets, rss.xml, and image sitemap [skip ci]"
-            git push origin main
+            git config user.name "Sawyer Knox"
+            git config user.email "sawyerknox@gmail.com"
+            git add assets/images/ pages/ rss.xml sitemap.xml
+            if ! git diff --cached --quiet; then
+              git commit -m "chore(auto): process staged scans and update feeds [skip ci]"
+              git push origin main
+            fi
           fi
 
       - name: Ping Search Engines (IndexNow) & Syndication Check
